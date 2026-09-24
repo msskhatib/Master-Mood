@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Sahra &amp; Sage Mood Board</title>
+<link href="fonts/fonts.css" rel="stylesheet">
+<style>
+  :root{
+    --sand:#EFE2CC; --dune:#D2A06E; --terracotta:#B0613B; --date:#4A2C21;
+    --sage:#A3AE8F; --night:#23304A; --ink:#2B211C; --muted:#5E524A; --paper:#FFFDF9;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#e9e4dc;font-family:'Jost',sans-serif;color:var(--ink)}
+  .board{position:relative;width:1760px;height:1080px;background:var(--paper);margin:0 auto;overflow:hidden}
+
+  /* ---------- left column ---------- */
+  .title{position:absolute;left:84px;top:14px;font:700 92px/1 'Playfair Display',serif;letter-spacing:-2px;color:var(--date)}
+  .title span{color:var(--dune);font-weight:600}
+  .rule{position:absolute;left:88px;top:120px;width:68px;height:5px;background:var(--dune)}
+  .intro{position:absolute;left:88px;top:142px;width:570px;font-size:19px;line-height:1.35;color:var(--muted)}
+  .sections{position:absolute;left:84px;top:212px;width:540px}
+  .pill{display:inline-block;background:var(--sand);border-radius:30px;padding:5px 18px;font:600 16px 'Jost';letter-spacing:2.4px;margin:14px 0 7px}
+  .sections p{font-size:16.4px;line-height:1.36;color:#3d342e;padding-left:6px}
+  .sections u{text-decoration-color:var(--dune);text-underline-offset:3px}
+  .notes{position:absolute;left:78px;top:932px;width:602px;height:122px;border:2px solid #e6dccd;border-radius:8px;padding:16px 150px 12px 18px}
+  .notes h4{font:600 15px 'Jost';letter-spacing:2.4px;margin-bottom:6px}
+  .notes p{font-size:14px;line-height:1.4;color:#3d342e}
+  .notes .sign{position:absolute;right:14px;top:14px;width:120px;font:500 22px/1.05 'Caveat',cursive;color:var(--date);transform:rotate(-12deg);text-align:center}
+
+  /* ---------- logo ---------- */
+  .logo{position:absolute;left:968px;top:14px;text-align:left}
+  .logo .name{font:700 58px/0.98 'Cormorant Garamond',serif;color:var(--date);letter-spacing:-0.5px}
+  .logo .name em{font-style:normal;color:var(--terracotta)}
+  .logo .tag{font:500 11.5px 'Jost';letter-spacing:5.4px;margin-top:10px;color:var(--date)}
+  .logo .ar{font:700 20px 'Amiri',serif;color:var(--terracotta);margin-top:0;direction:rtl;text-align:right}
+.blob .ar2{position:absolute;right:26px;bottom:18px;font:700 19px 'Amiri',serif;color:var(--terracotta);transform:rotate(-8deg)}
+  .palm{position:absolute;left:1188px;top:6px}
+  .blob{position:absolute;left:1300px;top:-4px;width:188px;height:190px;background:#F3E7D6;border-radius:48% 52% 44% 56% / 55% 45% 55% 45%;
+        transform:rotate(-4deg);display:flex;align-items:center;justify-content:center}
+  .blob p{font:500 27px/1.1 'Caveat',cursive;color:var(--date);transform:rotate(-24deg);text-align:left;padding-left:8px}
+
+  /* ---------- tiles ---------- */
+  .tile{position:absolute;overflow:hidden;background:#f4ece0}
+  .tile img{width:100%;height:100%;object-fit:cover;display:block}
+  .overlay{position:absolute;font:500 10.5px 'Jost';letter-spacing:3px;color:#fff;line-height:1.75;text-shadow:0 1px 6px rgba(0,0,0,.45)}
+  .caption{position:absolute;font-size:14.4px;line-height:1.3;color:#3a312b}
+  .lbl{font:500 11.5px 'Jost';letter-spacing:2.6px;color:#2b211c}
+
+  .sagetile{background:linear-gradient(160deg,#B4BDA2 0%,#9DA889 100%)}
+  .sagetile .bgimg{position:absolute;inset:0;opacity:.28;mix-blend-mode:multiply}
+  .sagetile h3{position:absolute;left:22px;top:52px;font:500 36px/1.05 'Cormorant Garamond',serif;color:#2c3322}
+  .sagetile .dash{position:absolute;left:24px;top:212px;width:26px;height:2px;background:#2c3322}
+
+  .palette{background:#F6EEE2;padding:20px 16px}
+  .swatches{display:flex;gap:7px;margin-top:16px}
+  .sw{width:36px;height:112px;border-radius:9px}
+  .swl{display:flex;gap:7px;margin-top:9px}
+  .swl span{width:36px;font:500 7.4px 'Jost';letter-spacing:.6px;text-align:center}
+
+  .fonttile{background:#F7F0E4;padding:18px 18px}
+  .fonttile .aa{font:700 78px/0.95 'Cormorant Garamond',serif;color:var(--date);margin-top:10px}
+  .fonttile .fname{font:600 22px 'Cormorant Garamond',serif;margin-top:4px}
+  .fonttile .abc{font:500 12.5px/1.5 'Cormorant Garamond',serif;letter-spacing:3.4px;margin-top:8px}
+  .fonttile .pair{font:400 11.6px 'Jost';letter-spacing:1px;margin-top:8px;color:var(--muted)}
+
+  .emojitile{background:#F6EEE2;text-align:center;padding-top:20px}
+  .emojitile .e{font-size:84px;line-height:1;margin:26px 0 22px}
+  .emojitile .l2{font:500 10.5px/1.9 'Jost';letter-spacing:3px}
+
+  .hand{position:absolute;font:500 27px/1.05 'Caveat',cursive;color:#fff;text-shadow:0 1px 8px rgba(0,0,0,.4)}
+  .onlight{color:var(--date);text-shadow:none}
+</style>
+</head>
+<body>
+<div class="board">
+
+  <!-- ===== LEFT COLUMN ===== -->
+  <h1 class="title">Mood Board <span>02</span></h1>
+  <div class="rule"></div>
+  <p class="intro">Mood boards bring together visual elements, colours and styles to define the look and feel of a brand and guide its visual identity.</p>
+
+  <div class="sections">
+    <div class="pill">DIRECTION</div>
+    <p><u>Sahra &amp; Sage</u> is a boutique desert retreat in AlUla, Saudi Arabia. Luxury tents, open skies and warm Arabian hospitality. A place to disconnect, breathe, stargaze and reconnect with what matters.</p>
+
+    <div class="pill">TYPOGRAPHY</div>
+    <p>An elegant, high-contrast serif paired with a clean geometric sans-serif and an Arabic calligraphic accent. It feels timeless yet modern, like heritage meeting contemporary luxury.</p>
+
+    <div class="pill">COLOURS</div>
+    <p>An earthy palette taken from the desert itself. Sand and dune tones make a warm base, terracotta and date brown add depth, and soft sage and night indigo bring calm and a hint of magic.</p>
+
+    <div class="pill">IMAGERY</div>
+    <p>Golden dunes, sandstone canyons, starlit tents, cosy interiors and slow coffee moments. The focus is on light, texture, silence and the feeling of space.</p>
+
+    <div class="pill">EMOJI</div>
+    <p>The palm tree emoji 🌴 stands for what matters most to me: home, generosity and the date palm that has welcomed guests across Arabia for centuries.</p>
+
+    <div class="pill">BRAND WORDS</div>
+    <p>Serene, warm, grounded, authentic, luxurious, soulful, timeless, restorative.</p>
+  </div>
+
+  <div class="notes">
+    <h4>NOTES</h4>
+    <p>Sahra &amp; Sage should feel like an oasis. Guests arrive tired and leave restored. Earthy, calm and quietly luxurious: a desert escape for slow mornings and starry nights.</p>
+    <div class="sign">Slow Days,<br>Starry Nights</div>
+    <svg style="position:absolute;right:118px;top:18px" width="34" height="46" viewBox="0 0 34 46"><path d="M17 46 C17 30 16 18 12 6" stroke="#6f7d5c" stroke-width="1.6" fill="none"/><path d="M13 10 C4 8 2 16 3 20 C9 19 13 15 13 10Z M15 20 C24 16 30 22 30 26 C23 28 17 25 15 20Z M14 30 C6 29 3 35 4 39 C10 38 14 35 14 30Z" fill="#8d9a76"/></svg>
+  </div>
+
+  <!-- ===== LOGO ===== -->
+  <div class="logo">
+    <div class="name">Sahra &amp;<br><em>Sage</em> Retreat</div>
+    <div class="tag">DESERT · STARS · STILLNESS</div>
+  </div>
+  <svg class="palm" width="62" height="70" viewBox="0 0 62 70">
+    <path d="M31 70 C31 52 30 36 29 22" stroke="#7a5a3f" stroke-width="3" fill="none"/>
+    <path d="M29 22 C20 8 6 10 1 18 C11 15 20 17 29 22Z" fill="#8d9a76"/>
+    <path d="M29 22 C38 7 52 7 60 15 C49 13 38 16 29 22Z" fill="#9aa684"/>
+    <path d="M29 22 C23 16 12 22 8 34 C16 26 22 23 29 22Z" fill="#7d8b67"/>
+    <path d="M29 22 C37 17 48 22 52 34 C44 27 37 23 29 22Z" fill="#8d9a76"/>
+    <path d="M29 22 C27 12 31 3 38 0 C35 8 32 15 29 22Z" fill="#a3ae8f"/>
+    <circle cx="27" cy="25" r="2.6" fill="#B0613B"/><circle cx="32" cy="25.5" r="2.6" fill="#8f4a2b"/>
+  </svg>
+  <div class="blob"><p>A quiet oasis<br>for restless<br>souls ♡</p><span class="ar2">واحة للروح</span></div>
+
+  <!-- ===== ROW 1 ===== -->
+  <div class="tile" style="left:680px;top:200px;width:235px;height:228px">
+    <img src="images/dunes.jpg" alt="Golden sand dunes at sunset">
+    <div class="overlay" style="left:14px;bottom:12px">WHERE<br>THE DESERT<br>SLOWS YOU<br>DOWN</div>
+  </div>
+  <div class="tile" style="left:923px;top:200px;width:225px;height:228px">
+    <img src="images/stars.jpg" alt="Tent glowing under the Milky Way" style="object-position:50% 70%">
+  </div>
+  <div class="tile sagetile" style="left:1156px;top:200px;width:215px;height:228px">
+    <img class="bgimg" src="images/sand.jpg" alt="">
+    <h3>Breathe<br>Deep,<br>Rest<br>Deeper</h3>
+    <div class="dash"></div>
+  </div>
+
+  <!-- ===== ROW 2 ===== -->
+  <div class="tile" style="left:640px;top:436px;width:225px;height:215px">
+    <img src="images/canyon.jpg" alt="Sandstone canyon landscape">
+    <div class="overlay" style="right:14px;top:34px;text-align:left;font-size:9.5px">ANCIENT<br>ROCKS<br>NEW<br>MEMORIES<br>—</div>
+  </div>
+  <div class="tile palette" style="left:873px;top:436px;width:272px;height:215px">
+    <div class="lbl">COLOUR PALETTE</div>
+    <div class="swatches">
+      <div class="sw" style="background:#EFE2CC"></div>
+      <div class="sw" style="background:#D2A06E"></div>
+      <div class="sw" style="background:#B0613B"></div>
+      <div class="sw" style="background:#4A2C21"></div>
+      <div class="sw" style="background:#A3AE8F"></div>
+      <div class="sw" style="background:#23304A"></div>
+    </div>
+    <div class="swl"><span>SAND</span><span>DUNE</span><span>TERRA<br>COTTA</span><span>DATE</span><span>SAGE</span><span>NIGHT</span></div>
+  </div>
+  <div class="tile" style="left:1153px;top:436px;width:218px;height:215px">
+    <img src="images/tent.jpg" alt="Cosy tent interior looking out">
+  </div>
+
+  <!-- ===== ROW 3 ===== -->
+  <div class="tile fonttile" style="left:640px;top:660px;width:210px;height:258px">
+    <div class="lbl">PRIMARY FONT (SERIF)</div>
+    <div class="aa">Aa</div>
+    <div class="fname">Cormorant Garamond</div>
+    <div class="abc">ABCDEFGHIJKLM<br>NOPQRSTUVWXYZ</div>
+    <div class="pair">Jost · Caveat · <span style="font-family:'Amiri';font-size:14px;letter-spacing:0">أميري</span></div>
+  </div>
+  <div class="tile" style="left:858px;top:660px;width:180px;height:258px">
+    <img src="images/coffee.jpg" alt="Warm cup of coffee held in hands">
+    <div class="hand" style="left:14px;top:18px;transform:rotate(-10deg)">Warm<br>Welcomes,<br>Slower Days<br>♡</div>
+  </div>
+  <div class="tile emojitile" style="left:1046px;top:660px;width:165px;height:258px">
+    <div class="lbl">EMOJI</div>
+    <div class="e">🌴</div>
+    <div class="l2">ROOTS<br>GENEROSITY<br>HOME</div>
+  </div>
+  <div class="tile" style="left:1219px;top:660px;width:242px;height:278px">
+    <img src="images/villa.jpg" alt="White villas reflected in a pool at dusk" style="object-position:40% 50%">
+    <div class="hand" style="left:16px;top:16px;font-size:25px">Stay<br>Awhile<br>—</div>
+  </div>
+
+  <!-- ===== CALLOUTS ===== -->
+  <svg style="position:absolute;inset:0;pointer-events:none" width="1760" height="1080">
+    <g stroke="#2b211c" stroke-width="1.3" fill="none">
+      <path d="M806 164 V226"/>
+      <path d="M995 162 V234"/>
+      <path d="M1336 292 H1384"/>
+      <path d="M1360 572 H1422 V548"/>
+      <path d="M728 922 V950 H748"/>
+      <path d="M1122 895 V958"/>
+      <path d="M1338 902 V968"/>
+    </g>
+    <g fill="#fff" stroke="#2b211c" stroke-width="1.6">
+      <circle cx="806" cy="230" r="5"/><circle cx="995" cy="238" r="5"/><circle cx="1332" cy="292" r="5"/>
+      <circle cx="1356" cy="572" r="5"/><circle cx="728" cy="918" r="5"/><circle cx="1122" cy="891" r="5"/><circle cx="1338" cy="898" r="5"/>
+    </g>
+  </svg>
+  <div class="caption" style="left:776px;top:98px;width:170px">Golden dunes set a warm, earthy base.</div>
+  <div class="caption" style="left:1006px;top:158px;width:160px;font-size:13.8px">Starlit tents capture the retreat's magic.</div>
+  <div class="caption" style="left:1390px;top:248px;width:118px;font-size:13.4px">Soft sage accent brings calm and nature.</div>
+  <div class="caption" style="left:1386px;top:468px;width:120px;font-size:13.4px">Private tents reinforce the unplugged, restful concept.</div>
+  <div class="caption" style="left:752px;top:940px;width:170px">Typeface blends heritage and elegance.</div>
+  <div class="caption" style="left:1098px;top:964px;width:160px">Palm emoji stands for roots, generosity and home.</div>
+  <div class="caption" style="left:1300px;top:976px;width:190px">Serene, oasis-like stays with pools and soft light.</div>
+
+</div>
+</body>
+</html>
