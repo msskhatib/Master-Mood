@@ -4,6 +4,8 @@ A dark, data-driven brand board themed on galaxies and the James Webb Space Tele
 
 ![Mood board](mood-board.png)
 
+High-quality versions: `mood-board-HQ.png` (5280×3240) and `mood-board.pdf` (vector, print-ready).
+
 - **Colour:** Void, Deep Field, Nebula, Cliff Rust, Starburst, Mirror Gold (sampled from Webb images)
 - **Fonts:** Unbounded (display), Space Grotesk (body), JetBrains Mono (data)
 - **Images:** Cosmic Cliffs, Pillars of Creation, Cartwheel Galaxy, Southern Ring Nebula, Stephan's Quintet
