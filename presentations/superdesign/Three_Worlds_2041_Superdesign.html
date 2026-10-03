@@ -1,0 +1,1122 @@
+<!DOCTYPE html><html lang="en" class="overflow-hidden bg-[#0A0A0A]"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap');
+
+    :root {
+      --color-gold: #C5A059;
+      --color-symbiosis: #2D5A27;
+      --color-overheat: #8B4513;
+      --color-patchwork: #4B0082;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: #0A0A0A;
+      color: #E2E2E2;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      overflow: hidden;
+    }
+
+    .serif {
+      font-family: 'Crimson Pro', serif;
+    }
+
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.6s ease-in-out, visibility 0.6s;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .sd-fit { position:absolute; top:0; left:0; width:100vw; height:100vh; display:flex; flex-direction:column; transform-origin:0 0; }
+    .sd-fit > * { flex: 1 1 auto; }
+    .sd-fit .grid-rows-2, .sd-fit .grid-rows-3 { min-height: 0; }
+    .sd-fit .grid-rows-2 > *, .sd-fit .grid-rows-3 > * { min-height: 0; overflow: hidden; }
+    .sd-fit .grid-rows-2 img, .sd-fit .grid-rows-3 img { height: 100%; }
+    #slide-5 .grid-rows-2 > div, #slide-5 .grid-rows-2 > img { height: 38vh; }
+    #slide-5 .grid-rows-2 img { height: 38vh !important; }
+    #slide-7 img.object-cover { flex: none !important; height: 40vh !important; }
+    #slide-13 img.object-cover { height: 60vh !important; }
+    #slide-16 .grid-rows-2 img { height: 34vh !important; }
+    #slide-5 .h-20, #slide-6 .h-20, #slide-7 .h-20 { height: auto !important; min-height: 5rem; padding-top: 14px; padding-bottom: 14px; }
+    #slide-5 .h-20 p, #slide-5 .h-20 span, #slide-6 .h-20 p, #slide-6 .h-20 span, #slide-7 .h-20 p, #slide-7 .h-20 span,
+    #slide-5 .h-20 div, #slide-6 .h-20 div, #slide-7 .h-20 div { font-size: 12px !important; line-height: 1.35; }
+    .slide.active {
+      opacity: 1;
+      visibility: visible;
+      z-index: 10;
+    }
+
+    .gold-accent {
+      color: var(--color-gold);
+    }
+
+    .bg-gradient-dark {
+      background: linear-gradient(to bottom, rgba(10, 10, 10, 0) 0%, rgba(10, 10, 10, 0.9) 100%);
+    }
+
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 4px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.05);
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: var(--color-gold);
+      border-radius: 2px;
+    }
+  </style>
+</head>
+<body>
+  <div id="presentation-root" class="relative w-screen h-screen overflow-hidden">
+    <!-- Slide 1: Three Worlds of 2041 -->
+    <section class="slide active" id="slide-1">
+      <div class="absolute inset-0">
+        <img src="https://vgbujcuwptvheqijyjbe.supabase.co/storage/v1/object/public/hmac-uploads/projects/5f1b69fc-004a-4a29-940b-2e3fcb465b5f/content-assets/021894aae7341d60dd3f443427344eaed164722a20f8247aaa0d4778163ab94f/earthset.jpg" class="w-full h-full object-cover opacity-60" alt="Earthset">
+        <div class="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-transparent to-transparent"></div>
+      </div>
+      <div class="relative z-20 flex flex-col justify-end h-full p-12 max-w-7xl">
+        <p class="tracking-[0.2em] text-sm font-semibold mb-6 uppercase text-[#C5A059]">EM, OLI &amp; TIMMONDS | FUTURES BRIEFING | OCTOBER 2026 · STORY SPINE: Once upon a time</p>
+        <h1 class="serif text-8xl font-bold mb-8 leading-tight text-white">Three Worlds of 2041</h1>
+        <h3 class="text-4xl font-light mb-12 max-w-3xl border-l-2 border-[#C5A059] pl-8">
+          How AI could reshape our industry, our customers and our planet over the next 15 years
+        </h3>
+        <div class="grid grid-cols-2 gap-16 text-lg leading-relaxed">
+          <div class="space-y-6">
+            <p class="font-bold uppercase tracking-widest text-sm">THREE SCENARIOS, NOT THREE PREDICTIONS</p>
+            <p class="text-gray-200">On 6 April 2026, four people watched Earth set behind the Moon. Fifteen years from now, the Moon may be a place where people go to work. This is not a dream. It is three futures we can already see coming, and the choices that decide which one we get.</p>
+          </div>
+          <div class="space-y-6">
+            <p class="text-gray-200"><span class="font-bold uppercase tracking-widest text-sm">IN THIS BRIEFING</span> today's signals, our method, three worlds of 2041, the odds, and what to do from Monday.</p>
+            <div class="flex items-center gap-6 mt-8">
+              <img src="https://vgbujcuwptvheqijyjbe.supabase.co/storage/v1/object/public/hmac-uploads/projects/5f1b69fc-004a-4a29-940b-2e3fcb465b5f/content-assets/02cb446da8cfdedb6d5ec7accf8c221cd3517b538db5c3f56583b55b73ea5f90/portrait-circle.png" class="w-20 h-20 rounded-full border border-[#C5A059] p-0.5" alt="Portrait">
+              <div>
+                <p class="text-xl font-bold">Mohammad</p>
+                <p class="text-sm text-gray-400 italic">Senior Futures Consultant, Em, Oli &amp; Timmonds · Part 1 | The Creative Solution</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="mt-16 text-xs text-gray-500 italic uppercase tracking-wider">
+          *Earth sets behind the Moon, photographed by the Artemis II crew, 6 April 2026. Image: NASA*
+        </p>
+        <p class="mt-6 text-sm font-bold text-[#C5A059]">NEXT: the story map: how this briefing unfolds in fifteen steps.</p>
+      </div>
+    </section>
+
+    <!-- Slide 2: One story, fifteen steps -->
+    <section class="slide" id="slide-2">
+      <div class="flex h-full p-12">
+        <div class="w-1/3 pr-8 border-r border-gray-800 flex flex-col justify-center">
+          <h2 class="serif text-4xl font-bold mb-4 leading-tight text-white">One story, fifteen steps</h2>
+          <p class="text-sm uppercase tracking-widest text-[#C5A059] mb-6">THE STORY MAP | HOW THIS BRIEFING UNFOLDS · STORY SPINE: Once upon a time</p>
+          <div class="space-y-8 text-lg text-gray-300">
+            <p>Our brief: imagine the world in 15 years' time, considering AI's impact on our industry and on the whole world, and decide what E,O&amp;T should build now without betting on one forecast. The story uses an adapted, branching Story Spine: the three "Because of that" steps are alternative worlds. Facts and projections are tagged; the 2041 worlds are imagined scenarios.</p>
+            <div class="p-6 bg-gray-900 rounded-xl border border-gray-800">
+              <p class="font-bold text-sm uppercase tracking-widest mb-4">SCOPE</p>
+              <p class="text-sm leading-relaxed">Industry: strategic consulting | Clients: energy, logistics and digital services | World: work, daily life, infrastructure and the space frontier</p>
+            </div>
+            <p class="text-[#C5A059] font-bold text-sm uppercase tracking-widest">NEXT: we start with the facts: four signals already visible in 2026.</p>
+          </div>
+        </div>
+        <div class="w-2/3 pl-8 overflow-y-auto pr-6 custom-scrollbar">
+          <ul class="space-y-3">
+            <li class="flex gap-6 p-3 hover:bg-white/5 rounded-lg border-b border-gray-900 pb-4"><span class="font-bold text-[#C5A059] w-8">3</span> <div class="text-base"><strong>EVERY DAY</strong> — The future is leaking in — TOOL 2 of the 4 lenses</div></li>
+            <li class="flex gap-6 p-3 hover:bg-white/5 rounded-lg border-b border-gray-900 pb-4"><span class="font-bold text-[#C5A059] w-8">4</span> <div class="text-base"><strong>BUT ONE DAY</strong> — The Futures Engine — TOOL Seven creative tools</div></li>
+            <li class="flex gap-6 p-3 bg-[#2D5A27]/10 rounded-lg border-b border-gray-900 pb-4"><span class="font-bold text-[#C5A059] w-8">5</span> <div class="text-base"><strong>BECAUSE OF THAT (1)</strong> — Symbiosis 2041 — TOOL Moonshot, upward What if</div></li>
+            <li class="flex gap-6 p-3 bg-[#8B4513]/10 rounded-lg border-b border-gray-900 pb-4"><span class="font-bold text-[#C5A059] w-8">6</span> <div class="text-base"><strong>BECAUSE OF THAT (2)</strong> — Overheat 2041 — TOOL Downward What if</div></li>
+            <li class="flex gap-6 p-3 bg-[#4B0082]/10 rounded-lg border-b border-gray-900 pb-4"><span class="font-bold text-[#C5A059] w-8">7</span> <div class="text-base"><strong>BECAUSE OF THAT (3)</strong> — Patchwork 2041 — TOOL Tick-Tock</div></li>
+            <li class="flex gap-6 p-3 hover:bg-white/5 rounded-lg border-b border-gray-900 pb-4"><span class="font-bold text-[#C5A059] w-8">8</span> <div class="text-base"><strong>ZOOM IN (1)</strong> — From your door to orbit — TOOL Moonshot, exaptation</div></li>
+            <li class="flex gap-6 p-3 hover:bg-white/5 rounded-lg border-b border-gray-900 pb-4"><span class="font-bold text-[#C5A059] w-8">9</span> <div class="text-base"><strong>ZOOM IN (2)</strong> — The new gold — TOOL Tick-Tock, all 4 lenses</div></li>
+            <li class="flex gap-6 p-3 hover:bg-white/5 rounded-lg border-b border-gray-900 pb-4"><span class="font-bold text-[#C5A059] w-8">10</span> <div class="text-base"><strong>UNTIL FINALLY</strong> — Which branch are we on? — TOOL Possibility tree</div></li>
+            <li class="flex gap-6 p-3 hover:bg-white/5 rounded-lg border-b border-gray-900 pb-4"><span class="font-bold text-[#C5A059] w-8">11</span> <div class="text-base"><strong>UNTIL FINALLY: WATCH</strong> — Lights that change action — TOOL Contingency planning</div></li>
+            <li class="flex gap-6 p-3 hover:bg-white/5 rounded-lg border-b border-gray-900 pb-4"><span class="font-bold text-[#C5A059] w-8">12</span> <div class="text-base"><strong>EVER SINCE: RESPOND</strong> — Sell better decisions — TOOL Decision Passport</div></li>
+            <li class="flex gap-6 p-3 hover:bg-white/5 rounded-lg border-b border-gray-900 pb-4"><span class="font-bold text-[#C5A059] w-8">13</span> <div class="text-base"><strong>STORY IN ONE WORLD</strong> — Omar in eight steps — TOOL Story Spine, 5 Cs</div></li>
+            <li class="flex gap-6 p-3 hover:bg-white/5 rounded-lg border-b border-gray-900 pb-4"><span class="font-bold text-[#C5A059] w-8">14</span> <div class="text-base"><strong>AND EVER SINCE THEN</strong> — Back to Monday morning — TOOL Working backwards</div></li>
+            <li class="flex gap-6 p-3 hover:bg-white/5 rounded-lg border-b border-gray-900 pb-4"><span class="font-bold text-[#C5A059] w-8">15</span> <div class="text-base"><strong>EVER SINCE: FIRST TEST</strong> — The first 90 days — TOOL Working backwards, gates</div></li>
+            <li class="flex gap-6 p-3 hover:bg-white/5 rounded-lg border-b border-gray-900 pb-4"><span class="font-bold text-[#C5A059] w-8">16</span> <div class="text-base"><strong>EVER SINCE: KEEP CREATING</strong> — A creative routine — TOOL Safety, Octalysis, stimuli</div></li>
+            <li class="flex gap-6 p-3 hover:bg-white/5 rounded-lg pb-4"><span class="font-bold text-[#C5A059] w-8">17</span> <div class="text-base"><strong>THE CARRY-OUT MESSAGE</strong> — The Moon is closer than ever — TOOL 5 Cs of storytelling</div></li>
+          </ul>
+          <div class="grid grid-cols-4 gap-6 mt-12">
+            <img src="https://vgbujcuwptvheqijyjbe.supabase.co/storage/v1/object/public/hmac-uploads/projects/5f1b69fc-004a-4a29-940b-2e3fcb465b5f/content-assets/5a5a69c0704bbc003c473707390cb4cf8497b38abff7a393f071377a0f9a81db/moon.jpg" class="h-28 w-full object-cover rounded-lg" alt="Moon">
+            <img src="https://vgbujcuwptvheqijyjbe.supabase.co/storage/v1/object/public/hmac-uploads/projects/5f1b69fc-004a-4a29-940b-2e3fcb465b5f/content-assets/a3d5e5cab2bb35adc248c41965a836c6ae79bca8ec817e2bcd7aabb5a0376aaa/world-symbiosis.jpg" class="h-28 w-full object-cover rounded-lg" alt="Symbiosis">
+            <img src="https://vgbujcuwptvheqijyjbe.supabase.co/storage/v1/object/public/hmac-uploads/projects/5f1b69fc-004a-4a29-940b-2e3fcb465b5f/content-assets/1d9d43abe88d924e3f77548ee6180791193c5834c0ac1e8447ca529da50f902d/world-overheat.jpg" class="h-28 w-full object-cover rounded-lg" alt="Overheat">
+            <img src="https://vgbujcuwptvheqijyjbe.supabase.co/storage/v1/object/public/hmac-uploads/projects/5f1b69fc-004a-4a29-940b-2e3fcb465b5f/content-assets/c54f04da0e9d6774b84b15b85a2dec545f4c4e55950f396e9fe44d0e6c36533a/world-patchwork.jpg" class="h-28 w-full object-cover rounded-lg" alt="Patchwork">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 3: The future is already leaking in -->
+    <section class="slide" id="slide-3">
+      <div class="absolute inset-0">
+        <img src="https://vgbujcuwptvheqijyjbe.supabase.co/storage/v1/object/public/hmac-uploads/projects/5f1b69fc-004a-4a29-940b-2e3fcb465b5f/content-assets/a98d178dc90a98c5cf048aba91c58675d0983528c9cd15e7cae56210cb8bfda9/earth-night.jpg" class="w-full h-full object-cover opacity-40" alt="Earth at night">
+      </div>
+      <div class="relative z-20 flex flex-col h-full p-12">
+        <h2 class="serif text-7xl font-bold mb-6 text-white">The future is already leaking in</h2>
+        <p class="text-sm uppercase tracking-widest text-[#C5A059] mb-20">TODAY'S SIGNALS | 4 LENSES: HARNESSING TRENDS AND CHALLENGING ORTHODOXIES · STORY SPINE: Every day</p>
+        
+        <div class="grid grid-cols-2 gap-12 flex-1">
+          <div class="space-y-16">
+            <div class="flex items-start gap-10 border-b border-gray-800 pb-12">
+              <span class="serif text-7xl font-bold text-[#C5A059] leading-none min-w-[200px]">415 TWh</span>
+              <div class="text-lg leading-relaxed">
+                <p class="text-gray-300">used by data centres in 2024, about 1.5% of world electricity, with about 945 TWh by 2030 as a base-case projection. (IEA) — <em>Energy becomes AI's ceiling.</em></p>
+              </div>
+            </div>
+            <div class="flex items-start gap-10 border-b border-gray-800 pb-12">
+              <span class="serif text-7xl font-bold text-[#C5A059] leading-none min-w-[200px]">170M</span>
+              <div class="text-lg leading-relaxed">
+                <p class="text-gray-300">new jobs created and 92M displaced by 2030 across major economic and technological trends, including AI; 39% of core skills change. (WEF) — <em>Skills, not jobs, become the scarce asset.</em></p>
+              </div>
+            </div>
+          </div>
+          <div class="space-y-16">
+            <div class="flex items-start gap-10 border-b border-gray-800 pb-12">
+              <span class="serif text-7xl font-bold text-[#C5A059] leading-none min-w-[200px]">54,000</span>
+              <div class="text-lg leading-relaxed">
+                <p class="text-gray-300">debris objects larger than 10 cm circle Earth, plus about 1.2 million between 1 and 10 cm. (ESA) — <em>Orbit is a finite resource we can pollute.</em></p>
+              </div>
+            </div>
+            <div class="flex items-start gap-10 border-b border-gray-800 pb-12">
+              <span class="serif text-7xl font-bold text-white leading-none min-w-[200px]">APRIL 2026</span>
+              <div class="text-lg leading-relaxed">
+                <p class="text-gray-300">Artemis II flies four astronauts around the Moon, the first crewed lunar flight since 1972. (NASA) — <em>Space moves from exploration to economy.</em></p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-auto flex items-center justify-between">
+          <div class="max-w-3xl bg-white/5 p-8 rounded-xl border-l-4 border-[#C5A059]">
+            <p class="text-lg text-gray-200">Four signals we can measure in 2026, found with two of the 4 lenses of innovation: harnessing trends and challenging orthodoxies. Every world grows out of them.</p>
+            <p class="text-lg mt-6 text-gray-200"><strong>Challenging orthodoxies.</strong> The old belief "AI is software" no longer holds. AI is an energy, materials and orbit industry, and that is exactly where our three worlds split apart.</p>
+          </div>
+          <p class="text-sm font-bold text-[#C5A059] uppercase tracking-widest">NEXT: how do we turn these signals into futures? Our Futures Engine.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 4: The E,O&T Futures Engine -->
+    <section class="slide" id="slide-4">
+      <div class="flex h-full">
+        <div class="w-1/2 p-12 flex flex-col justify-center">
+          <h2 class="serif text-5xl font-bold mb-4 text-white">The E,O&amp;T Futures Engine</h2>
+          <p class="text-sm uppercase tracking-widest text-[#C5A059] mb-12">OUR METHOD | A MORE CREATIVE FORM OF SCENARIO PLANNING · STORY SPINE: But one day</p>
+          <p class="text-gray-300 text-lg mb-6 leading-relaxed">How the signals become worlds. Seven tools work like gears, and each produces a visible output on the slides shown. We first ran a controlled What if (keep AI access fixed, change only energy headroom), then combined both uncertainties into three worlds.</p>
+          <div class="space-y-4">
+            <div class="flex items-center gap-6 text-base group"><span class="w-8 h-8 rounded-full border-2 border-[#C5A059] flex items-center justify-center text-sm font-bold" >1</span> <div><strong>Harness trends</strong> — Spot what is already moving — <span class="text-[#C5A059]">SLIDES 3, 9</span></div></div>
+            <div class="flex items-center gap-6 text-base"><span class="w-8 h-8 rounded-full border-2 border-[#C5A059] flex items-center justify-center text-sm font-bold" >2</span> <div><strong>Counterfactual What if</strong> — Change one driver, upward and downward — <span class="text-[#C5A059]">SLIDES 5, 6</span></div></div>
+            <div class="flex items-center gap-6 text-base"><span class="w-8 h-8 rounded-full border-2 border-[#C5A059] flex items-center justify-center text-sm font-bold" >3</span> <div><strong>Possibility tree</strong> — Branch it and put odds on every branch — <span class="text-[#C5A059]">SLIDES 10</span></div></div>
+            <div class="flex items-center gap-6 text-base"><span class="w-8 h-8 rounded-full border-2 border-[#C5A059] flex items-center justify-center text-sm font-bold" >4</span> <div><strong>Tick-Tock</strong> — Flip each assumption into its opposite — <span class="text-[#C5A059]">SLIDES 7, 9</span></div></div>
+            <div class="flex items-center gap-6 text-base"><span class="w-8 h-8 rounded-full border-2 border-[#C5A059] flex items-center justify-center text-sm font-bold" >5</span> <div><strong>Moonshot 10x</strong> — Push the best branch to its boldest form — <span class="text-[#C5A059]">SLIDES 5, 8</span></div></div>
+            <div class="flex items-center gap-6 text-base"><span class="w-8 h-8 rounded-full border-2 border-[#C5A059] flex items-center justify-center text-sm font-bold" >6</span> <div><strong>Hard empathy</strong> — Live one day inside each world, in 5 steps — <span class="text-[#C5A059]">SLIDES 5 to 7, 13</span></div></div>
+            <div class="flex items-center gap-6 text-base"><span class="w-8 h-8 rounded-full border-2 border-[#C5A059] flex items-center justify-center text-sm font-bold" >7</span> <div><strong>Working backwards</strong> — Plan right to left, from 2041 to today — <span class="text-[#C5A059]">SLIDES 14, 15</span></div></div>
+          </div>
+          <p class="mt-8 text-sm font-bold text-[#C5A059] uppercase tracking-widest">NEXT: the engine's first output: the best world we can imagine.</p>
+        </div>
+        <div class="w-1/2 relative">
+           <img src="https://vgbujcuwptvheqijyjbe.supabase.co/storage/v1/object/public/hmac-uploads/projects/5f1b69fc-004a-4a29-940b-2e3fcb465b5f/content-assets/5a5a69c0704bbc003c473707390cb4cf8497b38abff7a393f071377a0f9a81db/moon.jpg" class="w-full h-full object-cover" alt="Moon Orbit">
+           <div class="absolute inset-0 p-16 flex flex-col justify-between">
+             <div class="bg-black/90 backdrop-blur-md p-10 rounded-2xl border-2 border-[#C5A059]/40">
+               <p class="text-sm font-bold uppercase mb-4 text-[#C5A059] tracking-widest">Two critical uncertainties set the axes:</p>
+               <p class="text-xl leading-relaxed text-white">AI shared and verified ↔ AI concentrated and opaque; Energy scarce, polluting ↔ Energy abundant, clean. <strong>Symbiosis · Patchwork · Overheat</strong></p>
+             </div>
+             <div class="space-y-6">
+               <div class="bg-black/80 p-8 rounded-xl text-base leading-relaxed border-l-4 border-[#C5A059]">
+                 <p><strong>AI "bad copying"</strong> — We asked AI for dozens of variants of each world and kept the strange ones. Its mistakes became raw material.</p>
+               </div>
+               <div class="bg-black/80 p-8 rounded-xl text-base leading-relaxed border-l-4 border-[#C5A059]">
+                 <p><strong>Exaptation</strong> — Borrowed from air traffic control (one network, many vehicles) and multiplayer game design (rules that shape behaviour).</p>
+               </div>
+             </div>
+           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 5: SYMBIOSIS 2041 -->
+    <section class="slide" id="slide-5">
+      <div class="h-full flex flex-col">
+        <div class="flex-1 flex">
+          <div class="w-3/5 p-12">
+            <div class="flex items-center gap-6 mb-8">
+              <span class="px-5 py-2 bg-[#2D5A27] text-white text-[10px] font-bold tracking-[0.3em] uppercase">SYMBIOSIS 2041</span>
+              <p class="text-sm uppercase tracking-widest text-[#C5A059]">WORLD 1 OF 3 · STORY SPINE: Because of that (1)</p>
+            </div>
+            <h2 class="serif text-5xl font-bold mb-6 text-white leading-tight">A future we want to be part of</h2>
+            
+            <div class="grid grid-cols-2 gap-12 mb-12">
+              <div class="space-y-8">
+                <p class="text-sm uppercase font-bold text-[#C5A059] tracking-widest">Moonshot thinking: the upward What if — Shared, verified AI with abundant clean energy</p>
+                <ul class="space-y-4 text-sm leading-relaxed">
+                  <li class="flex gap-5">
+                    <iconify-icon icon="lucide:layers" class="text-[#5CC79F] text-3xl shrink-0"></iconify-icon>
+                    <div><strong>Mirror Cities</strong> — Customers try a flat or a lunar hotel in a live digital twin before buying. White-hat Octalysis: each purchase plants a real tree.</div>
+                  </li>
+                  <li class="flex gap-5">
+                    <iconify-icon icon="lucide:bus" class="text-[#5CC79F] text-3xl shrink-0"></iconify-icon>
+                    <div><strong>Life and transport</strong> — Electric pods and air taxis on one AI network, borrowed from air traffic control. Car parks become parks.</div>
+                  </li>
+                  <li class="flex gap-5">
+                    <iconify-icon icon="lucide:rocket" class="text-[#5CC79F] text-3xl shrink-0"></iconify-icon>
+                    <div><strong>Space and the Moon</strong> — A crewed base at the lunar south pole mines ice for fuel. Robots build; the first tourists arrive.</div>
+                  </li>
+                  <li class="flex gap-5">
+                    <iconify-icon icon="lucide:briefcase" class="text-[#5CC79F] text-3xl shrink-0"></iconify-icon>
+                    <div><strong>Our industry</strong> — AI writes the analysis; consultants own the judgement. E,O&amp;T move: launch a future-design practice.</div>
+                  </li>
+                </ul>
+              </div>
+              <div class="bg-white/5 p-6 rounded-xl border border-[#2D5A27]/40 flex flex-col justify-center">
+                <p class="text-sm uppercase font-bold text-[#5CC79F] mb-8 tracking-widest">A DAY IN 2041 | HARD EMPATHY IN 5 STEPS — Layla, 34, grid engineer, Riyadh</p>
+                <div class="space-y-6 text-base">
+                  <p><strong>Scene:</strong> 6 am. My AI agent has already sold my solar surplus and drafted my report.</p>
+                  <p><strong>Feel:</strong> free, and strangely idle.</p>
+                  <p><strong>Make sense:</strong> the machines now do the routine half of my job.</p>
+                  <p><strong>Worry:</strong> what am I still for?</p>
+                  <p><strong>Act:</strong> I join the council that designs our city's digital twin.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="flex gap-10 text-xs uppercase font-bold tracking-[0.2em] text-[#5CC79F]">
+              <span>5 Cs</span>
+              <span>Character: Layla, and every client like her</span>
+              <span>Conflict: AI's hunger for energy</span>
+              <span>Cure: Clean power, efficient chips</span>
+              <span>Change: Abundance, shared widely</span>
+              <span>Carry-out: Build the future we want</span>
+            </div>
+          </div>
+          <div class="w-2/5 grid grid-rows-2 gap-4 p-4 bg-[#2D5A27]/20">
+            <img src="https://vgbujcuwptvheqijyjbe.supabase.co/storage/v1/object/public/hmac-uploads/projects/5f1b69fc-004a-4a29-940b-2e3fcb465b5f/content-assets/a3d5e5cab2bb35adc248c41965a836c6ae79bca8ec817e2bcd7aabb5a0376aaa/world-symbiosis.jpg" class="h-full w-full object-cover rounded-xl shadow-2xl" alt="Symbiosis world">
+            <div class="relative">
+              <img src="https://vgbujcuwptvheqijyjbe.supabase.co/storage/v1/object/public/hmac-uploads/projects/5f1b69fc-004a-4a29-940b-2e3fcb465b5f/content-assets/e553ab1a3456e68431aaa7a92586c8f0323351b639433a536f103971a71b840a/lunar-robots.jpg" class="h-full w-full object-cover rounded-xl shadow-2xl" alt="Lunar robots">
+              <p class="absolute bottom-6 right-6 text-[10px] bg-black/70 px-3 py-2 rounded-lg italic text-gray-300 shadow-xl">*Robots on the Moon (NASA concept)*</p>
+            </div>
+          </div>
+        </div>
+        <div class="h-20 px-20 flex items-center justify-between border-t border-[#2D5A27]/30 bg-[#2D5A27]/10">
+          <p class="text-sm italic text-Jade-200">Still hard here: e-waste, attention overload, disputes over lunar mining. The best case. We push the engine's upper branch to a moonshot, then live one day inside it through hard empathy.</p>
+          <p class="text-sm font-bold text-[#C5A059] uppercase tracking-widest">NEXT: every utopia has a shadow. The same engine, run downward.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 6: OVERHEAT 2041 -->
+    <section class="slide" id="slide-6">
+      <div class="h-full flex flex-row-reverse">
+        <div class="w-1/2 relative">
+          <img src="https://vgbujcuwptvheqijyjbe.supabase.co/storage/v1/object/public/hmac-uploads/projects/5f1b69fc-004a-4a29-940b-2e3fcb465b5f/content-assets/1d9d43abe88d924e3f77548ee6180791193c5834c0ac1e8447ca529da50f902d/world-overheat.jpg" class="w-full h-full object-cover grayscale contrast-[1.1]" alt="Overheated world">
+          <div class="absolute inset-0 bg-[#8B4513]/30 mix-blend-multiply"></div>
+          <div class="absolute bottom-10 left-10 bg-black/90 p-6 border border-[#8B4513]/50 rounded-xl shadow-2xl">
+             <p class="text-xs uppercase tracking-widest text-gray-400 font-bold">*Hardware in low orbit (NASA, ISS)*</p>
+          </div>
+        </div>
+        <div class="w-1/2 p-12 flex flex-col justify-center">
+          <div class="flex items-center gap-6 mb-8">
+            <span class="px-5 py-2 bg-[#8B4513] text-white text-sm font-bold tracking-[0.3em] uppercase border border-[#8B4513]">OVERHEAT 2041</span>
+            <p class="text-sm uppercase tracking-widest text-[#C5A059]">WORLD 2 OF 3 · STORY SPINE: Because of that (2)</p>
+          </div>
+          <h2 class="serif text-5xl font-bold mb-4 text-white leading-tight">Every utopia has a shadow</h2>
+          <p class="text-lg text-gray-400 mb-12 leading-relaxed">The honest shadow of World 1. Same engine, downward What if, told as a chain of cause and effect. <strong>Counterfactual: the downward What if</strong> — Concentrated, opaque AI with scarce, polluting energy</p>
+          
+          <div class="space-y-6 flex-1">
+            <div class="border-l-2 border-[#8B4513] pl-10 py-2">
+              <p class="text-sm uppercase font-bold text-[#E58A52] mb-6 tracking-[0.2em]">HOW IT HAPPENED, ONE "BECAUSE OF THAT" AT A TIME</p>
+              <ol class="text-base space-y-4 list-decimal list-inside text-gray-200">
+                <li>AI demand outran clean power, so fossil plants kept running.</li>
+                <li>Heat and pollution rose, and power was rationed.</li>
+                <li>A few players owned the models; deepfakes broke trust.</li>
+                <li>A debris cascade took out navigation and broadband satellites.</li>
+              </ol>
+            </div>
+            <div class="grid grid-cols-2 gap-8 text-base">
+               <div class="bg-white/5 p-8 border border-[#8B4513]/40 rounded-xl"><strong>Customers</strong> — The metaverse is an escape; black-hat Octalysis (scarcity, loss) keeps people hooked.</div>
+               <div class="bg-white/5 p-8 border border-[#8B4513]/40 rounded-xl"><strong>Space and the Moon</strong> — Low orbit is a junkyard; the lunar base waits.</div>
+               <div class="bg-white/5 p-8 border border-[#8B4513]/40 rounded-xl"><strong>Life and transport</strong> — Empty robotaxis gridlock the cities. The rich fly; everyone else waits.</div>
+               <div class="bg-white/5 p-8 border border-[#8B4513]/40 rounded-xl"><strong>Our industry</strong> — Reports cost pennies. E,O&amp;T move: verification and resilience services.</div>
+            </div>
+            <div class="bg-[#8B4513]/10 p-8 rounded-xl border-l-4 border-[#8B4513] text-base shadow-lg">
+               <p class="font-bold mb-4 text-[#E58A52] uppercase tracking-widest">A DAY IN 2041 | HARD EMPATHY IN 5 STEPS — Omar, 41, logistics manager</p>
+               <p class="leading-relaxed">Scene: in the depot, two delivery alerts contradict each other. · Feel: anxious; the rationing app also limits when I can charge the vans. · Make sense: one of the alerts may be synthetic. · Worry: I could send a driver onto an unsafe route. · Act: I verify both alerts through our data cooperative before dispatch.</p>
+            </div>
+          </div>
+          
+          <div class="mt-12 flex justify-between items-center">
+            <div class="flex flex-wrap gap-x-6 gap-y-1 text-xs uppercase font-bold tracking-[0.12em] text-[#E58A52]">
+              <span>5 Cs</span>
+              <span>Character: Omar</span>
+              <span>Conflict: AI outgrows clean power</span>
+              <span>Cure: None, in time</span>
+              <span>Change: Trust and orbit lost</span>
+              <span>Carry-out: Plan for the shadow first</span>
+            </div>
+            <p class="text-sm font-bold text-[#C5A059] uppercase tracking-widest">NEXT: between heaven and collapse sits the most likely world.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 7: PATCHWORK 2041 -->
+    <section class="slide" id="slide-7">
+      <div class="h-full flex flex-col">
+        <div class="flex-1 flex p-12">
+          <div class="w-1/2 pr-16 flex flex-col justify-center">
+            <div class="flex items-center gap-6 mb-8">
+              <span class="px-5 py-2 bg-[#4B0082] text-white text-sm font-bold tracking-[0.3em] uppercase border border-[#4B0082]">PATCHWORK 2041</span>
+              <p class="text-sm uppercase tracking-widest text-[#C5A059]">WORLD 3 OF 3 · STORY SPINE: Because of that (3)</p>
+            </div>
+            <h2 class="serif text-5xl font-bold mb-6 text-white leading-tight">Neither heaven nor collapse</h2>
+            <p class="text-lg text-gray-300 mb-12 leading-relaxed">The middle path, built by flipping two of today's facts with Tick-Tock. Here trust, not technology, decides who wins. <strong>Tick-Tock: the middle path</strong> — Trust verified inside regional blocs, mixed energy between them. <em>One planet, three rulebooks.</em></p>
+            
+            <div class="grid grid-cols-2 gap-8 mb-12">
+              <div class="bg-white/5 p-6 rounded-xl border border-[#4B0082]/50 relative overflow-hidden">
+                
+                <p class="text-base font-bold text-gray-100 mb-4">TICK People buy from companies.</p>
+                <p class="text-base text-gray-300">→ <strong>TOCK AI agents buy from AI agents</strong>, so firms must design for machine customers.</p>
+              </div>
+              <div class="bg-white/5 p-6 rounded-xl border border-[#4B0082]/50 relative overflow-hidden">
+                
+                <p class="text-base font-bold text-gray-100 mb-4">TICK Data is free.</p>
+                <p class="text-base text-gray-300">→ <strong>TOCK Data is owned and paid for</strong>, like energy.</p>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-x-12 gap-y-6 text-base leading-relaxed">
+               <p><strong>Customers</strong> — Regional metaverses joined by one digital identity, so trust becomes the product.</p>
+               <p><strong>Space and the Moon</strong> — Shared on paper; blocs compete quietly for lunar ice and landing sites.</p>
+               <p><strong>Our industry</strong> — Winners translate between blocs. E,O&amp;T move: a cross-bloc standards advisory.</p>
+               <p><strong>Life and transport</strong> — Driverless in some regions, manual in others; the best cities blend both.</p>
+            </div>
+          </div>
+          <div class="w-1/2 relative flex flex-col gap-8">
+            <img src="https://vgbujcuwptvheqijyjbe.supabase.co/storage/v1/object/public/hmac-uploads/projects/5f1b69fc-004a-4a29-940b-2e3fcb465b5f/content-assets/c54f04da0e9d6774b84b15b85a2dec545f4c4e55950f396e9fe44d0e6c36533a/world-patchwork.jpg" class="flex-1 w-full object-cover rounded-2xl shadow-2xl grayscale hover:grayscale-0 transition-all duration-700" alt="Patchwork world">
+            <div class="bg-[#4B0082]/10 p-10 rounded-2xl border-l-4 border-[#4B0082] shadow-xl">
+               <p class="text-sm uppercase font-bold text-indigo-300 mb-6 tracking-widest">A DAY IN 2041 | HARD EMPATHY IN 5 STEPS — Sara, 29, product designer, Stockholm</p>
+               <p class="text-lg leading-relaxed italic text-gray-200">"Scene: my AI agent is doing my weekly shopping. · Feel: relaxed, until it refuses my favourite app. · Make sense: that app has no trust seal in our bloc. · Worry: my own product could be locked out the same way. · Act: I design one product that passes all three blocs' trust rules."</p>
+            </div>
+          </div>
+        </div>
+        <div class="h-20 px-20 flex items-center justify-between border-t border-[#4B0082]/30 bg-[#4B0082]/10">
+          <div class="flex gap-10 text-xs uppercase font-bold tracking-[0.2em] text-[#A99BF0]">
+            <span>5 Cs</span>
+            <span>Character: Sara</span>
+            <span>Conflict: One world, many rulebooks</span>
+            <span>Cure: Shared trust seals</span>
+            <span>Change: Identity is the product</span>
+            <span>Carry-out: The future is a negotiation</span>
+          </div>
+          <p class="text-sm font-bold text-[#C5A059] uppercase tracking-widest">NEXT: zoom in: how a food-delivery network becomes an orbital supply line.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 8: From your door to orbit -->
+    <section class="slide" id="slide-8">
+      <div class="h-full p-12 flex flex-col">
+        <h2 class="serif text-7xl font-bold mb-6 text-white">From your door to orbit</h2>
+        <p class="text-sm uppercase tracking-widest text-[#C5A059] mb-16">ZOOM IN (1) | MOONSHOT AND EXAPTATION · STORY SPINE: Because of that: zoom in</p>
+        
+        <div class="mb-10 text-xl max-w-5xl leading-relaxed text-gray-300">
+          Borrow the delivery-network logic, not the aircraft: a model that brings dinner today, adapted for orbital logistics, could help feed astronauts in 2041.
+        </div>
+
+        <div class="flex-1 grid grid-cols-3 gap-12">
+          <div class="flex flex-col bg-white/5 p-8 rounded-2xl border border-gray-800">
+            <img src="https://vgbujcuwptvheqijyjbe.supabase.co/storage/v1/object/public/hmac-uploads/projects/5f1b69fc-004a-4a29-940b-2e3fcb465b5f/content-assets/177032644c8bb397cde03fd1a29d46173d0a27d470926406d295cb5d9bcca9b2/drone-delivery.jpg" class="h-56 w-full object-cover rounded-xl mb-6 shadow-xl" alt="Drone delivery">
+            <h4 class="serif text-2xl font-bold text-[#C5A059] mb-4">2026 · OBSERVED</h4>
+            <p class="text-base text-gray-400 leading-relaxed"><strong>Drones deliver food now.</strong> One delivery network passed 2 million commercial drone deliveries in January 2026, with a median flight of 3 minutes (Food On Demand). TRANSFER: scheduling, tracking, exception handling</p>
+          </div>
+          <div class="flex flex-col bg-white/5 p-8 rounded-2xl border border-gray-800">
+            <img src="https://vgbujcuwptvheqijyjbe.supabase.co/storage/v1/object/public/hmac-uploads/projects/5f1b69fc-004a-4a29-940b-2e3fcb465b5f/content-assets/a9360e4b0e0d94ced8476502a52de0bd1805b766bddfecdb958d6ee0edb7c952/cygnus-orbit.jpg" class="h-56 w-full object-cover rounded-xl mb-6 shadow-xl" alt="Cygnus orbit">
+            <h4 class="serif text-2xl font-bold text-[#C5A059] mb-4">2030s · PROPOSED TEST</h4>
+            <p class="text-base text-gray-400 leading-relaxed"><strong>Autonomy reaches orbit.</strong> Robotic freighters already berth at the station using its robotic arm. Next: test AI scheduling with qualified space partners. GATE: safety, communication delay, payload limits</p>
+          </div>
+          <div class="flex flex-col bg-white/5 p-8 rounded-2xl border border-gray-800">
+            <img src="https://vgbujcuwptvheqijyjbe.supabase.co/storage/v1/object/public/hmac-uploads/projects/5f1b69fc-004a-4a29-940b-2e3fcb465b5f/content-assets/47cf22e3e37889e7efcf5380cf3d794c563ceeec2d1977df065938e3a1192ffe/crew-food.jpg" class="h-56 w-full object-cover rounded-xl mb-6 shadow-xl" alt="Space food">
+            <h4 class="serif text-2xl font-bold text-[#C5A059] mb-4">2041 · MOONSHOT</h4>
+            <p class="text-base text-gray-400 leading-relaxed"><strong>Feeding the crew in space.</strong> Each astronaut needs about 1.7 kg of food a day; fresh produce arrives every three months (NASA). Imagine cargo and orbital crops supporting a lunar outpost. 10x AMBITION: on-demand, not occasional, resupply</p>
+          </div>
+        </div>
+
+        <div class="mt-12 bg-white/5 p-10 rounded-2xl border-l-4 border-[#C5A059] flex items-center justify-between shadow-2xl">
+           <p class="text-lg text-gray-200 max-w-4xl"><strong>E,O&amp;T test.</strong> Start with a logistics simulation and a partner review, not launch infrastructure. For clients in logistics and food, the last mile becomes the last orbit.</p>
+           <p class="text-sm font-bold text-[#C5A059] uppercase tracking-widest">NEXT: zoom in: when gold stops being the treasure.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 9: The new gold -->
+    <section class="slide" id="slide-9">
+      <div class="h-full p-12 flex flex-col">
+        <h2 class="serif text-7xl font-bold mb-6 text-white">The new gold</h2>
+        <p class="text-sm uppercase tracking-widest text-[#C5A059] mb-12">ZOOM IN (2) | TICK-TOCK AND ALL FOUR LENSES · STORY SPINE: Because of that: zoom in</p>
+        
+        <div class="grid grid-cols-2 gap-16 mb-12">
+          <div class="text-xl leading-relaxed text-gray-200">
+            <strong>TICK</strong> Gold is the treasure. <strong>TOCK</strong> Water, air, sand and plants are.<br><br>
+            In 2041 value may sit in what keeps systems alive. Each card applies one of the 4 lenses of innovation and ends with an E,O&amp;T opportunity.
+          </div>
+          <div class="bg-[#C5A059]/10 p-8 rounded-2xl border border-[#C5A059]/30 flex items-center justify-center">
+            <p class="text-lg text-[#C5A059] font-bold text-center leading-relaxed">
+              And gold? Still useful: it coats the mirrors of the Webb space telescope. But in 2041 it no longer measures wealth.
+            </p>
+          </div>
+        </div>
+
+        <div class="flex-1 grid grid-cols-4 gap-8">
+          <div class="bg-white/5 rounded-2xl border border-gray-800 p-8 flex flex-col shadow-xl">
+            <img src="https://vgbujcuwptvheqijyjbe.supabase.co/storage/v1/object/public/hmac-uploads/projects/5f1b69fc-004a-4a29-940b-2e3fcb465b5f/content-assets/91d00a6fd181d9ff3096b5e43f3a9eb629dee5452402546b2fc6f8882ac1ef2b/water.jpg" class="w-full h-32 object-cover rounded-xl mb-6" alt="Water">
+            <p class="text-lg font-bold uppercase text-[#C5A059] mb-4 tracking-widest">Water</p>
+            <p class="text-base text-gray-400 leading-relaxed">Training GPT-3 was estimated to evaporate about 700,000 litres of fresh water (Li et al.). The space station recycles 98% of its water (NASA). LEVERAGE RESOURCES: Adapt closed-loop thinking to a client water audit.</p>
+          </div>
+          <div class="bg-white/5 rounded-2xl border border-gray-800 p-8 flex flex-col shadow-xl">
+            <img src="https://vgbujcuwptvheqijyjbe.supabase.co/storage/v1/object/public/hmac-uploads/projects/5f1b69fc-004a-4a29-940b-2e3fcb465b5f/content-assets/183ad4a4226bffd7d2162b065056ab30b956edc4cbe89ffe404443f9f33305d1/sand.jpg" class="w-full h-32 object-cover rounded-xl mb-6" alt="Sand">
+            <p class="text-lg font-bold uppercase text-[#C5A059] mb-4 tracking-widest">Sand</p>
+            <p class="text-base text-gray-400 leading-relaxed">Sand and gravel use is about 50 billion tonnes a year, 17 kg per person per day (UNEP). Desert sand is too round for concrete. CHALLENGE ORTHODOXIES: Replace "abundant means disposable" with reuse by design.</p>
+          </div>
+          <div class="bg-white/5 rounded-2xl border border-gray-800 p-8 flex flex-col shadow-xl">
+            <img src="https://vgbujcuwptvheqijyjbe.supabase.co/storage/v1/object/public/hmac-uploads/projects/5f1b69fc-004a-4a29-940b-2e3fcb465b5f/content-assets/d2131787e78d3a9e58d2a3d49134c09bcf49e676c6d444a9e73426a6313dd207/air.jpg" class="w-full h-32 object-cover rounded-xl mb-6" alt="Air">
+            <p class="text-lg font-bold uppercase text-[#C5A059] mb-4 tracking-widest">Air</p>
+            <p class="text-base text-gray-400 leading-relaxed">Lunar soil is 40 to 45% oxygen by weight (ESA), but it is chemically bound and not breathable until extracted. HARNESS TRENDS: Track extraction tests, energy needs and readiness.</p>
+          </div>
+          <div class="bg-white/5 rounded-2xl border border-gray-800 p-8 flex flex-col shadow-xl">
+            <img src="https://vgbujcuwptvheqijyjbe.supabase.co/storage/v1/object/public/hmac-uploads/projects/5f1b69fc-004a-4a29-940b-2e3fcb465b5f/content-assets/96c68ee00b13dd4318ccbe216c296d10b31405b48cfdb0f99e54b69ab72d232a/plants.jpg" class="w-full h-32 object-cover rounded-xl mb-6" alt="Plants">
+            <p class="text-lg font-bold uppercase text-[#C5A059] mb-4 tracking-widest">Plants</p>
+            <p class="text-base text-gray-400 leading-relaxed">Lettuce and chile peppers grow on the station (NASA): crop research, not yet a complete food system. UNDERSTAND NEEDS: Design for nutrition, reliable supply and the crew's experience.</p>
+          </div>
+        </div>
+
+        <div class="mt-10 flex justify-end">
+           <p class="text-sm font-bold text-[#C5A059] uppercase tracking-widest">NEXT: three worlds, one tree. Which branch are we on?</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 10: Which branch are we on? -->
+    <section class="slide" id="slide-10">
+      <div class="h-full p-12 flex flex-col">
+        <h2 class="serif text-5xl font-bold mb-4 text-white">Which branch are we on?</h2>
+        <p class="text-sm uppercase tracking-widest text-[#C5A059] mb-4">POSSIBILITY TREE | CONTINGENCY PLANNING · STORY SPINE: Until finally</p>
+        <p class="text-lg text-gray-400 leading-relaxed max-w-5xl mb-10">Three worlds with planning weights, then one key driver per world split into three exclusive outcomes. Conditional odds sum to 100% per world, and the joint odds of all nine outcomes sum to 100%. Illustrative judgements, not calibrated forecasts.</p>
+        
+        <div class="flex-1 flex gap-12 items-center">
+          <div class="w-1/4 flex flex-col justify-center items-end border-r border-gray-800 pr-12">
+            <p class="text-lg uppercase font-bold text-[#C5A059] mb-6 tracking-widest">2026 TODAY →</p>
+            <div class="w-20 h-20 bg-[#C5A059] rounded-full flex items-center justify-center text-black text-2xl font-black shadow-2xl transition-transform hover:scale-110 cursor-default">→</div>
+          </div>
+          <div class="w-3/4 grid grid-rows-3 gap-4">
+            <div class="flex items-center gap-10 group">
+              <div class="w-48 p-4 bg-[#2D5A27] border-2 border-[#2D5A27] rounded-xl text-center shadow-xl">
+                <p class="text-lg uppercase font-bold text-white tracking-widest">Symbiosis 30%</p>
+                <p class="text-xs text-Jade-200 mt-1 uppercase font-bold">Clean power vs AI demand</p>
+              </div>
+              <div class="flex gap-6 flex-1">
+                <div class="flex-1 p-3 bg-[#2D5A27]/20 text-sm rounded-xl border-2 border-[#2D5A27]/30 text-center font-bold">Power ahead 50% (joint 15%)</div>
+                <div class="flex-1 p-3 bg-[#2D5A27]/20 text-sm rounded-xl border-2 border-[#2D5A27]/30 text-center font-bold">Keeps pace 30% (joint 9%)</div>
+                <div class="flex-1 p-3 bg-[#2D5A27]/20 text-sm rounded-xl border-2 border-[#2D5A27]/30 text-center font-bold">Lags; chips rescue 20% (joint 6%)</div>
+              </div>
+            </div>
+            <div class="flex items-center gap-10 group">
+              <div class="w-48 p-4 bg-[#4B0082] border-2 border-[#4B0082] rounded-xl text-center shadow-xl">
+                <p class="text-lg uppercase font-bold text-white tracking-widest">Patchwork 45%</p>
+                <p class="text-xs text-indigo-200 mt-1 uppercase font-bold">Cross-bloc AI standards</p>
+              </div>
+              <div class="flex gap-6 flex-1">
+                <div class="flex-1 p-3 bg-[#4B0082]/20 text-sm rounded-xl border-2 border-[#4B0082]/30 text-center font-bold">Broadly compatible 40% (joint 18%)</div>
+                <div class="flex-1 p-3 bg-[#4B0082]/20 text-sm rounded-xl border-2 border-[#4B0082]/30 text-center font-bold">Partly compatible 40% (joint 18%)</div>
+                <div class="flex-1 p-3 bg-[#4B0082]/20 text-sm rounded-xl border-2 border-[#4B0082]/30 text-center font-bold">Incompatible 20% (joint 9%)</div>
+              </div>
+            </div>
+            <div class="flex items-center gap-10 group">
+              <div class="w-48 p-4 bg-[#8B4513] border-2 border-[#8B4513] rounded-xl text-center shadow-xl">
+                <p class="text-lg uppercase font-bold text-white tracking-widest">Overheat 25%</p>
+                <p class="text-xs text-amber-200 mt-1 uppercase font-bold">Who controls the models</p>
+              </div>
+              <div class="flex gap-6 flex-1">
+                <div class="flex-1 p-3 bg-[#8B4513]/20 text-sm rounded-xl border-2 border-[#8B4513]/30 text-center font-bold">Two rival giants 40% (joint 10%)</div>
+                <div class="flex-1 p-3 bg-[#8B4513]/20 text-sm rounded-xl border-2 border-[#8B4513]/30 text-center font-bold">One platform 40% (joint 10%)</div>
+                <div class="flex-1 p-3 bg-[#8B4513]/20 text-sm rounded-xl border-2 border-[#8B4513]/30 text-center font-bold">State-run models 20% (joint 5%)</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-16 grid grid-cols-5 gap-10 text-sm text-gray-400 leading-relaxed">
+           <p><strong class="text-[#C5A059] block mb-2">How to read the tree</strong><strong>Level 1: worlds</strong> — Planning weights for the three worlds: 30%, 45%, 25%. They sum to 100%.</p>
+           <p><strong>Level 2: one driver each</strong> — Three mutually exclusive outcomes per world, with conditional odds that sum to 100% within that world.</p>
+           <p><strong>Joint odds</strong> — World x outcome. Worked example: Patchwork and partly compatible = 45% x 40% = 18%. All nine joint odds total 100%.</p>
+           <div class="col-span-2 bg-indigo-950/40 p-6 border border-indigo-900 rounded-xl text-indigo-100">
+             <strong>Why Patchwork leads</strong> — AI rules are already splitting by region; the clean-power race is not yet won. <br><br> <span class="text-xs italic uppercase tracking-widest font-bold">Status: Illustrative judgements to support discussion, not calibrated forecasts.</span>
+           </div>
+        </div>
+        <p class="text-sm font-bold text-[#C5A059] mt-8 text-right uppercase tracking-widest">NEXT: a light only matters if it changes a decision.</p>
+      </div>
+    </section>
+
+    <!-- Slide 11: A light only matters if it changes a decision -->
+    <section class="slide" id="slide-11">
+      <div class="h-full p-12 flex flex-col">
+        <h2 class="serif text-6xl font-bold mb-6 text-white leading-tight">A light only matters if it changes a decision</h2>
+        <p class="text-sm uppercase tracking-widest text-[#C5A059] mb-4">WATCH | EARLY-WARNING LIGHTS THAT CHANGE ACTION · STORY SPINE: Until finally: watch</p>
+        <p class="text-lg text-gray-400 leading-relaxed max-w-5xl mb-10">Each signpost has a record, a review trigger and a response. Triggers are proposed review rules measured against a pilot baseline, not external benchmarks.</p>
+        
+        <div class="flex-1">
+          <table class="w-full text-base text-left border-collapse">
+            <thead class="border-b-2 border-[#C5A059] text-[#C5A059] uppercase tracking-widest font-bold">
+              <tr>
+                <th class="pb-6 w-[18%] pr-6">SIGNPOST</th>
+                <th class="pb-6 w-[22%] pr-6">WHAT WE RECORD</th>
+                <th class="pb-6 w-[20%] pr-6">REVIEW TRIGGER</th>
+                <th class="pb-6 w-[25%] pr-6">RESPONSE</th>
+                <th class="pb-6">POINTS TO</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-900">
+              <tr class="group hover:bg-white/5 transition-colors">
+                <td class="py-4 font-bold text-lg text-white pr-6">Clean power for AI</td>
+                <td class="py-4 pr-6 text-gray-300">Clean energy built per new data centre; energy used per completed task</td>
+                <td class="py-4 pr-6 text-gray-300">Two monthly reviews worse than baseline</td>
+                <td class="py-4 pr-6 text-gray-300">Switch to a smaller model or a manual route</td>
+                <td class="py-4 font-black text-[#E58A52] uppercase tracking-widest">Overheat</td>
+              </tr>
+              <tr class="group hover:bg-white/5 transition-colors">
+                <td class="py-4 font-bold text-lg text-white pr-6">Evidence quality</td>
+                <td class="py-4 pr-6 text-gray-300">Share of outputs with a traceable source; material errors</td>
+                <td class="py-4 pr-6 text-gray-300">Any unmitigated material error</td>
+                <td class="py-4 pr-6 text-gray-300">Pause automation; require human approval</td>
+                <td class="py-4 font-black text-[#5CC79F] uppercase tracking-widest">Symbiosis or Overheat</td>
+              </tr>
+              <tr class="group hover:bg-white/5 transition-colors">
+                <td class="py-4 font-bold text-lg text-white pr-6">Portability</td>
+                <td class="py-4 pr-6 text-gray-300">Time and failures when moving one test case between providers</td>
+                <td class="py-4 pr-6 text-gray-300">A second provider fails the same test</td>
+                <td class="py-4 pr-6 text-gray-300">Add an adapter; avoid single-provider lock-in</td>
+                <td class="py-4 font-black text-[#A99BF0] uppercase tracking-widest">Patchwork</td>
+              </tr>
+              <tr class="group hover:bg-white/5 transition-colors">
+                <td class="py-4 font-bold text-lg text-white pr-6">Orbital access</td>
+                <td class="py-4 pr-6 text-gray-300">Debris-removal missions flown; launch delays</td>
+                <td class="py-4 pr-6 text-gray-300">Removal still experimental by 2030</td>
+                <td class="py-4 pr-6 text-gray-300">Plan ground fallbacks for satellite services</td>
+                <td class="py-4 font-black text-[#E58A52] uppercase tracking-widest">Overheat</td>
+              </tr>
+              <tr class="group hover:bg-white/5 transition-colors">
+                <td class="py-4 font-bold text-lg text-white pr-6">Human agency</td>
+                <td class="py-4 pr-6 text-gray-300">Can users understand, challenge and reverse a result?</td>
+                <td class="py-4 pr-6 text-gray-300">A high-impact decision has no appeal route</td>
+                <td class="py-4 pr-6 text-gray-300">Redesign the handover before scaling</td>
+                <td class="py-4 italic text-gray-500 uppercase font-bold tracking-widest text-xs">All three worlds</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="mt-12 flex justify-between items-center border-t border-gray-800 pt-8">
+          <p class="text-base text-gray-500 font-medium">
+            <strong>Cadence.</strong> The pilot lead records weekly, the client owner reviews monthly, and the team revisits the scenario assumptions every quarter.
+          </p>
+          <p class="text-sm font-bold text-[#C5A059] uppercase tracking-widest">NEXT: when a light changes, what does E,O&amp;T sell?</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 12: Sell better decisions, not more reports -->
+    <section class="slide" id="slide-12">
+      <div class="h-full flex">
+        <div class="w-1/3 p-12 bg-[#111] flex flex-col">
+          <h2 class="serif text-5xl font-bold mb-4 text-white leading-tight">Sell better decisions, not more reports</h2>
+          <p class="text-sm uppercase tracking-widest text-[#C5A059] mb-4">RESPOND | THE E,O&amp;T BUSINESS MODEL · STORY SPINE: And ever since then</p>
+        <p class="text-lg text-gray-400 leading-relaxed max-w-5xl mb-6">Three proposed offers, one per world, share one reusable asset: a Decision Passport that records why a client should act, who owns the decision and what happens if it fails.</p>
+          <div class="space-y-4 flex-1">
+            <div class="bg-[#2D5A27]/20 p-8 border-2 border-[#2D5A27]/30 rounded-2xl shadow-lg">
+              <p class="text-base font-black text-Jade-400 mb-1 uppercase tracking-widest">Future Design Lab</p>
+              <p class="text-base text-gray-200 leading-relaxed">CLIENT Strategy and innovation leaders. Rehearse a new service in a digital twin before committing. VALUE TEST Time to a testable decision</p>
+            </div>
+            <div class="bg-[#8B4513]/20 p-8 border-2 border-[#8B4513]/30 rounded-2xl shadow-lg">
+              <p class="text-lg font-black text-amber-400 mb-2 uppercase tracking-widest">Verified Decisions and Continuity</p>
+              <p class="text-base text-gray-200 leading-relaxed">CLIENT Operations and risk leaders. Check evidence, rehearse an outage and prove a fallback. VALUE TEST Material errors; fallbacks completed</p>
+            </div>
+            <div class="bg-[#4B0082]/20 p-8 border-2 border-[#4B0082]/30 rounded-2xl shadow-lg">
+              <p class="text-lg font-black text-indigo-400 mb-2 uppercase tracking-widest">Interoperability Studio</p>
+              <p class="text-base text-gray-200 leading-relaxed">CLIENT Product and technology leaders. Separate the core service from provider-specific adapters. VALUE TEST Successful transfers; switching effort</p>
+            </div>
+          </div>
+          <p class="mt-12 text-sm font-bold text-[#C5A059] uppercase tracking-widest">NEXT: one world, one person, the full Story Spine in eight steps.</p>
+        </div>
+        <div class="w-2/3 p-12 flex flex-col justify-center bg-black">
+           <div class="max-w-3xl mx-auto border-4 border-gray-900 p-8 rounded-[2rem] relative shadow-2xl bg-gradient-to-br from-black to-gray-900/50">
+             <div class="absolute -top-6 left-12 bg-black px-8 serif text-3xl font-bold text-[#C5A059] shadow-2xl border-x border-[#C5A059]/20">DECISION PASSPORT</div>
+             <p class="text-xs font-black text-gray-600 mb-10 uppercase tracking-[0.3em]">WORKED EXAMPLE: OMAR'S DISPATCH IN OVERHEAT (ILLUSTRATIVE REHEARSAL)</p>
+             <div class="space-y-8">
+               <div class="flex gap-8 border-b border-gray-800 pb-4">
+                 <span class="text-sm w-32 text-gray-500 font-black uppercase tracking-widest">DECISION</span>
+                 <p class="text-base font-bold">May the AI dispatch this van, or must Omar use the verified manual route?</p>
+               </div>
+               <div class="flex gap-8 border-b border-gray-800 pb-4">
+                 <span class="text-sm w-32 text-gray-500 font-black uppercase tracking-widest">ASSUMPTION</span>
+                 <p class="text-base">Route and charging data are current enough for this dispatch.</p>
+               </div>
+               <div class="flex gap-8 border-b border-gray-800 pb-4">
+                 <span class="text-sm w-32 text-gray-500 font-black uppercase tracking-widest">EVIDENCE</span>
+                 <p class="text-base">Time-stamped sources, a human route check and pilot results, still to be collected.</p>
+               </div>
+               <div class="flex gap-8 border-b border-gray-800 pb-4">
+                 <span class="text-sm w-32 text-gray-500 font-black uppercase tracking-widest">OWNER</span>
+                 <p class="text-base font-bold text-white">Omar authorises; dispatchers can flag an alert.</p>
+               </div>
+               <div class="flex gap-8 border-b border-gray-800 pb-4">
+                 <span class="text-sm w-32 text-gray-500 font-black uppercase tracking-widest">REVIEW SIGNAL</span>
+                 <p class="text-base text-[#E58A52] font-bold">Conflicting or untraceable alerts, or no charging available.</p>
+               </div>
+               <div class="flex gap-8">
+                 <span class="text-sm w-32 text-gray-500 font-black uppercase tracking-widest">FALLBACK</span>
+                 <p class="text-lg font-black text-white bg-[#8B4513]/30 px-3 py-1">Verify by phone, use the manual route and tell the customer.</p>
+               </div>
+             </div>
+           </div>
+           <p class="text-xs text-gray-700 mt-12 text-center italic leading-relaxed">Proposed service concepts and an illustrative rehearsal, not existing products or results.
+           </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 13: One causal story inside one world -->
+    <section class="slide" id="slide-13">
+      <div class="h-full p-12 bg-[#8B4513]/5 flex flex-col">
+        <h2 class="serif text-5xl font-bold mb-4 text-white leading-tight">One causal story inside one world</h2>
+        <p class="text-sm uppercase tracking-widest text-[#E58A52] mb-4 font-bold">STORYTELLING | THE STORY SPINE, STEP BY STEP · STORY SPINE: Story in one world</p>
+        <p class="text-lg text-gray-400 leading-relaxed max-w-5xl mb-6">The worlds branch, but a story inside a world must follow cause and effect. All eight Story Spine steps for Omar in Overheat, a fictional rehearsal.</p>
+        
+        <div class="flex-1 flex gap-12">
+          <div class="w-1/2 relative group">
+            <img src="https://vgbujcuwptvheqijyjbe.supabase.co/storage/v1/object/public/hmac-uploads/projects/5f1b69fc-004a-4a29-940b-2e3fcb465b5f/content-assets/1d9d43abe88d924e3f77548ee6180791193c5834c0ac1e8447ca529da50f902d/world-overheat.jpg" class="h-full w-full object-cover rounded-[3rem] border-4 border-[#8B4513]/20 grayscale hover:grayscale-0 transition-all duration-1000" alt="Overheat persona background">
+            <div class="absolute bottom-12 left-12 right-12 bg-black/95 p-12 rounded-[2rem] border-2 border-[#8B4513] shadow-2xl transform translate-y-4 group-hover:translate-y-0 transition-transform">
+              <p class="text-sm font-black text-[#E58A52] tracking-[0.3em] uppercase mb-6">Takeaway (5 Cs carry-out).</p>
+              <p class="serif text-3xl mb-2 italic text-amber-100 leading-relaxed">The cure is not perfect AI. It is a process that keeps evidence, ownership and a fallback visible.</p>
+              
+            </div>
+          </div>
+          <div class="w-1/2 flex flex-col justify-center space-y-3">
+            <div class="flex gap-8 text-lg group items-center"><span class="w-10 h-10 bg-[#8B4513] text-white rounded-full flex items-center justify-center text-sm font-black shadow-lg">1</span> <div class="leading-relaxed"><strong>ONCE UPON A TIME</strong> — Omar ran a depot whose customers depended on daily deliveries.</div></div>
+            <div class="flex gap-8 text-lg group items-center"><span class="w-10 h-10 bg-[#8B4513] text-white rounded-full flex items-center justify-center text-sm font-black shadow-lg">2</span> <div class="leading-relaxed"><strong>EVERY DAY</strong> — His team dispatched the vans on the AI's recommendation.</div></div>
+            <div class="flex gap-8 text-lg group items-center"><span class="w-10 h-10 bg-[#8B4513] text-white rounded-full flex items-center justify-center text-sm font-black shadow-lg">3</span> <div class="leading-relaxed text-[#E58A52] font-bold"><strong>BUT ONE DAY</strong> — Two alerts conflicted, and the planned van could not charge.</div></div>
+            <div class="flex gap-8 text-lg group items-center"><span class="w-10 h-10 bg-[#8B4513] text-white rounded-full flex items-center justify-center text-sm font-black shadow-lg">4</span> <div class="leading-relaxed"><strong>BECAUSE OF THAT</strong> — Omar paused the recommendation before sending a driver.</div></div>
+            <div class="flex gap-8 text-lg group items-center"><span class="w-10 h-10 bg-[#8B4513] text-white rounded-full flex items-center justify-center text-sm font-black shadow-lg">5</span> <div class="leading-relaxed"><strong>BECAUSE OF THAT</strong> — He checked the records and called the depot to verify the route.</div></div>
+            <div class="flex gap-8 text-lg group items-center"><span class="w-10 h-10 bg-[#8B4513] text-white rounded-full flex items-center justify-center text-sm font-black shadow-lg">6</span> <div class="leading-relaxed"><strong>BECAUSE OF THAT</strong> — He used the manual fallback and logged why the decision changed.</div></div>
+            <div class="flex gap-8 text-lg group items-center"><span class="w-10 h-10 bg-[#8B4513] text-white rounded-full flex items-center justify-center text-sm font-black shadow-lg">7</span> <div class="leading-relaxed font-bold text-Jade-400"><strong>UNTIL FINALLY</strong> — A verified alternative kept the delivery moving.</div></div>
+            <div class="flex gap-8 text-lg group items-center"><span class="w-10 h-10 bg-[#8B4513] text-white rounded-full flex items-center justify-center text-sm font-black shadow-lg">8</span> <div class="leading-relaxed"><strong>AND EVER SINCE THEN</strong> — The team reviews every exception with a Decision Passport.</div></div>
+          </div>
+        </div>
+        <p class="text-sm font-bold text-[#C5A059] mt-12 text-right uppercase tracking-widest">NEXT: from one story to one plan: work backwards from 2041.</p>
+      </div>
+    </section>
+
+    <!-- Slide 14: From 2041 back to Monday morning -->
+    <section class="slide" id="slide-14">
+      <div class="h-full p-12 flex flex-col">
+        <h2 class="serif text-7xl font-bold mb-6 text-white">From 2041 back to Monday morning</h2>
+        <p class="text-sm uppercase tracking-widest text-[#C5A059] mb-4">WORKING BACKWARDS | RIGHT TO LEFT · STORY SPINE: And ever since then</p>
+        <p class="text-lg text-gray-400 leading-relaxed max-w-5xl mb-10">How the worlds become action. We start at the end in 2041 and plan step by step, right to left, so every move made today is useful in any world.</p>
+        
+        <div class="flex-1 flex items-center relative">
+          <div class="absolute left-0 right-0 h-1.5 bg-gray-800 z-0"></div>
+          <div class="grid grid-cols-4 gap-12 w-full z-10">
+            <div class="flex flex-col items-center text-center px-6 group transition-all duration-500">
+              <div class="w-16 h-16 rounded-full bg-gray-900 border-4 border-[#2D5A27] mb-8 flex items-center justify-center text-[#5CC79F] text-2xl font-black shadow-2xl group-hover:scale-110">4</div>
+              <p class="text-2xl font-black text-[#C5A059] mb-4">2026</p>
+              <p class="text-base leading-relaxed text-gray-100 font-bold">NO-REGRET MOVES THIS YEAR</p>
+              <p class="text-sm leading-relaxed text-gray-400 mt-2">A digital-twin pilot with one client. A signpost dashboard that tracks the early-warning lights. A quarterly "day in 2041" hard-empathy workshop with each client team.</p>
+            </div>
+            <div class="flex flex-col items-center text-center px-6 group transition-all duration-500 opacity-60 hover:opacity-100">
+              <div class="w-16 h-16 rounded-full bg-gray-900 border-4 border-gray-700 mb-8 flex items-center justify-center text-gray-500 text-2xl font-black group-hover:scale-110">3</div>
+              <p class="text-2xl font-black text-[#C5A059] mb-4">2030</p>
+              <p class="text-base leading-relaxed text-gray-100 font-bold uppercase tracking-widest">Energy-aware AI</p>
+              <p class="text-sm leading-relaxed text-gray-400 mt-2">Every client plans AI around its power footprint, and reskilling covers the 39% of skills expected to change.</p>
+            </div>
+            <div class="flex flex-col items-center text-center px-6 group transition-all duration-500 opacity-60 hover:opacity-100">
+              <div class="w-16 h-16 rounded-full bg-gray-900 border-4 border-gray-700 mb-8 flex items-center justify-center text-gray-500 text-2xl font-black group-hover:scale-110">2</div>
+              <p class="text-2xl font-black text-[#C5A059] mb-4">2035</p>
+              <p class="text-base leading-relaxed text-gray-100 font-bold uppercase tracking-widest">Machine customers, verified supply</p>
+              <p class="text-sm leading-relaxed text-gray-400 mt-2">Each client runs a strategy for AI agents as buyers and a verified AI supply chain.</p>
+            </div>
+            <div class="flex flex-col items-center text-center px-6 group transition-all duration-500">
+              <div class="w-24 h-24 rounded-full bg-[#C5A059] mb-6 flex items-center justify-center text-black text-3xl font-black border-8 border-black shadow-[0_0_50px_rgba(197,160,89,0.3)] group-hover:scale-110">1</div>
+              <p class="text-2xl font-black text-white mb-4 uppercase tracking-[0.2em]">2041 START HERE</p>
+              <p class="text-base leading-relaxed text-[#C5A059] font-bold uppercase tracking-widest mb-2">Press release from the future</p>
+              <p class="text-base leading-relaxed text-white font-black italic underline underline-offset-8 decoration-[#C5A059]">"E,O&amp;T clients thrive in whichever world arrived."</p>
+              <p class="text-sm leading-relaxed text-gray-300 mt-4">Trusted AI, clean power and a usable orbit.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-16 bg-white/5 p-12 rounded-[2rem] flex items-center gap-16 shadow-2xl border border-gray-800">
+          <div class="w-1/2 border-r-2 border-gray-800 pr-16">
+            <p class="text-base font-black text-[#5CC79F] mb-4 uppercase tracking-[0.3em]">Creative fuel for the team</p>
+            <p class="text-lg italic text-gray-200 leading-relaxed">A shared commonplace book captures every signal and slow hunch; a planned stimuli queue (AI 2041, Imaginable, one sci-fi film a month) feeds the next round of scenarios.</p>
+          </div>
+          <div class="w-1/2 flex items-center gap-8">
+            <iconify-icon icon="lucide:library" class="text-6xl text-[#C5A059]"></iconify-icon>
+            
+          </div>
+        </div>
+        <p class="text-sm font-bold text-[#C5A059] mt-10 text-right uppercase tracking-widest">NEXT: the first 90 days: prove it is useful before scaling it.</p>
+      </div>
+    </section>
+
+    <!-- Slide 15: Prove it is useful before scaling it -->
+    <section class="slide" id="slide-15">
+      <style>#slide-15 .space-y-12 { --tw-space-y-reverse: 0; margin-top: calc(1.5rem * calc(1 - var(--tw-space-y-reverse))); margin-bottom: calc(1.5rem * var(--tw-space-y-reverse)); }</style>
+      <div class="h-full p-8 flex">
+        <div class="w-1/2 pr-20 flex flex-col justify-center">
+          <h2 class="serif text-5xl font-bold mb-4 text-white leading-tight">Prove it is useful before scaling it</h2>
+          <p class="text-sm uppercase tracking-widest text-[#C5A059] mb-4 font-bold uppercase">FIRST 90 DAYS | SMALL TESTS, CLEAR OWNERS · STORY SPINE: Ever since: first test</p>
+        <p class="text-lg text-gray-400 leading-relaxed max-w-5xl mb-10">One client, one workflow, one limited rehearsal. All activities and gates below are proposed; no client commitment or benefit is claimed.</p>
+          <div class="space-y-12">
+            <div class="relative pl-20 group">
+              <div class="absolute left-0 top-0 w-14 h-14 rounded-full border-2 border-[#C5A059] flex items-center justify-center text-lg font-black text-[#C5A059] shadow-lg group-hover:bg-[#C5A059] group-hover:text-black transition-all">01</div>
+              <p class="text-lg font-black uppercase mb-3 tracking-[0.2em] text-white">DAYS 1 TO 30 — Define and observe</p>
+              <p class="text-base text-gray-300 leading-relaxed">OWNERS Client owner and consultant. Map one workflow, record a manual baseline and interview five users. <strong class="text-[#C5A059]">GATE:</strong> agree success, error severity, data permissions and limits.</p>
+            </div>
+            <div class="relative pl-20 group">
+              <div class="absolute left-0 top-0 w-14 h-14 rounded-full border-2 border-[#C5A059] flex items-center justify-center text-lg font-black text-[#C5A059] shadow-lg group-hover:bg-[#C5A059] group-hover:text-black transition-all">02</div>
+              <p class="text-lg font-black uppercase mb-3 tracking-[0.2em] text-white">DAYS 31 TO 60 — Prototype and rehearse</p>
+              <p class="text-base text-gray-300 leading-relaxed">OWNERS Technical lead and client users. Build a simulation and a Decision Passport; rehearse all three worlds. <strong class="text-[#C5A059]">GATE:</strong> five users can name the evidence, owner and fallback.</p>
+            </div>
+            <div class="relative pl-20 group">
+              <div class="absolute left-0 top-0 w-14 h-14 rounded-full border-2 border-[#C5A059] flex items-center justify-center text-lg font-black text-[#C5A059] shadow-lg group-hover:bg-[#C5A059] group-hover:text-black transition-all">03</div>
+              <p class="text-lg font-black uppercase mb-3 tracking-[0.2em] text-[#C5A059]">DAYS 61 TO 90 — Stress-test and decide</p>
+              <p class="text-base text-gray-300 leading-relaxed">OWNERS Sponsor and independent reviewer. Run ten scripted cases: low power, false input, provider outage and normal operation. <strong class="text-[#C5A059]">GATE:</strong> every critical fallback works; no unresolved material error.</p>
+            </div>
+          </div>
+        </div>
+        <div class="w-1/2 flex flex-col gap-4">
+          <div class="bg-[#2D5A27]/10 p-10 rounded-[2rem] border-2 border-[#2D5A27]/20 flex-1 flex flex-col justify-center shadow-2xl relative overflow-hidden">
+            <div class="absolute -right-20 -top-12 w-48 h-64 bg-[#2D5A27]/5 rounded-full blur-3xl"></div>
+            <h4 class="serif text-3xl mb-4 font-bold text-Jade-400 uppercase tracking-widest">Continue, change or stop</h4>
+            <p class="text-xl italic mb-10 text-gray-200 leading-relaxed">Scale only when the pilot shows client-valued benefit and acceptable resource use.</p>
+            <div class="flex gap-8 items-start bg-Jade-950/40 p-8 rounded-2xl">
+              <iconify-icon icon="lucide:alert-circle" class="text-[#5CC79F] text-5xl shrink-0"></iconify-icon>
+              <p class="text-sm text-Jade-300 font-bold uppercase tracking-[0.2em] leading-relaxed">Pilot limit. Five users and ten cases support learning, not proof of general reliability.</p>
+            </div>
+            <p class="mt-8 text-sm font-bold text-[#C5A059] uppercase tracking-widest">NEXT: keep the team creative long after this briefing.</p>
+          </div>
+          <img src="https://vgbujcuwptvheqijyjbe.supabase.co/storage/v1/object/public/hmac-uploads/projects/5f1b69fc-004a-4a29-940b-2e3fcb465b5f/content-assets/5a5a69c0704bbc003c473707390cb4cf8497b38abff7a393f071377a0f9a81db/moon.jpg" class="h-64 w-full object-cover rounded-[3rem] grayscale opacity-40 shadow-2xl" alt="Moon at distance">
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 16: Rehearse, reflect, feed the next idea -->
+    <section class="slide" id="slide-16">
+      <style>#slide-16 .space-y-12 { --tw-space-y-reverse: 0; margin-top: calc(1.5rem * calc(1 - var(--tw-space-y-reverse))); margin-bottom: calc(1.5rem * var(--tw-space-y-reverse)); }</style>
+      <div class="h-full flex flex-col">
+        <div class="flex-1 flex p-12">
+          <div class="w-1/2 flex flex-col justify-center pr-12">
+            <h2 class="serif text-5xl font-bold mb-4 text-white leading-tight">Rehearse, reflect, feed the next idea</h2>
+            <p class="text-sm uppercase tracking-widest text-[#C5A059] mb-4">KEEP CREATING | A REPEATABLE 45-MINUTE ROUTINE · STORY SPINE: Ever since: keep creating</p>
+        <p class="text-lg text-gray-400 leading-relaxed max-w-5xl mb-10">A proposed monthly workshop that links the creative conditions, motivating feedback and future-thinking tools from this briefing.</p>
+            
+            <div class="space-y-12">
+              <div class="flex gap-10 group">
+                <span class="text-[#C5A059] serif text-4xl font-black">01</span>
+                <div>
+                  <p class="text-xl font-black uppercase text-white mb-4 tracking-[0.2em]">GENERATE | 10 MIN — A safe room for alternatives</p>
+                  <p class="text-base text-gray-400 leading-relaxed">PSYCHOLOGICAL SAFETY. Write ideas silently, then share. The leader invites disagreement; challenge the assumption, not the person.</p>
+                </div>
+              </div>
+              <div class="flex gap-10 group">
+                <span class="text-[#C5A059] serif text-4xl font-black">02</span>
+                <div>
+                  <p class="text-xl font-black uppercase text-white mb-4 tracking-[0.2em]">REHEARSE | 20 MIN — Learn through the scenario</p>
+                  <p class="text-base text-gray-400 leading-relaxed">OCTALYSIS, USED ETHICALLY. Pick a world and a role. A shared progress bar tracks evidence, owner and fallback; retries are allowed after feedback.</p>
+                </div>
+              </div>
+              <div class="flex gap-10 group">
+                <span class="text-[#C5A059] serif text-4xl font-black">03</span>
+                <div>
+                  <p class="text-xl font-black uppercase text-[#C5A059] mb-4 tracking-[0.2em]">REFLECT | 15 MIN — Keep the useful surprise</p>
+                  <p class="text-base text-gray-400 leading-relaxed">AI AND SCIENCE FICTION. Try one strange AI or sci-fi variation as an idea, not a fact. Check its assumptions and keep a testable version in the commonplace book.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="w-1/2 grid grid-cols-2 grid-rows-2 gap-6">
+            <img src="https://vgbujcuwptvheqijyjbe.supabase.co/storage/v1/object/public/hmac-uploads/projects/5f1b69fc-004a-4a29-940b-2e3fcb465b5f/content-assets/ffaac1453ee2bcffc57fde8ba1c87de35a6d0edba6b433e80e162581dbcd63e9/mission-control.jpg" class="w-full h-full object-cover rounded-2xl shadow-xl hover:scale-[1.02] transition-transform" alt="Mission control">
+            <img src="https://vgbujcuwptvheqijyjbe.supabase.co/storage/v1/object/public/hmac-uploads/projects/5f1b69fc-004a-4a29-940b-2e3fcb465b5f/content-assets/cfd3654919f18f497436441918e8a9ce31de810ef9bf67ac9f3c488b0039b438/vr-training.jpg" class="w-full h-full object-cover rounded-2xl shadow-xl hover:scale-[1.02] transition-transform" alt="VR training">
+            <img src="https://vgbujcuwptvheqijyjbe.supabase.co/storage/v1/object/public/hmac-uploads/projects/5f1b69fc-004a-4a29-940b-2e3fcb465b5f/content-assets/5a5a69c0704bbc003c473707390cb4cf8497b38abff7a393f071377a0f9a81db/moon.jpg" class="w-full h-full object-cover rounded-2xl col-span-2 shadow-xl hover:scale-[1.01] transition-transform" alt="Moon">
+          </div>
+        </div>
+        <div class="h-20 bg-gray-950 px-20 flex items-center justify-between shadow-[0_-10px_30px_rgba(0,0,0,0.5)] z-20">
+           <p class="text-xs text-gray-500 font-black uppercase tracking-[0.4em]">Ethical design. Reward learning and feedback, not speed or a public rank. No penalties for failed ideas.</p>
+           <div class="flex gap-10 items-center">
+             <p class="text-xs text-gray-400 font-bold max-w-md">Monthly stimuli queue. One cross-industry source, one science fiction story and one observation walk; revisit slow hunches.</p>
+             <p class="text-sm font-bold text-[#C5A059] uppercase tracking-widest">NEXT: the one message to carry out of this room.</p>
+           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 17: The Moon is closer than ever. So is 2041. -->
+    <section class="slide" id="slide-17">
+      <div class="absolute inset-0">
+        <img src="https://vgbujcuwptvheqijyjbe.supabase.co/storage/v1/object/public/hmac-uploads/projects/5f1b69fc-004a-4a29-940b-2e3fcb465b5f/content-assets/a98d178dc90a98c5cf048aba91c58675d0983528c9cd15e7cae56210cb8bfda9/earth-night.jpg" class="w-full h-full object-cover opacity-50" alt="Earth night">
+      </div>
+      <div class="relative z-20 h-full p-12 flex flex-col justify-center items-center text-center">
+        <h2 class="serif text-6xl font-bold mb-8 text-white leading-tight">The Moon is closer than ever.<br>So is 2041.</h2>
+        <p class="text-sm uppercase tracking-[0.6em] text-[#C5A059] mb-12 font-bold">CLOSING · STORY SPINE: Carry-out message</p>
+        
+        <div class="flex gap-16 mb-12">
+          <div class="group text-center w-48">
+            <p class="text-[#5CC79F] font-black text-4xl mb-4 group-hover:scale-110 transition-transform tracking-widest">Symbiosis</p>
+            <p class="text-sm border-t-2 border-[#2D5A27] pt-4 text-[#5CC79F] uppercase tracking-[0.4em] font-black">Build it</p>
+          </div>
+          <div class="group text-center w-48">
+            <p class="text-[#A99BF0] font-black text-4xl mb-4 group-hover:scale-110 transition-transform tracking-widest">Patchwork</p>
+            <p class="text-sm border-t-2 border-[#4B0082] pt-4 text-[#A99BF0] uppercase tracking-[0.4em] font-black">Shape it</p>
+          </div>
+          <div class="group text-center w-48">
+            <p class="text-[#E58A52] font-black text-4xl mb-4 group-hover:scale-110 transition-transform tracking-widest">Overheat</p>
+            <p class="text-sm border-t-2 border-[#8B4513] pt-4 text-[#E58A52] uppercase tracking-[0.4em] font-black">Insure against it</p>
+          </div>
+        </div>
+
+        <div class="max-w-6xl mb-12">
+          <p class="text-xl text-gray-400 mb-8 uppercase tracking-[0.3em] font-black">Three worlds, one discipline: make the assumptions visible, test the response, and keep a human decision owner in the loop.</p>
+          <blockquote class="text-3xl serif italic text-white leading-snug">
+            "We do not predict the future. We prepare for all three, and we work every day for the first one."
+          </blockquote>
+        </div>
+
+        <div class="flex items-center gap-4">
+           <img src="https://vgbujcuwptvheqijyjbe.supabase.co/storage/v1/object/public/hmac-uploads/projects/5f1b69fc-004a-4a29-940b-2e3fcb465b5f/content-assets/7a62e7b0ed3d9f4202c1e72b47a6657b0106358d0c846d7a63009233ab23703a/portrait-cutout.png" class="w-24 h-24 rounded-full grayscale border-2 border-[#C5A059] shadow-2xl" alt="Portrait cutout">
+           <div class="text-left">
+             <p class="text-3xl font-black text-white">Mohammad</p>
+             <p class="text-sm text-[#C5A059] uppercase tracking-[0.2em] font-black">Senior Futures Consultant, Em, Oli &amp; Timmonds</p>
+           </div>
+        </div>
+
+        <p class="mt-10 text-sm font-bold text-[#C5A059] animate-pulse uppercase tracking-widest">NEXT: Part 2, my personal reflection on the tools behind this briefing.</p>
+      </div>
+    </section>
+
+    <!-- Slide 18: What I am taking with me -->
+    <section class="slide" id="slide-18">
+      <div class="h-full flex">
+        <div class="w-1/2 p-12 flex flex-col justify-center">
+          <h2 class="serif text-5xl font-bold mb-4 text-[#C5A059] leading-tight">What I am taking with me</h2>
+          <p class="text-sm uppercase tracking-widest text-gray-500 mb-4 font-bold uppercase">PART 2 | PERSONAL REFLECTION | 1 OF 2</p>
+        <p class="text-lg text-gray-400 leading-relaxed max-w-5xl mb-10">The tools that resonated, the change in my thinking, and why it matters in my professional life.</p>
+          <div class="space-y-4 text-lg leading-relaxed text-gray-200">
+            <p>Three ideas from this course changed how I think about planning: possibility trees, working backwards, and counterfactual thinking. Together they gave me a structured language for something my work has always demanded: decisions about a future nobody can see.</p>
+            <p>In twenty years of network engineering and digital transformation, I have learned that a platform chosen today may still shape a business in ten years. Building the three worlds of 2041 for this assignment showed me a different way to approach that kind of decision. Drawing the possibility tree forced me to give each branch a probability, and the less likely branches raised questions a single forecast would never have asked.</p>
+            <p>Working backwards from a 2041 press release, the way Amazon writes the press release before the product exists, made the first steps for 2026 obvious. Counterfactual thinking kept the exercise honest: writing Overheat next to Symbiosis stopped me from falling in love with the optimistic future.</p>
+          </div>
+          <div class="mt-8 p-6 bg-white/5 border-l-8 border-[#C5A059] rounded-2xl shadow-xl max-w-lg">
+             <p class="text-4xl font-black text-white mb-2 tracking-widest">20 years</p>
+             <p class="text-lg text-gray-500 font-bold uppercase tracking-widest">in networks and digital transformation</p>
+             <p class="text-sm text-gray-600 mt-2">where decisions have long consequences</p>
+          </div>
+        </div>
+        <div class="w-1/2 p-12 bg-[#111] flex flex-col justify-between items-center text-center">
+           <img src="https://vgbujcuwptvheqijyjbe.supabase.co/storage/v1/object/public/hmac-uploads/projects/5f1b69fc-004a-4a29-940b-2e3fcb465b5f/content-assets/02cb446da8cfdedb6d5ec7accf8c221cd3517b538db5c3f56583b55b73ea5f90/portrait-circle.png" class="w-[400px] h-[400px] rounded-full border-8 border-gray-800 p-4 shadow-[0_0_100px_rgba(0,0,0,0.8)] grayscale hover:grayscale-0 transition-all duration-1000" alt="Portrait portrait">
+           <div class="space-y-8 max-w-xl">
+             <p class="text-2xl serif italic text-gray-300 leading-relaxed">"What resonated most is that creativity here is not a talent but a structured skill, wild ideas plus strategy."</p>
+             <p class="text-xs uppercase tracking-[0.4em] text-gray-700 font-black">Em, Oli &amp; Timmonds | Three Worlds of 2041 · Reflection: 334 words across slides 18 and 19</p>
+           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 19: How I will put it into practice -->
+    <section class="slide" id="slide-19">
+      <div class="h-full p-12 flex flex-col">
+        <div class="flex-1 flex">
+          <div class="w-1/2 pr-20 flex flex-col justify-center">
+            <h2 class="serif text-5xl font-bold mb-4 text-[#C5A059] leading-tight">How I will put it into practice</h2>
+            <p class="text-sm uppercase tracking-widest text-gray-500 mb-4 font-bold uppercase">PART 2 | PERSONAL REFLECTION | 2 OF 2</p>
+        <p class="text-lg text-gray-400 leading-relaxed max-w-5xl mb-10">A realistic timetable, a review loop and a personal routine that continues beyond this course.</p>
+            <div class="space-y-8 text-xl text-gray-200 leading-relaxed">
+              <p>My plan is concrete. From November, every new technical proposal I write will open with a one-page working backwards brief describing the result for the customer in three years, the assumptions behind it and the first test.</p>
+              <p>Once a quarter, starting in January 2027, I will build a possibility tree for one roadmap decision, with three branches, nine sub-branches and probabilities, and review it three months later to see which branch reality followed. Before each major design review I will run one upward and one downward counterfactual with the team and record the risks it surfaces.</p>
+              <p>Personally, I live between Riyadh and Stockholm, and I will turn those flights into fuzzy focus time: no screens, just my stimuli queue and a commonplace book, so slow hunches have somewhere to land.</p>
+            </div>
+          </div>
+          <div class="w-1/2 flex flex-col justify-center gap-8">
+             <div class="grid grid-cols-2 gap-8">
+               <div class="bg-[#2D5A27]/20 p-8 rounded-[2rem] border-2 border-[#2D5A27]/30 group hover:bg-[#2D5A27]/30 transition-all shadow-xl">
+                 <p class="text-lg font-black text-Jade-400 mb-4 uppercase tracking-[0.2em]">NOV 2026</p>
+                 <p class="text-xl text-white font-bold">Working-backwards briefs</p>
+               </div>
+               <div class="bg-[#4B0082]/20 p-8 rounded-[2rem] border-2 border-[#4B0082]/30 group hover:bg-[#4B0082]/30 transition-all shadow-xl">
+                 <p class="text-lg font-black text-indigo-400 mb-4 uppercase tracking-[0.2em]">JAN 2027</p>
+                 <p class="text-xl text-white font-bold">First quarterly tree</p>
+               </div>
+               <div class="bg-[#8B4513]/20 p-8 rounded-[2rem] border-2 border-[#8B4513]/30 group hover:bg-[#8B4513]/30 transition-all shadow-xl">
+                 <p class="text-lg font-black text-amber-400 mb-4 uppercase tracking-[0.2em]">APR 2027</p>
+                 <p class="text-xl text-white font-bold">Review 1 and tree 2</p>
+               </div>
+               <div class="bg-[#C5A059]/10 p-8 rounded-[2rem] border-2 border-[#C5A059]/40 group hover:bg-[#C5A059]/20 transition-all shadow-xl">
+                 <p class="text-lg font-black text-[#C5A059] mb-4 uppercase tracking-[0.2em]">JUN 2027</p>
+                 <p class="text-xl text-white font-black">Assess decision impact</p>
+               </div>
+             </div>
+             <div class="mt-12 p-10 bg-white/5 rounded-[2rem] italic text-center text-lg text-gray-300 border border-gray-800 shadow-2xl leading-relaxed">
+               "I will measure success simply: by June 2027, I will have built two possibility trees, completed the first three-month review, and recorded whether the findings changed a roadmap decision."
+             </div>
+          </div>
+        </div>
+        <div class="mt-20 h-28 relative overflow-hidden rounded-2xl">
+          <img src="https://vgbujcuwptvheqijyjbe.supabase.co/storage/v1/object/public/hmac-uploads/projects/5f1b69fc-004a-4a29-940b-2e3fcb465b5f/content-assets/021894aae7341d60dd3f443427344eaed164722a20f8247aaa0d4778163ab94f/earthset.jpg" class="w-full h-full object-cover opacity-30 grayscale" alt="Earthset background">
+          <p class="absolute inset-0 flex items-center justify-center text-xs uppercase tracking-[0.6em] text-gray-500 font-black">
+            Em, Oli &amp; Timmonds | Three Worlds of 2041 | Reflection: 334 words in total | January tree reviewed in April; April tree reviewed in July
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 20: Sources and Use of AI -->
+    <section class="slide" id="slide-20">
+      <div class="h-full p-12 flex flex-col">
+        <h2 class="serif text-6xl font-bold mb-8 text-[#C5A059] uppercase tracking-widest">Sources &amp; Use of AI</h2>
+        <div class="flex-1 flex gap-12 overflow-hidden">
+          <!-- Left Column: Sources -->
+          <div class="w-2/3 overflow-y-auto pr-12 custom-scrollbar">
+            <h4 class="text-base font-black text-white uppercase mb-4 tracking-[0.3em] border-b-2 border-gray-800 pb-4">REFERENCES AND IMAGE CREDITS</h4>
+            <ul class="text-xs text-gray-400 space-y-4 leading-relaxed">
+              <li>European Space Agency. (2025). ESA space environment report 2025. https://www.esa.int/Space_Safety/Space_Debris/ESA_Space_Environment_Report_2025</li>
+              <li>International Energy Agency. (2025). Energy and AI. https://www.iea.org/reports/energy-and-ai</li>
+              <li>NASA. (2026). Artemis II mission. https://www.nasa.gov/mission/artemis-ii/</li>
+              <li>World Economic Forum. (2025). The future of jobs report 2025. https://www.weforum.org/publications/the-future-of-jobs-report-2025/</li>
+              <li>UNEP. (2022). Sand and sustainability: 10 strategic recommendations to avert a crisis. United Nations Environment Programme.</li>
+              <li>Li, P., Yang, J., Islam, M. A., &amp; Ren, S. (2023). Making AI less "thirsty". arXiv:2304.03271.</li>
+              <li>NASA. (2023). NASA achieves water recovery milestone on International Space Station.</li>
+              <li>NASA. (2021). Astronauts harvest first chile peppers grown on the space station (Plant Habitat-04).</li>
+              <li>ESA. (2020). ESA opens oxygen plant: making air out of moondust.</li>
+              <li>Food On Demand. (2026, January 21). Zipline flies past 2 million deliveries.</li>
+              <li>Business Standard. (2025, March 19). What astronauts eat on the ISS (NASA food stock of 3.8 lb per astronaut per day).</li>
+              <li>Adams, K. (2007). How to improvise a full-length play. Allworth Press. (Story Spine)</li>
+              <li>Chou, Y. (2015). Actionable gamification: Beyond points, badges, and leaderboards. Octalysis Media.</li>
+              <li>Flyvbjerg, B., &amp; Gardner, D. (2023). How big things get done. Currency.</li>
+              <li>Gibson, R. (2015). The four lenses of innovation. Wiley.</li>
+              <li>Henry, T. (2011). The accidental creative. Portfolio.</li>
+              <li>Johnson, S. (2010). Where good ideas come from. Riverhead.</li>
+              <li>Lee, K.-F., &amp; Chen, Q. (2021). AI 2041: Ten visions for our future. Currency.</li>
+              <li>McGonigal, J. (2022). Imaginable. Spiegel &amp; Grau.</li>
+            </ul>
+            <div class="mt-12">
+              <h4 class="text-lg font-black text-white uppercase mb-6 tracking-[0.3em] border-b-2 border-gray-800 pb-4">IMAGE CREDITS</h4>
+              <div class="text-[10px] text-gray-500 space-y-3 leading-relaxed">
+                <p>Slide 1: "A Breathtaking Earthset from Orion", Artemis II crew, 6 April 2026. NASA (art002e021278).</p>
+                <p>Slide 3: Night Earth observation from the ISS, Expedition 40. NASA (iss040e085126).</p>
+                <p>Slides 2, 4 and 14: "Home in the Distance", Artemis II. NASA (art002e020922).</p>
+                <p>Slide 5: "Earth in View", Artemis II (art002e023506); CADRE rovers concept, NASA/JPL-Caltech (PIA26296).</p>
+                <p>Slide 6: "Haze over eastern China", NASA Goddard (GSFC_20171208_Archive_e001269); ISS Expedition 35 (iss035e017673).</p>
+                <p>Slides 7, 10 and 17: "Black Marble: Africa, Europe, and the Middle East", NASA Goddard (GSFC_20171208_Archive_e001591).</p>
+                <p>Slides 5 to 7 and 16: NASA VR training (jsc2026e000427), Advanced Air Mobility concepts (AAM-Concept-2021, automation concept), Mission Control (jsc2026e019925), Pleiades supercomputer (ARC-2008-ACD08-0272-005).</p>
+                <p>Slide 8: NASA drone flight test (AFRC2026-0152-22); Cygnus in Canadarm2 (iss071e418235); Expedition 66 chile peppers (iss066e023179).</p>
+                <p>Slide 9: ISS water recovery (iss072e143163); sand dunes and irrigation in Saudi Arabia (PIA11069); Earth limb and Moon (iss051e039977); Veg-01 harvest (iss040e009126); JWST golden mirror (GSFC_20171208_Archive_e000368).</p>
+                <p>World thumbnails on slides 2, 4, 10, 12, 13 and 17 reuse the images of slides 5, 6 and 7.</p>
+                <p>All NASA images via the NASA Image and Video Library, https://images.nasa.gov (public domain).</p>
+                <p>Portrait: own photograph. Icons: Font Awesome Free (CC BY 4.0), Material Design Icons (Apache 2.0), Game-icons.net (CC BY 3.0).</p>
+              </div>
+            </div>
+          </div>
+          <!-- Right Column: AI Declaration -->
+          <div class="w-1/3 bg-white/5 p-8 rounded-[2rem] border-2 border-gray-900 shadow-2xl">
+            <h4 class="text-2xl font-black text-[#C5A059] uppercase mb-6 tracking-[0.2em] underline underline-offset-8 decoration-gray-800">AI DECLARATION</h4>
+            <div class="text-xs text-gray-200 leading-relaxed space-y-4">
+              <p>I acknowledge the use of Claude by Anthropic (https://claude.ai) and ChatGPT by OpenAI (https://chatgpt.com) to help generate and develop scenario ideas and variants, critique and develop wording, framework applications, scenario logic and probabilities, design the Decision Passport, pilot and workshop, find and check sources, and arrange and format the slides.</p>
+              <p>The prompts used include "Propose solution directions for each company and the course concepts they would apply", "Draft three different future scenarios for 2041 with personas, built on the course tools", "Check every slide against the assignment requirements and rubric", "Merge the strongest ideas from my two drafts into one deck" and "Build the deck as a PowerPoint with my photo and a dark cinematic layout".</p>
+              <p>The output was used as a starting point that I selected, reviewed, edited and verified; the choice of company and direction, the final scenarios, and the reflection based on my own experience and plans are mine, and I remain responsible for the submission.</p>
+            </div>
+            <p class="mt-8 text-xs uppercase tracking-[0.4em] text-gray-700 font-black border-t border-gray-800 pt-8">Em, Oli &amp; Timmonds | Three Worlds of 2041</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+    const totalSlides = slides.length;
+
+    function showSlide(index) {
+      if (index < 0 || index >= totalSlides) return;
+      
+      slides[currentSlide].classList.remove('active');
+      currentSlide = index;
+      slides[currentSlide].classList.add('active');
+    }
+
+    window.addEventListener('sd:presentation-next', () => {
+      if (currentSlide < totalSlides - 1) showSlide(currentSlide + 1);
+    });
+
+    window.addEventListener('sd:presentation-previous', () => {
+      if (currentSlide > 0) showSlide(currentSlide - 1);
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') {
+        if (currentSlide < totalSlides - 1) showSlide(currentSlide + 1);
+      }
+      if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+        if (currentSlide > 0) showSlide(currentSlide - 1);
+      }
+    });
+  </script>
+
+  <script>
+    // Fit each slide's full content inside the 16:9 viewport (keeps all text visible).
+    (function () {
+      function overflows(wrap) {
+        const W = window.innerWidth + 2, H = window.innerHeight + 2;
+        const els = wrap.querySelectorAll('p,h1,h2,h3,h4,li,span,td,th,div,strong,em,blockquote');
+        for (const el of els) {
+          if (!el.childNodes.length) continue;
+          let hasText = false;
+          for (const n of el.childNodes) if (n.nodeType === 3 && n.textContent.trim()) { hasText = true; break; }
+          if (!hasText) continue;
+          const r = el.getBoundingClientRect();
+          if (r.width === 0 && r.height === 0) continue;
+          if (r.bottom > H || r.right > W || r.top < -2 || r.left < -2) return true;
+        }
+        return false;
+      }
+      function fitAll() {
+        document.querySelectorAll('section.slide').forEach(function (slide) {
+          let wrap = slide.querySelector(':scope > .sd-fit');
+          if (!wrap) {
+            wrap = document.createElement('div'); wrap.className = 'sd-fit';
+            while (slide.firstChild) wrap.appendChild(slide.firstChild);
+            slide.appendChild(wrap);
+          }
+          let s = 1;
+          for (let i = 0; i < 16; i++) {
+            wrap.style.width = (100 / s) + 'vw'; wrap.style.height = (100 / s) + 'vh';
+            wrap.style.transform = s < 1 ? 'scale(' + s + ')' : 'none';
+            if (!overflows(wrap)) break;
+            s -= 0.04;
+          }
+        });
+      }
+      window.addEventListener('load', function () { (document.fonts ? document.fonts.ready : Promise.resolve()).then(function () { setTimeout(fitAll, 50); }); });
+      window.addEventListener('resize', fitAll);
+    })();
+  </script>
+</body></html>
