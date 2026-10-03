@@ -1,0 +1,528 @@
+1
+00:00:04,000 --> 00:00:05,845
+Hello, I am Mohammad Alkhatib.
+
+2
+00:00:06,125 --> 00:00:14,519
+This is my Assignment A3.1, The Creative Plan, for Company 3, Em, Oli & Timmonds: Three Worlds of 2041.
+
+3
+00:00:14,800 --> 00:00:22,450
+It answers one question: how AI could reshape our industry, our customers and our planet over the next 15 years, and what we should build now.
+
+4
+00:00:24,350 --> 00:00:25,326
+Once upon a time.
+
+5
+00:00:25,606 --> 00:00:34,766
+On 6 April 2026 the Artemis II crew photographed Earth setting behind the Moon, the first crewed lunar flyby since 1972.
+
+6
+00:00:35,046 --> 00:00:38,343
+I open with it because it shows the impossible moving onto the calendar.
+
+7
+00:00:38,623 --> 00:00:46,785
+I am the narrator, a consultant at Em, Oli & Timmonds, and the conflict of this story is the uncertainty AI brings to our industry and the whole world.
+
+8
+00:00:47,065 --> 00:00:55,018
+Over the next slides I take you from today's signals, through our method, into three worlds of 2041, and back to concrete actions for Monday.
+
+9
+00:00:55,298 --> 00:00:58,700
+The tag at the top of each slide marks our place in the Story Spine.
+
+10
+00:00:58,980 --> 00:01:00,477
+Next comes the map of the journey.
+
+11
+00:01:02,377 --> 00:01:03,829
+Before the futures, the map.
+
+12
+00:01:04,109 --> 00:01:08,509
+The question is what E,O&T should build now without betting on one forecast.
+
+13
+00:01:08,789 --> 00:01:30,639
+I tell the answer as one story with an adapted, branching Story Spine: Every day (signals), But one day (the engine), Because of that three times (three alternative worlds), then two zoom-ins, Until finally (which branch, and which lights to watch), and And ever since then (the business response, a full eight-step story inside one world, the backward plan, the first 90 days and a creative routine).
+
+14
+00:01:30,919 --> 00:01:43,457
+The scope line keeps the brief concrete: our industry is strategic consulting, our clients are in energy, logistics and digital services, and the world dimension covers work, daily life, infrastructure and space.
+
+15
+00:01:45,357 --> 00:01:45,938
+Every day.
+
+16
+00:01:46,218 --> 00:01:48,772
+Before imagining anything, we look at facts.
+
+17
+00:01:49,052 --> 00:01:53,986
+Harnessing trends, one of the 4 lenses of innovation, gives four measurable signals.
+
+18
+00:01:54,266 --> 00:02:03,543
+IEA: data centres used about 415 TWh in 2024 and could reach about 945 TWh by 2030.
+
+19
+00:02:03,823 --> 00:02:16,617
+WEF: 170 million jobs created and 92 million displaced by 2030 across major economic and technological trends, including AI, with 39% of core skills changing.
+
+20
+00:02:16,897 --> 00:02:21,796
+ESA: about 54,000 debris objects larger than 10 cm in orbit.
+
+21
+00:02:22,076 --> 00:02:26,895
+NASA: Artemis II flew around the Moon in April 2026.
+
+22
+00:02:27,175 --> 00:02:35,801
+A second lens, challenging orthodoxies, turns them into one insight: AI behaves like an energy, materials and orbit industry.
+
+23
+00:02:36,081 --> 00:02:38,438
+These four signals feed every world that follows.
+
+24
+00:02:38,718 --> 00:02:41,249
+Next: how we turn signals into futures.
+
+25
+00:02:43,149 --> 00:02:46,121
+But one day we asked: what if these signals keep growing?
+
+26
+00:02:46,401 --> 00:02:47,805
+This is the engine that answers.
+
+27
+00:02:48,085 --> 00:03:01,019
+Seven creative tools run in sequence: harness trends, counterfactual What if in both directions, a possibility tree with odds, Tick-Tock flips, a moonshot push, hard empathy in five steps, and working backwards.
+
+28
+00:03:01,299 --> 00:03:06,047
+Combined, they form a more creative kind of scenario planning with contingency built in.
+
+29
+00:03:06,327 --> 00:03:12,574
+Two critical uncertainties set the axes: how AI is controlled, and whether energy is clean and abundant.
+
+30
+00:03:12,854 --> 00:03:17,811
+AI variants and exaptation from aviation and game design supplied raw ideas.
+
+31
+00:03:18,091 --> 00:03:22,816
+Each of the next three slides shows one output of this engine, starting with the best case.
+
+32
+00:03:24,716 --> 00:03:27,468
+Because of that, world one: Symbiosis.
+
+33
+00:03:27,748 --> 00:03:33,634
+This is the upper branch of the engine pushed to a moonshot, 10x thinking and a utopia we would want to live in.
+
+34
+00:03:33,914 --> 00:03:40,590
+Hard empathy is shown in its five steps, in Layla's own voice: scene, feeling, sense-making, worry and action.
+
+35
+00:03:40,870 --> 00:03:49,868
+Customers meet brands in Mirror Cities, loyalty is designed with white-hat Octalysis drives, transport borrows from air traffic control, and a lunar base becomes real.
+
+36
+00:03:50,148 --> 00:03:53,967
+For our industry, analysis becomes cheap and judgement becomes the product.
+
+37
+00:03:54,247 --> 00:03:59,449
+The 5 Cs strip tells the story, and the last line keeps it honest because problems remain.
+
+38
+00:03:59,729 --> 00:04:01,784
+Next, the same engine run downward.
+
+39
+00:04:03,684 --> 00:04:06,261
+Because of that, world two: Overheat.
+
+40
+00:04:06,541 --> 00:04:12,044
+Thinking only upward leads to wishful thinking, so the course pairs every upward What if with a downward one.
+
+41
+00:04:12,324 --> 00:04:25,072
+The Story Spine chain shows cause and effect: AI demand outruns clean power, pollution and rationing follow, a few players control the models and deepfakes break trust, and a debris cascade knocks out satellites.
+
+42
+00:04:25,352 --> 00:04:36,590
+Omar walks through the five hard-empathy steps: two conflicting alerts, anxiety, realising one may be synthetic, the worry of an unsafe route, and the action of verifying before dispatch.
+
+43
+00:04:36,870 --> 00:04:42,072
+The metaverse runs on black-hat Octalysis, and consulting firms without human trust disappear.
+
+44
+00:04:42,352 --> 00:04:45,765
+Carry-out message: plan for the shadow before it arrives.
+
+45
+00:04:46,045 --> 00:04:48,495
+Next, the world between these two extremes.
+
+46
+00:04:50,395 --> 00:04:54,052
+Because of that, world three: Patchwork, the most likely path.
+
+47
+00:04:54,332 --> 00:04:57,826
+It is built with Tick-Tock: state a fact, then imagine its opposite.
+
+48
+00:04:58,106 --> 00:05:04,434
+People buying from companies flips to AI agents buying from AI agents, so firms design for machine customers.
+
+49
+00:05:04,714 --> 00:05:08,963
+Free data flips to owned data, so trust and identity become products.
+
+50
+00:05:09,243 --> 00:05:14,468
+The world splits into regional blocs with their own AI rules, one planet with three rulebooks.
+
+51
+00:05:14,748 --> 00:05:21,365
+Sara walks through the five hard-empathy steps and acts by designing one product that passes all three blocs' trust rules.
+
+52
+00:05:21,645 --> 00:05:24,977
+For E,O&T, the winners translate between blocs.
+
+53
+00:05:25,257 --> 00:05:27,428
+Next we place all three worlds on one tree.
+
+54
+00:05:29,328 --> 00:05:30,037
+Zoom in one.
+
+55
+00:05:30,317 --> 00:05:34,682
+To show how today becomes 2041, I follow one concrete chain.
+
+56
+00:05:34,962 --> 00:05:45,724
+Drone delivery is already routine: one network passed 2 million commercial deliveries in January 2026, with a median flight of 3 minutes and a delivery every 30 seconds.
+
+57
+00:05:46,004 --> 00:05:55,350
+A delivery-network model, adapted for orbital logistics, is the bridge: the same kind of autonomy is reaching orbit: robotic freighters berth at the space station today.
+
+58
+00:05:55,630 --> 00:06:11,908
+Each astronaut needs about 1.7 kg of food a day and fresh produce arrives only about every three months, so in 2041 autonomous cargo drones and orbital farms feed the crew, growing from the first chile peppers harvested on the station in 2021.
+
+59
+00:06:12,188 --> 00:06:18,202
+This is moonshot thinking, plus exaptation: borrowing a consumer delivery model for space logistics.
+
+60
+00:06:18,482 --> 00:06:21,256
+Next, a second zoom-in on what becomes valuable.
+
+61
+00:06:23,156 --> 00:06:27,742
+Zoom in two applies Tick-Tock and challenging orthodoxies to value itself.
+
+62
+00:06:28,022 --> 00:06:29,508
+Tick: gold is the treasure.
+
+63
+00:06:29,788 --> 00:06:32,366
+Tock: water, air, sand and plants are.
+
+64
+00:06:32,646 --> 00:06:45,045
+Water: training GPT-3 was estimated to evaporate about 700,000 litres of fresh water, and 10 to 50 answers could consume about half a litre (Li and colleagues, 2023), while the space station recycles 98% of its water (NASA, 2023).
+
+65
+00:06:45,325 --> 00:06:57,144
+Sand: 50 billion tonnes a year, about 17 kg per person per day, the most used resource after water (UNEP, 2022); desert sand is too round for concrete and chips start as ultra-pure quartz.
+
+66
+00:06:57,424 --> 00:07:04,355
+Air: lunar soil is 40 to 45% oxygen by weight (ESA), so oxygen becomes something we mine.
+
+67
+00:07:04,635 --> 00:07:09,686
+Plants: crops already grow on the station, where fresh food arrives about every three months.
+
+68
+00:07:09,966 --> 00:07:13,843
+Gold still coats the Webb telescope mirrors, but it no longer measures wealth.
+
+69
+00:07:14,123 --> 00:07:25,989
+A final What if: if metal-rich asteroids such as 16 Psyche, which NASA's Psyche probe reaches in 2029, were mined and flooded Earth with gold, scarcity would end and so would its value.
+
+70
+00:07:26,269 --> 00:07:29,067
+Next, all of this goes onto one possibility tree.
+
+71
+00:07:30,967 --> 00:07:33,753
+Until finally we ask: which world is coming?
+
+72
+00:07:34,033 --> 00:07:42,311
+Level one gives planning weights to the three worlds: Patchwork 45%, Symbiosis 30%, Overheat 25%.
+
+73
+00:07:42,591 --> 00:07:51,159
+Level two splits each world on one key driver into three mutually exclusive outcomes with conditional odds that sum to 100% within that world.
+
+74
+00:07:51,439 --> 00:08:03,630
+Multiplying gives joint odds: for example, Patchwork with partly compatible standards is 45% x 40% = 18%, and all nine joint odds total 100%.
+
+75
+00:08:03,910 --> 00:08:08,298
+These are illustrative judgements to support discussion, not calibrated forecasts.
+
+76
+00:08:08,578 --> 00:08:12,143
+Patchwork leads because regulation is already splitting by region.
+
+77
+00:08:12,423 --> 00:08:16,881
+Next, the lights that tell us which branch is arriving, and what we do when they change.
+
+78
+00:08:18,781 --> 00:08:21,416
+Until finally, part two: what do we watch?
+
+79
+00:08:21,696 --> 00:08:28,627
+Possibility trees are only useful with contingency planning, so each signpost has a record, a review trigger and a response.
+
+80
+00:08:28,907 --> 00:08:43,397
+Clean power for AI points towards Overheat if it worsens; evidence quality separates Symbiosis from Overheat; portability tells us how deep Patchwork goes; orbital access tracks the debris risk; and human agency applies in every world.
+
+81
+00:08:43,677 --> 00:08:48,414
+The triggers are proposed review rules against a pilot baseline, not external benchmarks.
+
+82
+00:08:48,694 --> 00:08:51,120
+Next, what E,O&T sells in response.
+
+83
+00:08:53,020 --> 00:08:55,470
+And ever since then, the business response.
+
+84
+00:08:55,750 --> 00:08:59,593
+If AI makes reports cheap, E,O&T sells better decisions.
+
+85
+00:08:59,873 --> 00:09:12,005
+Each world gets a proposed offer: a Future Design Lab for Symbiosis, Verified Decisions and Continuity for Overheat, and an Interoperability Studio for Patchwork, each with a client and a value test.
+
+86
+00:09:12,285 --> 00:09:19,681
+All three share one asset, the Decision Passport: decision, assumption, evidence, owner, review signal and fallback.
+
+87
+00:09:19,961 --> 00:09:23,862
+The worked example rehearses Omar's dispatch decision from the Overheat world.
+
+88
+00:09:24,142 --> 00:09:27,926
+These are proposed concepts, not existing products or results.
+
+89
+00:09:29,826 --> 00:09:35,202
+The worlds are alternatives, so the story map uses an adapted, branching Story Spine.
+
+90
+00:09:35,482 --> 00:09:48,949
+Inside a single world, though, a story must be causal, so this slide shows all eight steps for Omar in Overheat: once upon a time, every day, but one day, three because-of-that steps, until finally, and ever since then.
+
+91
+00:09:49,229 --> 00:10:02,685
+It also carries the 5 Cs: Omar is the character, unreliable dispatch the conflict, verification and fallback the cure, a continued service the change, and the carry-out is that the cure is a process, not perfect AI.
+
+92
+00:10:02,965 --> 00:10:04,312
+Next, the backward plan.
+
+93
+00:10:06,212 --> 00:10:08,430
+And ever since then, we plan backwards.
+
+94
+00:10:08,710 --> 00:10:15,409
+Bent Flyvbjerg works right to left from a sharp picture of the goal, and Amazon writes the press release before building the product.
+
+95
+00:10:15,689 --> 00:10:18,754
+Our 2041 press release works in any world.
+
+96
+00:10:19,034 --> 00:10:34,893
+From there: machine-customer strategies by 2035, energy-aware AI and reskilling by 2030, and no-regret moves in 2026 such as a digital-twin pilot, a signpost dashboard and a quarterly day-in-2041 workshop.
+
+97
+00:10:35,173 --> 00:10:39,144
+The commonplace book and stimuli queue keep the team's slow hunches growing.
+
+98
+00:10:39,424 --> 00:10:41,792
+Next, the one message to carry out of the room.
+
+99
+00:10:43,692 --> 00:10:45,886
+And ever since then, the first test.
+
+100
+00:10:46,166 --> 00:11:02,525
+Working backwards ends with a concrete first step, so the plan for the first 90 days uses one client, one workflow and a limited rehearsal with clear owners and gates: define and observe, prototype and rehearse across all three worlds, then stress-test with ten scripted cases.
+
+101
+00:11:02,805 --> 00:11:11,466
+The decision at the end is continue, change or stop, and the pilot limit is stated honestly: five users and ten cases support learning, not proof.
+
+102
+00:11:11,746 --> 00:11:14,846
+Next, the creative routine that keeps the work alive.
+
+103
+00:11:16,746 --> 00:11:19,242
+And ever since then, the team keeps creating.
+
+104
+00:11:19,522 --> 00:11:37,935
+A proposed 45-minute monthly workshop puts three course ideas to work: psychological safety in the generate step, white-hat Octalysis drives in the rehearsal (progress, feedback and retries, with no public ranking or penalties), and AI and science fiction as stimuli in the reflect step, captured in a commonplace book.
+
+105
+00:11:38,215 --> 00:11:41,025
+A monthly stimuli queue keeps feeding slow hunches.
+
+106
+00:11:41,305 --> 00:11:42,814
+Next, the carry-out message.
+
+107
+00:11:44,714 --> 00:11:47,709
+The carry-out message closes the loop that opened with the Moon.
+
+108
+00:11:47,989 --> 00:11:53,574
+Three worlds, three responses: build Symbiosis, shape Patchwork, insure against Overheat.
+
+109
+00:11:53,854 --> 00:11:58,103
+We do not predict the future; we prepare for all three and work for the first one.
+
+110
+00:11:58,383 --> 00:12:03,492
+Next, in Part 2, I reflect on which of these tools changed how I work and how I will keep using them.
+
+111
+00:12:05,392 --> 00:12:07,354
+Part 2, my personal reflection.
+
+112
+00:12:07,634 --> 00:12:08,748
+What I am taking with me.
+
+113
+00:12:09,028 --> 00:12:16,296
+Three ideas from this course changed how I think about planning: possibility trees, working backwards, and counterfactual thinking.
+
+114
+00:12:16,576 --> 00:12:23,229
+Together they gave me a structured language for something my work has always demanded: decisions about a future nobody can see.
+
+115
+00:12:23,509 --> 00:12:31,160
+In twenty years of network engineering and digital transformation, I have learned that a platform chosen today may still shape a business in ten years.
+
+116
+00:12:31,440 --> 00:12:37,604
+Building the three worlds of 2041 for this assignment showed me a different way to approach that kind of decision.
+
+117
+00:12:37,884 --> 00:12:45,686
+Drawing the possibility tree forced me to give each branch a probability, and the less likely branches raised questions a single forecast would never have asked.
+
+118
+00:12:45,966 --> 00:12:55,208
+Working backwards from a 2041 press release, the way Amazon writes the press release before the product exists, made the first steps for 2026 obvious.
+
+119
+00:12:55,488 --> 00:13:03,487
+Counterfactual thinking kept the exercise honest: writing Overheat next to Symbiosis stopped me from falling in love with the optimistic future.
+
+120
+00:13:03,767 --> 00:13:09,955
+What resonated most is that creativity here is not a talent but a structured skill, wild ideas plus strategy.
+
+121
+00:13:11,855 --> 00:13:13,399
+How I will put it into practice.
+
+122
+00:13:13,679 --> 00:13:14,840
+My plan is concrete.
+
+123
+00:13:15,120 --> 00:13:25,163
+From November, every new technical proposal I write will open with a one-page working backwards brief describing the result for the customer in three years, the assumptions behind it and the first test.
+
+124
+00:13:25,443 --> 00:13:38,725
+Once a quarter, starting in January 2027, I will build a possibility tree for one roadmap decision, with three branches, nine sub-branches and probabilities, and review it three months later to see which branch reality followed.
+
+125
+00:13:39,005 --> 00:13:45,948
+Before each major design review I will run one upward and one downward counterfactual with the team and record the risks it surfaces.
+
+126
+00:13:46,228 --> 00:13:57,211
+Personally, I live between Riyadh and Stockholm, and I will turn those flights into fuzzy focus time: no screens, just my stimuli queue and a commonplace book, so slow hunches have somewhere to land.
+
+127
+00:13:57,491 --> 00:14:08,416
+I will measure success simply: by June 2027, I will have built two possibility trees, completed the first three-month review, and recorded whether the findings changed a roadmap decision.
+
+128
+00:14:10,316 --> 00:14:15,006
+All my sources and image credits are listed here, so every fact in this briefing can be checked.
+
+129
+00:14:16,906 --> 00:14:18,822
+Finally, my AI declaration.
+
+130
+00:14:19,102 --> 00:14:30,189
+I acknowledge the use of Claude, Canva AI and Superdesign to research and verify sources, structure and draft sections, generate the mood board and app visuals, and arrange and format the document.
+
+131
+00:14:30,469 --> 00:14:32,629
+The output was used to support my own work.
+
+132
+00:14:32,909 --> 00:14:33,837
+Thank you for watching.
+
