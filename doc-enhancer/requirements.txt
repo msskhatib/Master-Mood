@@ -1,0 +1,2 @@
+anthropic>=2.5.0
+python-docx>=1.1
