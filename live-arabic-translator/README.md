@@ -52,6 +52,8 @@ python live_translator.py
 | `--device "Headphones"` | Capture a specific output device (see `--list-devices`). |
 | `--threshold 0.004` | Lower if quiet speech is missed; raise if music triggers it. |
 | `--font-size 30` | Bigger Arabic subtitles. |
+| `--sentence-wait 1.5` | How long to wait for an unfinished sentence to continue (default 1.0 s). |
+| `--stream` | Show Arabic word by word instead of one whole sentence at a time. |
 | `--max-chunk 3` | Send speech every 3 s at most (faster subtitles; default 5). |
 | `--claude-model claude-haiku-5-5` | Fastest and cheapest Claude translation (slightly less polished). |
 | `--fast-mode` | Claude fast mode: quicker output, about 2x the price. |

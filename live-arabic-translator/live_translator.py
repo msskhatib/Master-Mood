@@ -22,6 +22,7 @@ from __future__ import annotations
 import argparse
 import os
 import queue
+import re
 import sys
 import threading
 import time
@@ -103,6 +104,7 @@ class SpeechChunker:
         self.size = 0
         self.silent_run = 0
         self.has_speech = False
+        self.ended_on_pause = True
 
     def feed(self, block: np.ndarray) -> np.ndarray | None:
         rms = float(np.sqrt(np.mean(block ** 2))) if block.size else 0.0
@@ -121,6 +123,7 @@ class SpeechChunker:
 
         pause = self.silent_run >= self.silence_len and self.size >= self.min_len
         if pause or self.size >= self.max_len:
+            self.ended_on_pause = pause   # False = cut in the middle of speech
             return self._flush()
         if self.silent_run >= self.silence_len * 3:   # only a short blip
             self._reset()
@@ -151,7 +154,7 @@ def capture_loop(loop_device, out_q: queue.Queue, stop: threading.Event,
                 block = mono[:n].reshape(-1, ratio).mean(axis=1)  # 48k -> 16k
                 chunk = chunker.feed(block.astype(np.float32))
                 if chunk is not None:
-                    out_q.put(chunk)
+                    out_q.put((chunk, chunker.ended_on_pause))
     except Exception as exc:  # device unplugged, driver error, ...
         status(f"Audio capture error: {exc}")
 
@@ -182,6 +185,20 @@ class Transcriber:
         if text:
             self.last_text = text
         return text, info.language
+
+
+_ENDS_SENTENCE = re.compile(r"[.!?…。！？؟][\"'”’)\]]*$")
+
+
+def split_sentences(text: str) -> tuple[list[str], str]:
+    """Returns (complete sentences, unfinished remainder)."""
+    sentences, current = [], ""
+    for word in text.split():
+        current = f"{current} {word}" if current else word
+        if _ENDS_SENTENCE.search(word):
+            sentences.append(current)
+            current = ""
+    return sentences, current
 
 
 # --------------------------------------------------------------------------
@@ -455,26 +472,54 @@ class TranslatorApp:
 
     def transcribe_loop(self, audio_q: queue.Queue, text_q: queue.Queue,
                         stop: threading.Event):
+        """Speech -> text, then regroup the text into whole sentences.
+
+        Audio is cut at pauses (or every few seconds), which can split a
+        sentence in two. The unfinished part is kept and joined with the next
+        piece; it is sent on its own only when nothing follows within
+        --sentence-wait seconds.
+        """
+        pending, pending_lang, last_heard = "", "en", 0.0
+        wait = self.args.sentence_wait
+
+        def emit(sentence, lang):
+            line_id = self.next_id
+            self.next_id += 1
+            self.ui_q.put(("new", (line_id, f"[{lang}] {sentence}", "…")))
+            text_q.put((line_id, sentence, lang))
+
         while not stop.is_set():
             try:
-                chunk = audio_q.get(timeout=0.2)
+                chunk, on_pause = audio_q.get(timeout=0.1)
             except queue.Empty:
+                # Silence: flush an unfinished sentence after the wait.
+                if pending and time.monotonic() - last_heard >= wait:
+                    emit(pending, pending_lang)
+                    pending = ""
                 continue
             # If we fall behind, merge waiting chunks so we catch up.
             while not audio_q.empty() and chunk.size < TARGET_SR * 12:
-                chunk = np.concatenate([chunk, audio_q.get_nowait()])
+                more, on_pause = audio_q.get_nowait()
+                chunk = np.concatenate([chunk, more])
             try:
                 text, lang = self.transcriber(chunk)
             except Exception as exc:
                 self.set_status(f"Speech recognition error: {exc}")
                 continue
+            last_heard = time.monotonic()
             if not text or len(text) < 2:
                 continue
-            line_id = self.next_id
-            self.next_id += 1
-            # Show the original sentence immediately; Arabic follows.
-            self.ui_q.put(("new", (line_id, f"[{lang}] {text}", "…")))
-            text_q.put((line_id, text, lang))
+            pending_lang = lang
+            sentences, rest = split_sentences(f"{pending} {text}")
+            if sentences and not rest and not on_pause:
+                # Audio was cut mid-speech: the last "sentence" may go on.
+                rest = sentences.pop()
+            for sentence in sentences:
+                emit(sentence, lang)
+            pending = rest
+            if len(pending) > 300:            # very long run-on: send it anyway
+                emit(pending, lang)
+                pending = ""
 
     def translate_loop(self, text_q: queue.Queue, stop: threading.Event):
         while not stop.is_set():
@@ -485,7 +530,7 @@ class TranslatorApp:
             # Catch up: if more sentences are waiting, translate them together
             # and show the result on the newest line.
             merged = [line_id]
-            while not text_q.empty():
+            while text_q.qsize() >= 3:     # only when far behind
                 nid, ntext, _ = text_q.get_nowait()
                 merged.append(nid)
                 text += " " + ntext
@@ -495,6 +540,9 @@ class TranslatorApp:
 
             def partial(ar, target=target):
                 self.ui_q.put(("update", (target, ar)))
+
+            if not self.args.stream:
+                partial = None   # show each sentence complete, no word-by-word
 
             try:
                 arabic = self.translator(text, lang, on_partial=partial)
@@ -527,6 +575,11 @@ def main():
     p.add_argument("--max-chunk", type=float, default=5.0,
                    help="Longest phrase in seconds before it is sent (lower = faster, "
                         "but sentences may be cut). Default: 5")
+    p.add_argument("--sentence-wait", type=float, default=1.0,
+                   help="Seconds to wait for the end of an unfinished sentence "
+                        "before translating it anyway. Default: 1.0")
+    p.add_argument("--stream", action="store_true",
+                   help="Show the Arabic word by word instead of whole sentences")
     p.add_argument("--claude-model", default=CLAUDE_MODEL,
                    help=f"Claude model for translation (default: {CLAUDE_MODEL}). "
                         "claude-haiku-5-5 is the fastest and cheapest")
