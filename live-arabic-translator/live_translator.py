@@ -56,8 +56,28 @@ SYSTEM_PROMPT = (
     "- The text is one spoken sentence (sometimes cut short). Always answer with "
     "complete, grammatical Arabic sentence(s) that read naturally after the "
     "previous lines, like professional film subtitles.\n"
-    "- Output the Arabic translation only, with no notes, quotes or explanations."
+    "- Output ONLY the Arabic translation: never write English sentences, notes, "
+    "corrections, questions to the user or explanations. Do not comment on the "
+    "task. If the text is empty, noise or has no meaning, output nothing."
 )
+
+_ARABIC = re.compile(r"[\u0600-\u06FF\u0750-\u077F\uFB50-\uFDFF\uFE70-\uFEFF]")
+_LATIN = re.compile(r"[A-Za-z]")
+_PIECES = re.compile(r"(?<=[.!?؟…:])\s+|\n+")
+
+
+def clean_arabic(text: str) -> str:
+    """Keeps only Arabic sentences: drops any English note the model adds.
+
+    A sentence stays if it has more Arabic letters than Latin ones, so terms
+    like (Five Whys) inside an Arabic sentence are kept.
+    """
+    kept = []
+    for piece in _PIECES.split(text):
+        piece = piece.strip()
+        if piece and len(_ARABIC.findall(piece)) > len(_LATIN.findall(piece)):
+            kept.append(piece)
+    return " ".join(kept)
 
 
 # --------------------------------------------------------------------------
@@ -226,6 +246,8 @@ class ArabicTranslator:
     def __call__(self, text: str, src_lang: str, on_partial=None) -> str:
         if src_lang == "ar":
             return text
+        if len(re.findall(r"[^\W\d_]", text)) < 2:
+            return ""                     # no real words: nothing to translate
         result = None
         if self.engine == "claude":
             try:
@@ -256,8 +278,9 @@ class ArabicTranslator:
         params = dict(model=self.model, max_tokens=600, system=SYSTEM_PROMPT,
                       messages=[{"role": "user", "content": user}])
         if "haiku" in self.model:
-            # Haiku: no thinking step = the quickest reply for short sentences.
-            params.update(thinking={"type": "disabled"}, output_config={"effort": "low"})
+            # Thinking stays on (adaptive) at low effort: with thinking off the
+            # model sometimes writes its reasoning into the subtitle.
+            params.update(output_config={"effort": "low"})
             stream_ctx = self.client.messages.stream(**params)
         else:
             params.update(output_config={"effort": "low"},
@@ -270,14 +293,12 @@ class ArabicTranslator:
             for piece in stream.text_stream:
                 partial += piece
                 if on_partial:
-                    on_partial(partial)
+                    on_partial(clean_arabic(partial))
             response = stream.get_final_message()
         if response.stop_reason == "refusal":
             raise RuntimeError("translation declined")
-        out = "".join(b.text for b in response.content if b.type == "text").strip()
-        if not out:
-            raise RuntimeError("empty translation")
-        return out
+        return clean_arabic("".join(b.text for b in response.content
+                                    if b.type == "text"))
 
     @staticmethod
     def _free(text: str, src_lang: str) -> str:
@@ -472,7 +493,8 @@ class TranslatorApp:
             ar = self.lines[i][3]
             if ar is None:
                 break
-            parts.append(ar)
+            if ar.strip():
+                parts.append(ar.strip())
         tag = f"p{index}"
         ranges = self.text.tag_ranges(tag)
         if not ranges:
@@ -578,7 +600,7 @@ class TranslatorApp:
 
         def emit(text, lang):
             text = text.strip()
-            if (len(text) < 2 or norm(text) == last_sent[0]
+            if (len(re.findall(r"[^\W\d_]", text)) < 2 or norm(text) == last_sent[0]
                     or _HALLUCINATIONS.match(text)):
                 return                            # empty, repeat or invented
             last_sent[0] = norm(text)
