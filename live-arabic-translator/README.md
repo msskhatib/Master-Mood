@@ -52,6 +52,15 @@ python live_translator.py
 | `--device "Headphones"` | Capture a specific output device (see `--list-devices`). |
 | `--threshold 0.004` | Lower if quiet speech is missed; raise if music triggers it. |
 | `--font-size 30` | Bigger Arabic subtitles. |
+| `--max-chunk 3` | Send speech every 3 s at most (faster subtitles; default 5). |
+| `--claude-model claude-haiku-5-5` | Fastest and cheapest Claude translation (slightly less polished). |
+| `--fast-mode` | Claude fast mode: quicker output, about 2x the price. |
+
+### Fastest settings
+```bash
+python live_translator.py --model base --max-chunk 3 --claude-model claude-haiku-5-5
+```
+With an NVIDIA GPU add `--compute cuda` (then `--model small` or `medium` stays fast).
 
 Example: `python live_translator.py --model medium --compute cuda --font-size 28`
 
