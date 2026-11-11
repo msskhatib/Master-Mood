@@ -98,7 +98,7 @@ class SpeechChunker:
     reaches max_sec, so subtitles appear quickly and sentences stay whole.
     """
 
-    def __init__(self, min_sec=0.8, max_sec=5.0, silence_sec=0.3,
+    def __init__(self, min_sec=0.6, max_sec=4.0, silence_sec=0.25,
                  threshold=0.008):
         self.min_len = int(min_sec * TARGET_SR)
         self.max_len = int(max_sec * TARGET_SR)
@@ -380,7 +380,9 @@ class TranslatorApp:
         self.transcriber = None
         self.translator = None
         self.rtl = make_rtl_formatter()
-        self.lines: dict[int, list] = {}      # id -> [time, lang, source, arabic]
+        self.lines: dict[int, list] = {}      # id -> [time, lang, source, arabic|None]
+        self.paragraphs: list[list[int]] = []  # sentence ids per paragraph
+        self.last_added = 0.0
         self.next_id = 0
         self.latest = None
 
@@ -413,11 +415,10 @@ class TranslatorApp:
         self.btn.pack(side="left")
         ttk.Button(bar, text="Clear", command=self.clear).pack(side="left", padx=(6, 0))
         ttk.Button(bar, text="Save", command=self.save).pack(side="left", padx=6)
-        self.show_src = tk.BooleanVar(value=args.show_original)
         ttk.Checkbutton(bar, text="On top", variable=self.topmost,
                         command=lambda: self.root.attributes(
                             "-topmost", self.topmost.get())).pack(side="left")
-        self.count = tk.Label(bar, text="0 lines", fg=self.MUTED, bg=self.BG,
+        self.count = tk.Label(bar, text="0 sentences", fg=self.MUTED, bg=self.BG,
                               font=("Segoe UI", 9))
         self.count.pack(side="right")
 
@@ -439,14 +440,11 @@ class TranslatorApp:
         self.text.pack(side="left", fill="both", expand=True)
 
         size = args.font_size
-        self.text.tag_configure("meta", font=("Segoe UI", 7), foreground="#5c6672",
-                                justify="right", spacing1=6)
-        self.text.tag_configure("src", font=("Segoe UI", 9), foreground=self.MUTED,
-                                elide=not args.show_original)
+        # One flowing, right-aligned Arabic paragraph; a new paragraph starts
+        # after a long pause. (A paragraph is always one tag run so Windows
+        # lays the right-to-left text out correctly.)
         self.text.tag_configure("ar", font=("Segoe UI", size), foreground=self.FG,
-                                justify="right", spacing1=2, spacing3=6)
-        self.text.tag_configure("new", foreground="#ffffff", background="#233044")
-        self.text.tag_configure("sep", font=("Segoe UI", 2), foreground="#2a313a")
+                                justify="right", spacing2=6, spacing3=14)
         self.text.configure(state="disabled")
 
         self.root.protocol("WM_DELETE_WINDOW", self.quit)
@@ -478,61 +476,65 @@ class TranslatorApp:
         return self.text.yview()[1] > 0.98
 
     def add_line(self, line_id: int, source: str, arabic: str):
-        stick = self._at_bottom()
         lang, _, src = source.partition("] ")
-        lang = lang.strip("[")
-        stamp = time.strftime("%H:%M:%S")
-        self.lines[line_id] = [stamp, lang, src, arabic]
-        t = self.text
-        t.configure(state="normal")
-        if self.latest is not None:
-            t.tag_remove("new", f"ar{self.latest}.first", f"ar{self.latest}.last")
-        t.insert("end", f"{stamp}  ·  {len(self.lines)}\n", "meta")
-        t.insert("end", src + "\n", ("src",))
-        t.insert("end", self.rtl(arabic) + "\n", ("ar", f"ar{line_id}", "new"))
-        t.insert("end", "\n", "sep")
-        t.configure(state="disabled")
-        self.latest = line_id
-        self.count.configure(text=f"{len(self.lines)} lines")
-        if stick:
-            t.see("end")
+        self.lines[line_id] = [time.strftime("%H:%M:%S"), lang.strip("["), src, None]
+        now = time.monotonic()
+        current = self.paragraphs[-1] if self.paragraphs else None
+        long_pause = now - self.last_added > self.args.paragraph_gap
+        too_long = current and sum(len(self.lines[i][2]) for i in current) > 500
+        if current is None or long_pause or too_long:
+            self.paragraphs.append([])
+            self.text.configure(state="normal")
+            self.text.insert("end", "\n", ("ar", f"p{len(self.paragraphs) - 1}"))
+            self.text.configure(state="disabled")
+        self.paragraphs[-1].append(line_id)
+        self.last_added = now
+        self.count.configure(text=f"{len(self.lines)} sentences")
 
     def update_line(self, line_id: int, arabic: str):
         if line_id not in self.lines:
             return
         self.lines[line_id][3] = arabic
-        tag = f"ar{line_id}"
+        for index, para in enumerate(self.paragraphs):
+            if line_id in para:
+                self._render_paragraph(index)
+                break
+
+    def _render_paragraph(self, index: int):
+        # Sentences are shown in spoken order: stop at the first one that is
+        # still being translated, so a faster later one never jumps ahead.
+        parts = []
+        for i in self.paragraphs[index]:
+            ar = self.lines[i][3]
+            if ar is None:
+                break
+            parts.append(ar)
+        tag = f"p{index}"
         ranges = self.text.tag_ranges(tag)
         if not ranges:
             return
         stick = self._at_bottom()
-        tags = ("ar", tag) + (("new",) if line_id == self.latest else ())
         t = self.text
         t.configure(state="normal")
         t.delete(ranges[0], ranges[1])
-        t.insert(ranges[0], self.rtl(arabic) + "\n", tags)
+        t.insert(ranges[0], self.rtl(" ".join(parts)) + "\n", ("ar", tag))
         t.configure(state="disabled")
         if stick:
             t.see("end")
 
-    def toggle_src(self):
-        self.text.tag_configure("src", elide=not self.show_src.get())
-
     def clear(self):
         self.lines.clear()
-        self.latest = None
+        self.paragraphs.clear()
         self.text.configure(state="normal")
         self.text.delete("1.0", "end")
         self.text.configure(state="disabled")
-        self.count.configure(text="0 lines")
+        self.count.configure(text="0 sentences")
 
     def save(self):
         name = time.strftime("transcript_%Y%m%d_%H%M%S.txt")
         with open(name, "w", encoding="utf-8") as f:
-            for stamp, lang, src, ar in self.lines.values():
-                if self.show_src.get():
-                    f.write(f"[{stamp}] {src}\n")
-                f.write(f"{ar}\n\n")
+            for para in self.paragraphs:
+                f.write(" ".join(self.lines[i][3] or "" for i in para).strip() + "\n\n")
         self.status.configure(text=f"Saved {os.path.abspath(name)}")
 
     # ---- start / stop ----
@@ -660,7 +662,7 @@ class TranslatorApp:
             try:
                 arabic = self.translator(text, lang, on_partial=partial)
             except Exception as exc:
-                arabic = "⚠ تعذّرت الترجمة"
+                arabic = "[…]"
                 self.set_status(f"Translation error: {exc}")
             self.ui_q.put(("update", (target, arabic)))
 
@@ -688,16 +690,17 @@ def main():
     p.add_argument("--device", default=None, help="Part of the output device name")
     p.add_argument("--threshold", type=float, default=0.008,
                    help="Loudness that counts as speech (lower = more sensitive)")
-    p.add_argument("--max-chunk", type=float, default=5.0,
+    p.add_argument("--max-chunk", type=float, default=4.0,
                    help="Longest phrase in seconds before it is sent (lower = faster, "
-                        "but sentences may be cut). Default: 5")
-    p.add_argument("--sentence-wait", type=float, default=0.8,
+                        "but sentences may be cut). Default: 4")
+    p.add_argument("--sentence-wait", type=float, default=0.5,
                    help="Seconds to wait for the end of an unfinished sentence "
-                        "before translating it anyway. Default: 0.8")
-    p.add_argument("--show-original", action="store_true",
-                   help="Also show the original (e.g. English) text above each line")
-    p.add_argument("--stream", action="store_true",
-                   help="Show the Arabic word by word instead of whole sentences")
+                        "before translating it anyway. Default: 0.5")
+    p.add_argument("--paragraph-gap", type=float, default=6.0,
+                   help="Seconds of silence that start a new paragraph. Default: 6")
+    p.add_argument("--no-stream", dest="stream", action="store_false",
+                   help="Wait for each whole sentence instead of showing the Arabic "
+                        "word by word as it is written (default: word by word)")
     p.add_argument("--claude-model", default=FAST_CLAUDE_MODEL,
                    help=f"Claude model (default: {FAST_CLAUDE_MODEL}, fastest). "
                         f"Use {CLAUDE_MODEL} for the most polished Arabic")

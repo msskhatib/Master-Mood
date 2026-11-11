@@ -51,7 +51,7 @@ python live_translator.py
 
 Defaults are tuned for live use: Whisper `small` on GPU / `base` on CPU,
 translation with **Claude Haiku 5.5** (fastest), half the CPU cores at most,
-whole sentences shown one by one, Arabic only.
+Arabic only, flowing as one right-aligned text, written word by word.
 
 ## Options
 | Option | Meaning |
@@ -63,10 +63,10 @@ whole sentences shown one by one, Arabic only.
 | `--fast-mode` | Claude fast mode for Opus: quicker output, about 2x the price. |
 | `--engine free` | Free translator (Google / MyMemory) even if an API key is set. |
 | `--language en` | Force the source language instead of auto-detect. |
-| `--sentence-wait 1.5` | Wait longer for an unfinished sentence (default 0.8 s). |
-| `--max-chunk 3` | Send audio every 3 s at most (default 5). |
-| `--show-original` | Also show the original text (hidden by default: Arabic only). |
-| `--stream` | Show Arabic word by word instead of whole sentences. |
+| `--sentence-wait 1.0` | Wait longer for an unfinished sentence (default 0.5 s). |
+| `--paragraph-gap 6` | Seconds of silence that start a new paragraph (default 6). |
+| `--max-chunk 3` | Send audio every 3 s at most (default 4). |
+| `--no-stream` | Show each Arabic sentence only when complete (default: word by word, faster). |
 | `--font-size 15` | Arabic text size (default 13). |
 | `--device "Headphones"` | Capture a specific output device (see `--list-devices`). |
 | `--threshold 0.004` | Lower if quiet speech is missed; raise if music triggers it. |
