@@ -208,6 +208,10 @@ _HALLUCINATIONS = re.compile(
     r"thanks for watching|please subscribe.*|subscribe.*|we'?ll see you next time|"
     r"see you (next time|in the next video)|bye( bye)?|you|\.+)[.!?]*$", re.I)
 
+def _key(text: str) -> str:
+    return re.sub(r"[^\w]", "", text.lower())
+
+
 _ENDS_SENTENCE = re.compile(r"[.!?…。！？؟][\"'”’)\]]*$")
 
 
@@ -231,6 +235,10 @@ class ArabicTranslator:
     def __init__(self, engine: str, status=print, model: str = CLAUDE_MODEL,
                  fast_mode: bool = False):
         self.history: list[tuple[str, str]] = []   # (source, arabic) context
+        # Early translations started before a sentence is confirmed.
+        from concurrent.futures import ThreadPoolExecutor
+        self.pool = ThreadPoolExecutor(max_workers=4)
+        self.early: dict[str, object] = {}
         self.client = None
         self.status = status
         self.engine = "free"
@@ -249,7 +257,13 @@ class ArabicTranslator:
         if len(re.findall(r"[^\W\d_]", text)) < 2:
             return ""                     # no real words: nothing to translate
         result = None
-        if self.engine == "claude":
+        early = self.early.pop(_key(text), None)
+        if early is not None and self.engine == "claude":
+            try:
+                result = early.result(timeout=15)   # usually already finished
+            except Exception:
+                result = None
+        if result is None and self.engine == "claude":
             try:
                 result = self._claude(text, src_lang, on_partial)
             except Exception as exc:
@@ -267,6 +281,17 @@ class ArabicTranslator:
             result = self._free(text, src_lang)
         self.history = (self.history + [(text, result)])[-4:]
         return result
+
+    def prefetch(self, text: str, src_lang: str) -> None:
+        """Starts translating a sentence that is probably finished."""
+        if self.engine != "claude" or src_lang == "ar":
+            return
+        key = _key(text)
+        if not key or key in self.early:
+            return
+        if len(self.early) > 30:                    # forget stale guesses
+            self.early.pop(next(iter(self.early)))
+        self.early[key] = self.pool.submit(self._claude, text, src_lang, None)
 
     def _claude(self, text: str, src_lang: str, on_partial=None) -> str:
         context = "\n".join(f"- {s}  =>  {a}" for s, a in self.history[-3:])
@@ -585,7 +610,7 @@ class TranslatorApp:
         it. A pause flushes everything.
         """
         sr = TARGET_SR
-        step = int((self.args.step or (0.3 if self.transcriber.device == "cuda"
+        step = int((self.args.step or (0.2 if self.transcriber.device == "cuda"
                                        else 0.6)) * sr)
         pause = int(self.args.pause * sr)
         buf = np.zeros(0, np.float32)
@@ -680,6 +705,14 @@ class TranslatorApp:
             if cut is None and dur > self.args.max_buffer:
                 cut = agreed - 1 if agreed > 0 else len(words) - 1   # very long run-on
             if cut is None or cut < 0:
+                # Not confirmed yet: start translating the likely sentence(s)
+                # now so the Arabic is ready the moment it is confirmed.
+                for j in range(len(words) - 1, -1, -1):
+                    if _ENDS_SENTENCE.search(words[j][0].strip()):
+                        done, _ = split_sentences("".join(w for w, _ in words[:j + 1]))
+                        for sentence in done:
+                            self.translator.prefetch(sentence.strip(), lang)
+                        break
                 continue
             emit_text("".join(w for w, _ in words[:cut + 1]), lang)
             t_end = words[cut][1]
@@ -739,12 +772,12 @@ def main():
                    help="Loudness that counts as speech (lower = more sensitive)")
     p.add_argument("--step", type=float, default=None,
                    help="How often speech is re-checked, in seconds "
-                        "(default 0.3 on GPU, 0.6 on CPU). Lower = faster")
+                        "(default 0.2 on GPU, 0.6 on CPU). Lower = faster")
     p.add_argument("--pause", type=float, default=0.5,
                    help="Silence (seconds) that ends what is being said. Default: 0.5")
-    p.add_argument("--end-gap", type=float, default=0.6,
+    p.add_argument("--end-gap", type=float, default=0.35,
                    help="Audio after a sentence's final punctuation needed to send it "
-                        "(default 0.6 s). Lower = faster, more risk of split sentences")
+                        "(default 0.35 s). Lower = faster, more risk of split sentences")
     p.add_argument("--max-buffer", type=float, default=10.0,
                    help="Longest speech (seconds) before it is sent without a "
                         "sentence end. Default: 10")
