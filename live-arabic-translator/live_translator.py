@@ -743,6 +743,17 @@ class TranslatorApp:
 
     def transcribe_loop(self, audio_q: queue.Queue, text_q: queue.Queue,
                         stop: threading.Event):
+        """Runs the recognition loop and restarts it if anything goes wrong."""
+        while not stop.is_set():
+            try:
+                self._transcribe_loop(audio_q, text_q, stop)
+            except Exception as exc:
+                import traceback
+                traceback.print_exc()
+                self.set_status(f"Recovered from an error: {exc}")
+
+    def _transcribe_loop(self, audio_q: queue.Queue, text_q: queue.Queue,
+                         stop: threading.Event):
         """Live recognition with a rolling buffer.
 
         Every --step seconds the audio heard since the last sent sentence is
@@ -763,7 +774,7 @@ class TranslatorApp:
         def norm(w):
             return re.sub(r"[^\w]", "", w.lower())
 
-        recent: list[str] = []
+        sent_keys: list[str] = []
 
         def emit(text, lang):
             import difflib
@@ -771,10 +782,10 @@ class TranslatorApp:
             key = norm(text)
             if (len(re.findall(r"[^\W\d_]", text)) < 2 or _HALLUCINATIONS.match(text)
                     or any(difflib.SequenceMatcher(None, key, old).ratio() > 0.8
-                           or (len(key) > 15 and key in old) for old in recent)):
+                           or (len(key) > 15 and key in old) for old in sent_keys)):
                 return                            # empty, invented or a repeat
-            recent.append(key)
-            del recent[:-4]
+            sent_keys.append(key)
+            del sent_keys[:-4]
             self.transcriber.remember(text)
             line_id = self.next_id
             self.next_id += 1
