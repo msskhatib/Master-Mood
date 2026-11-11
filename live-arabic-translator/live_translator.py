@@ -104,8 +104,8 @@ def capture_loop(loop_device, out_q: queue.Queue, stop: threading.Event,
                 mono = data.mean(axis=1) if data.ndim == 2 else data
                 n = (mono.size // ratio) * ratio
                 block = mono[:n].reshape(-1, ratio).mean(axis=1).astype(np.float32)
-                loud = float(np.sqrt(np.mean(block ** 2))) >= threshold
-                out_q.put((block, loud))
+                rms = float(np.sqrt(np.mean(block ** 2)))
+                out_q.put((block, rms >= threshold, rms))
     except Exception as exc:  # device unplugged, driver error, ...
         status(f"Audio capture error: {exc}")
 
@@ -163,10 +163,17 @@ class Transcriber:
             beam_size=1,                 # greedy decoding: fastest
             word_timestamps=True,
             vad_filter=True,
-            condition_on_previous_text=False,
-            initial_prompt=self.last_text[-200:] or None,
+            condition_on_previous_text=False,   # no prompt: avoids repeated text
+            hallucination_silence_threshold=1.0,
         )
-        words = [(w.word, w.end) for seg in segments for w in (seg.words or [])]
+        words = []
+        for seg in segments:
+            # Whisper's own "probably not speech" test: skip invented text.
+            if seg.no_speech_prob > 0.6 and seg.avg_logprob < -0.7:
+                continue
+            if seg.avg_logprob < -1.2:
+                continue
+            words.extend((w.word, w.end) for w in (seg.words or []))
         if self.language is None and words and info.language_probability > 0.9:
             self.language = info.language     # lock it: skips detection next time
         return words, info.language
@@ -174,6 +181,12 @@ class Transcriber:
     def remember(self, text: str):
         self.last_text = (self.last_text + " " + text)[-300:]
 
+
+# Phrases Whisper tends to invent over music or silence.
+_HALLUCINATIONS = re.compile(
+    r"^(thank you( very much| so much)?( for watching| for listening)?|"
+    r"thanks for watching|please subscribe.*|subscribe.*|we'?ll see you next time|"
+    r"see you (next time|in the next video)|bye( bye)?|you|\.+)[.!?]*$", re.I)
 
 _ENDS_SENTENCE = re.compile(r"[.!?…。！？؟][\"'”’)\]]*$")
 
@@ -556,14 +569,19 @@ class TranslatorApp:
         buf = np.zeros(0, np.float32)
         prev: list[str] = []
         since_run = quiet = 0
+        levels: list[float] = []
 
         def norm(w):
             return re.sub(r"[^\w]", "", w.lower())
 
+        last_sent = [""]
+
         def emit(text, lang):
             text = text.strip()
-            if len(text) < 2:
-                return
+            if (len(text) < 2 or norm(text) == last_sent[0]
+                    or _HALLUCINATIONS.match(text)):
+                return                            # empty, repeat or invented
+            last_sent[0] = norm(text)
             self.transcriber.remember(text)
             line_id = self.next_id
             self.next_id += 1
@@ -577,22 +595,30 @@ class TranslatorApp:
 
         while not stop.is_set():
             try:
-                block, loud = audio_q.get(timeout=0.1)
+                item = audio_q.get(timeout=0.1)
             except queue.Empty:
                 continue
             # Take everything that is waiting (we may be a bit behind).
-            items = [(block, loud)]
+            items = [item]
             while not audio_q.empty():
                 items.append(audio_q.get_nowait())
-            if buf.size == 0 and not any(l for _, l in items):
+            if buf.size == 0 and not any(l for _, l, _ in items):
                 continue                          # idle silence: ignore
-            for b, l in items:
+            dip = False
+            for b, l, r in items:
                 quiet = 0 if l else quiet + b.size
-            new = np.concatenate([b for b, _ in items])
+                levels.append(r)
+                # Voice drop (end of a sentence, even over music): check now.
+                recent = levels[-25:]
+                if len(recent) >= 10 and r < 0.55 * float(np.median(recent)):
+                    dip = True
+            del levels[:-25]
+            new = np.concatenate([b for b, _, _ in items])
             buf = np.concatenate([buf, new])
             since_run += new.size
             ended = quiet >= pause
-            if since_run < step and not ended:
+            early = dip and since_run >= int(0.15 * sr)
+            if since_run < step and not ended and not early:
                 continue
             since_run = 0
             try:
@@ -620,13 +646,14 @@ class TranslatorApp:
                 agreed += 1
             prev = current
             # A sentence is finished when its last word ends with . ? ! and
-            # either the speaker has already started the next word, or two
-            # runs in a row agree on it.
+            # the speaker has started the next word, or --end-gap seconds of
+            # audio follow it, or two runs in a row agree on it.
             cut = None
             for i in range(len(words)):
                 if not _ENDS_SENTENCE.search(words[i][0].strip()):
                     continue
-                if i < len(words) - 1 or (i < agreed and words[i][1] < dur - 0.1):
+                if (i < len(words) - 1 or words[i][1] < dur - self.args.end_gap
+                        or (i < agreed and words[i][1] < dur - 0.1)):
                     cut = i
             if cut is None and dur > self.args.max_buffer:
                 cut = agreed - 1 if agreed > 0 else len(words) - 1   # very long run-on
@@ -693,6 +720,9 @@ def main():
                         "(default 0.3 on GPU, 0.6 on CPU). Lower = faster")
     p.add_argument("--pause", type=float, default=0.5,
                    help="Silence (seconds) that ends what is being said. Default: 0.5")
+    p.add_argument("--end-gap", type=float, default=0.6,
+                   help="Audio after a sentence's final punctuation needed to send it "
+                        "(default 0.6 s). Lower = faster, more risk of split sentences")
     p.add_argument("--max-buffer", type=float, default=10.0,
                    help="Longest speech (seconds) before it is sent without a "
                         "sentence end. Default: 10")

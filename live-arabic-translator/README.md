@@ -65,6 +65,7 @@ Arabic only, flowing as one right-aligned text, written word by word.
 | `--language en` | Force the source language instead of auto-detect. |
 | `--step 0.2` | How often speech is re-checked (default 0.3 s on GPU, 0.6 s on CPU). Lower = faster, more GPU/CPU use. |
 | `--pause 0.5` | Silence that ends what is being said (default 0.5 s). |
+| `--end-gap 0.4` | Audio needed after a sentence's final punctuation before sending it (default 0.6 s). Lower = faster, more risk of split sentences. |
 | `--max-buffer 10` | Longest speech sent without a sentence end (default 10 s). |
 | `--paragraph-gap 6` | Seconds of silence that start a new paragraph (default 6). |
 | `--no-stream` | Show each Arabic sentence only when complete (default: word by word, faster). |
