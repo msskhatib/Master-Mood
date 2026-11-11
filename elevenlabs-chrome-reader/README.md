@@ -28,3 +28,8 @@ To change the shortcuts, go to `chrome://extensions/shortcuts`.
 - Models: **Multilingual v2** is the default and handles Arabic and English. **Flash v2.5** is the fastest and uses fewer credits.
 
 Every character you read uses ElevenLabs credits.
+
+## Troubleshooting
+- **"A voice with voice_id ... was not found" (404):** the voice you saved isn't on your account. The extension now switches to your first available voice on its own. To pick a different one, open Settings, click **Load my voices**, choose a voice, and save.
+- **Load my voices fails (401):** your API key doesn't have the **Voices: read** permission. Edit the key in ElevenLabs and turn that permission on.
+- **402 / "paid plan required":** free accounts can't use Voice Library voices through the API. Choose one of the default voices in **My Voices**.

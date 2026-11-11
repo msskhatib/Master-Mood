@@ -134,7 +134,9 @@ async function tts(text, s) {
   if (!res.ok) {
     let detail = await res.text();
     try { detail = JSON.parse(detail).detail?.message || detail; } catch {}
-    throw new Error(`ElevenLabs error ${res.status}: ${detail}`);
+    const err = new Error(`ElevenLabs error ${res.status}: ${detail}`);
+    err.status = res.status;
+    throw err;
   }
   const buf = await res.arrayBuffer();
   // base64 encode so it can be passed through runtime messaging
@@ -142,6 +144,32 @@ async function tts(text, s) {
   const bytes = new Uint8Array(buf);
   for (let i = 0; i < bytes.length; i += 0x8000) bin += String.fromCharCode(...bytes.subarray(i, i + 0x8000));
   return btoa(bin);
+}
+
+// If the saved voice doesn't exist on this account (404), pick the first
+// voice the account does have, save it, and return the updated settings.
+async function fixVoice(s) {
+  const res = await listVoices();
+  if (!res.ok || !res.voices.length) {
+    throw new Error(
+      "Saved voice not found and could not load your voices (" + (res.error || "no voices") +
+      "). Open Settings, click 'Load my voices', and choose one. Make sure your API key has 'Voices: read' permission."
+    );
+  }
+  const voice = res.voices[0];
+  await chrome.storage.sync.set({ voiceId: voice.id });
+  console.log("Switched to voice:", voice.name);
+  return { ...s, voiceId: voice.id };
+}
+
+async function ttsWithFallback(text, s) {
+  try {
+    return await tts(text, s);
+  } catch (e) {
+    if (e.status !== 404) throw e;
+    Object.assign(s, await fixVoice(s)); // shared settings object, later chunks use new voice
+    return tts(text, s);
+  }
 }
 
 async function listVoices(apiKeyOverride) {
@@ -171,12 +199,12 @@ async function readText(text) {
 
   const chunks = chunkText(text);
   // Fetch chunk N+1 while chunk N plays (simple prefetch of 1 ahead)
-  let next = tts(chunks[0], s);
+  let next = ttsWithFallback(chunks[0], s);
   try {
     for (let i = 0; i < chunks.length; i++) {
       const audio = await next;
       if (my !== session) return { ok: false, error: "cancelled" };
-      if (i + 1 < chunks.length) next = tts(chunks[i + 1], s);
+      if (i + 1 < chunks.length) next = ttsWithFallback(chunks[i + 1], s);
       setBadge(`${i + 1}/${chunks.length}`);
       await sendToOffscreen({ type: "enqueue", audio, last: i === chunks.length - 1 });
     }

@@ -23,8 +23,17 @@ async function loadVoices(selected) {
   const current = selected || sel.value;
   sel.innerHTML = "";
   for (const v of res.voices) sel.add(new Option(`${v.name} (${v.category})`, v.id));
-  if ([...sel.options].some((o) => o.value === current)) sel.value = current;
-  msg(`Loaded ${res.voices.length} voices.`);
+  if ([...sel.options].some((o) => o.value === current)) {
+    sel.value = current;
+    msg(`Loaded ${res.voices.length} voices.`);
+  } else if (res.voices.length) {
+    // saved voice isn't on this account: switch to the first available and save it
+    sel.value = res.voices[0].id;
+    await chrome.storage.sync.set({ voiceId: sel.value });
+    msg(`Loaded ${res.voices.length} voices. Selected "${res.voices[0].name}" (your old voice isn't on this account).`);
+  } else {
+    msg("Your account has no voices yet. Add one in ElevenLabs → Voices → My Voices.", false);
+  }
 }
 
 async function save() {
