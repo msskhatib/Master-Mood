@@ -89,6 +89,9 @@ def clean_arabic(text: str) -> str:
 # --------------------------------------------------------------------------
 def get_loopback_device(speaker_name: str | None = None):
     import soundcard as sc
+    # soundcard installs its own warning filter on import; hide its harmless
+    # "data discontinuity" notice again afterwards.
+    warnings.filterwarnings("ignore", message="data discontinuity")
 
     speaker = None
     if speaker_name:
