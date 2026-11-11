@@ -39,6 +39,10 @@ BLOCK_SEC = 0.1             # capture granularity
 CLAUDE_MODEL = "claude-opus-5-5"          # most polished
 FAST_CLAUDE_MODEL = "claude-haiku-5-5"    # fastest, default for live use
 
+# Windows without Developer Mode cannot make symlinks; the model cache
+# still works, so hide that warning.
+os.environ.setdefault("HF_HUB_DISABLE_SYMLINKS_WARNING", "1")
+
 # Harmless notice from Windows audio when a buffer is late; hide it.
 warnings.filterwarnings("ignore", message="data discontinuity")
 
