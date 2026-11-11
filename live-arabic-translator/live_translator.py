@@ -53,8 +53,8 @@ SYSTEM_PROMPT = (
     "- Convey the meaning and tone, not word-for-word; fix the broken grammar, "
     "fillers (um, uh) and repetitions typical of speech recognition.\n"
     "- Use correct Arabic punctuation (، ؛ ؟) and split long sentences.\n"
-    "- Keep names, brands and technical terms accurate; add the original term "
-    "in parentheses only when an Arabic reader would need it.\n"
+    "- Keep names, brands and technical terms accurate, written in Arabic "
+    "letters only (e.g. سايمون سينك). Never use Latin letters.\n"
     "- Use the previous lines only as context for consistency; translate ONLY "
     "the new text.\n"
     "- The text is one spoken sentence (sometimes cut short). Always answer with "
@@ -70,16 +70,26 @@ _LATIN = re.compile(r"[A-Za-z]")
 _PIECES = re.compile(r"(?<=[.!?؟…:])\s+|\n+")
 
 
+_LATIN_BRACKETS = re.compile(r"\s*[\(\[«\"“][^\)\]»\"”\u0600-\u06FF]*[A-Za-z][^\)\]»\"”\u0600-\u06FF]*[\)\]»\"”]")
+
+
 def clean_arabic(text: str) -> str:
     """Keeps only Arabic sentences: drops any English note the model adds.
 
-    A sentence stays if it has more Arabic letters than Latin ones, so terms
-    like (Five Whys) inside an Arabic sentence are kept.
+    Sentences that are (almost) all English are dropped; stray English words
+    inside an Arabic sentence are removed because Windows scrambles their order.
     """
+    text = _LATIN_BRACKETS.sub("", text)      # drop "(Five Whys)"-style additions
     kept = []
     for piece in _PIECES.split(text):
         piece = piece.strip()
-        if piece and len(_ARABIC.findall(piece)) > len(_LATIN.findall(piece)):
+        arabic, latin = len(_ARABIC.findall(piece)), len(_LATIN.findall(piece))
+        if not piece or arabic == 0 or latin > 3 * arabic:
+            continue                            # an English note, not a subtitle
+        if latin:                               # Latin words scramble RTL text
+            piece = re.sub(r"\s*[A-Za-z][A-Za-z0-9'’\-]*(\s+[A-Za-z][A-Za-z0-9'’\-]*)*", "", piece)
+            piece = re.sub(r"\s{2,}", " ", piece).strip()
+        if piece:
             kept.append(piece)
     return " ".join(kept)
 
@@ -609,6 +619,10 @@ class TranslatorApp:
         self.count.configure(text=f"{len(self.lines)} sentences")
 
     def _new_paragraph(self):
+        if self.paragraphs and self.live_text:
+            live, self.live_text = self.live_text, ""
+            self._render_paragraph(len(self.paragraphs) - 1)   # drop old live text
+            self.live_text = live
         self.paragraphs.append([])
         self.last_added = time.monotonic()
         self.text.configure(state="normal")
@@ -749,14 +763,18 @@ class TranslatorApp:
         def norm(w):
             return re.sub(r"[^\w]", "", w.lower())
 
-        last_sent = [""]
+        recent: list[str] = []
 
         def emit(text, lang):
+            import difflib
             text = text.strip()
-            if (len(re.findall(r"[^\W\d_]", text)) < 2 or norm(text) == last_sent[0]
-                    or _HALLUCINATIONS.match(text)):
-                return                            # empty, repeat or invented
-            last_sent[0] = norm(text)
+            key = norm(text)
+            if (len(re.findall(r"[^\W\d_]", text)) < 2 or _HALLUCINATIONS.match(text)
+                    or any(difflib.SequenceMatcher(None, key, old).ratio() > 0.8
+                           or (len(key) > 15 and key in old) for old in recent)):
+                return                            # empty, invented or a repeat
+            recent.append(key)
+            del recent[:-4]
             self.transcriber.remember(text)
             line_id = self.next_id
             self.next_id += 1
