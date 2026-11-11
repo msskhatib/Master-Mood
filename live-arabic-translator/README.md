@@ -8,7 +8,7 @@ It records the *speaker output* via loopback, **not the microphone**, so
 voices and noise in the room are never picked up.
 
 ```
-PC audio (loopback) → speech chunks → Whisper (speech-to-text, any language)
+PC audio (loopback) → rolling live recognition (Whisper) → sentence ends detected instantly
                     → Claude (natural, well-organised Arabic) → subtitle window
 ```
 
@@ -63,9 +63,10 @@ Arabic only, flowing as one right-aligned text, written word by word.
 | `--fast-mode` | Claude fast mode for Opus: quicker output, about 2x the price. |
 | `--engine free` | Free translator (Google / MyMemory) even if an API key is set. |
 | `--language en` | Force the source language instead of auto-detect. |
-| `--sentence-wait 1.0` | Wait longer for an unfinished sentence (default 0.5 s). |
+| `--step 0.2` | How often speech is re-checked (default 0.3 s on GPU, 0.6 s on CPU). Lower = faster, more GPU/CPU use. |
+| `--pause 0.5` | Silence that ends what is being said (default 0.5 s). |
+| `--max-buffer 10` | Longest speech sent without a sentence end (default 10 s). |
 | `--paragraph-gap 6` | Seconds of silence that start a new paragraph (default 6). |
-| `--max-chunk 3` | Send audio every 3 s at most (default 4). |
 | `--no-stream` | Show each Arabic sentence only when complete (default: word by word, faster). |
 | `--font-size 15` | Arabic text size (default 13). |
 | `--device "Headphones"` | Capture a specific output device (see `--list-devices`). |

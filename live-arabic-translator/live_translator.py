@@ -91,61 +91,9 @@ def list_devices() -> None:
         print(f"  - {s.name}{mark}")
 
 
-class SpeechChunker:
-    """Groups a stream of 16 kHz samples into phrase-sized chunks.
-
-    A chunk is closed when a pause (silence) follows enough speech, or when it
-    reaches max_sec, so subtitles appear quickly and sentences stay whole.
-    """
-
-    def __init__(self, min_sec=0.6, max_sec=4.0, silence_sec=0.25,
-                 threshold=0.008):
-        self.min_len = int(min_sec * TARGET_SR)
-        self.max_len = int(max_sec * TARGET_SR)
-        self.silence_len = int(silence_sec * TARGET_SR)
-        self.threshold = threshold
-        self.buf: list[np.ndarray] = []
-        self.size = 0
-        self.silent_run = 0
-        self.has_speech = False
-        self.ended_on_pause = True
-
-    def feed(self, block: np.ndarray) -> np.ndarray | None:
-        rms = float(np.sqrt(np.mean(block ** 2))) if block.size else 0.0
-        loud = rms >= self.threshold
-
-        if not self.has_speech and not loud:
-            return None  # idle: drop silence between phrases
-
-        self.buf.append(block)
-        self.size += block.size
-        if loud:
-            self.has_speech = True
-            self.silent_run = 0
-        else:
-            self.silent_run += block.size
-
-        pause = self.silent_run >= self.silence_len and self.size >= self.min_len
-        if pause or self.size >= self.max_len:
-            self.ended_on_pause = pause   # False = cut in the middle of speech
-            return self._flush()
-        if self.silent_run >= self.silence_len * 3:   # only a short blip
-            self._reset()
-        return None
-
-    def _flush(self) -> np.ndarray:
-        chunk = np.concatenate(self.buf).astype(np.float32)
-        self._reset()
-        return chunk
-
-    def _reset(self):
-        self.buf, self.size, self.silent_run, self.has_speech = [], 0, 0, False
-
-
 def capture_loop(loop_device, out_q: queue.Queue, stop: threading.Event,
-                 status, threshold: float, max_sec: float):
-    """Records loopback audio and pushes phrase chunks into out_q."""
-    chunker = SpeechChunker(threshold=threshold, max_sec=max_sec)
+                 status, threshold: float):
+    """Records loopback audio and streams 0.1 s blocks (with a loudness flag)."""
     frames = int(CAPTURE_SR * BLOCK_SEC)
     ratio = CAPTURE_SR // TARGET_SR
     try:
@@ -155,10 +103,9 @@ def capture_loop(loop_device, out_q: queue.Queue, stop: threading.Event,
                 data = rec.record(numframes=frames)          # (frames, channels)
                 mono = data.mean(axis=1) if data.ndim == 2 else data
                 n = (mono.size // ratio) * ratio
-                block = mono[:n].reshape(-1, ratio).mean(axis=1)  # 48k -> 16k
-                chunk = chunker.feed(block.astype(np.float32))
-                if chunk is not None:
-                    out_q.put((chunk, chunker.ended_on_pause))
+                block = mono[:n].reshape(-1, ratio).mean(axis=1).astype(np.float32)
+                loud = float(np.sqrt(np.mean(block ** 2))) >= threshold
+                out_q.put((block, loud))
     except Exception as exc:  # device unplugged, driver error, ...
         status(f"Audio capture error: {exc}")
 
@@ -208,20 +155,24 @@ class Transcriber:
         self.language = language
         self.last_text = ""
 
-    def __call__(self, audio: np.ndarray) -> tuple[str, str]:
+    def words(self, audio: np.ndarray) -> tuple[list[tuple[str, float]], str]:
+        """Returns [(word, end_time_seconds), ...] and the language code."""
         segments, info = self.model.transcribe(
             audio,
             language=self.language,
-            beam_size=1,                 # greedy decoding: much faster, live-friendly
-            without_timestamps=True,
+            beam_size=1,                 # greedy decoding: fastest
+            word_timestamps=True,
             vad_filter=True,
             condition_on_previous_text=False,
             initial_prompt=self.last_text[-200:] or None,
         )
-        text = " ".join(s.text.strip() for s in segments).strip()
-        if text:
-            self.last_text = text
-        return text, info.language
+        words = [(w.word, w.end) for seg in segments for w in (seg.words or [])]
+        if self.language is None and words and info.language_probability > 0.9:
+            self.language = info.language     # lock it: skips detection next time
+        return words, info.language
+
+    def remember(self, text: str):
+        self.last_text = (self.last_text + " " + text)[-300:]
 
 
 _ENDS_SENTENCE = re.compile(r"[.!?…。！？؟][\"'”’)\]]*$")
@@ -570,7 +521,7 @@ class TranslatorApp:
         self.audio_q = queue.Queue()
         threading.Thread(target=capture_loop, daemon=True,
                          args=(loop, self.audio_q, self.stop_evt, self.set_status,
-                               self.args.threshold, self.args.max_chunk)).start()
+                               self.args.threshold)).start()
         # Two workers so the next sentence is transcribed while the previous
         # one is being translated.
         text_q: queue.Queue = queue.Queue()
@@ -590,54 +541,101 @@ class TranslatorApp:
 
     def transcribe_loop(self, audio_q: queue.Queue, text_q: queue.Queue,
                         stop: threading.Event):
-        """Speech -> text, then regroup the text into whole sentences.
+        """Live recognition with a rolling buffer.
 
-        Audio is cut at pauses (or every few seconds), which can split a
-        sentence in two. The unfinished part is kept and joined with the next
-        piece; it is sent on its own only when nothing follows within
-        --sentence-wait seconds.
+        Every --step seconds the audio heard since the last sent sentence is
+        recognised again. A sentence is sent as soon as its final punctuation
+        is confirmed by two runs in a row (so it does not wait for silence),
+        (or the next sentence has started), and the buffer is cut right after
+        it. A pause flushes everything.
         """
-        pending, pending_lang, last_heard = "", "en", 0.0
-        wait = self.args.sentence_wait
+        sr = TARGET_SR
+        step = int((self.args.step or (0.3 if self.transcriber.device == "cuda"
+                                       else 0.6)) * sr)
+        pause = int(self.args.pause * sr)
+        buf = np.zeros(0, np.float32)
+        prev: list[str] = []
+        since_run = quiet = 0
 
-        def emit(sentence, lang):
+        def norm(w):
+            return re.sub(r"[^\w]", "", w.lower())
+
+        def emit(text, lang):
+            text = text.strip()
+            if len(text) < 2:
+                return
+            self.transcriber.remember(text)
             line_id = self.next_id
             self.next_id += 1
-            self.ui_q.put(("new", (line_id, f"[{lang}] {sentence}", "…")))
-            text_q.put((line_id, sentence, lang))
+            self.ui_q.put(("new", (line_id, f"[{lang}] {text}", "…")))
+            text_q.put((line_id, text, lang))
+
+        def emit_text(text, lang):
+            sentences, rest = split_sentences(text)
+            for sentence in sentences + ([rest] if rest else []):
+                emit(sentence, lang)
 
         while not stop.is_set():
             try:
-                chunk, on_pause = audio_q.get(timeout=0.1)
+                block, loud = audio_q.get(timeout=0.1)
             except queue.Empty:
-                # Silence: flush an unfinished sentence after the wait.
-                if pending and time.monotonic() - last_heard >= wait:
-                    emit(pending, pending_lang)
-                    pending = ""
                 continue
-            # If we fall behind, merge waiting chunks so we catch up.
-            while not audio_q.empty() and chunk.size < TARGET_SR * 12:
-                more, on_pause = audio_q.get_nowait()
-                chunk = np.concatenate([chunk, more])
+            # Take everything that is waiting (we may be a bit behind).
+            items = [(block, loud)]
+            while not audio_q.empty():
+                items.append(audio_q.get_nowait())
+            if buf.size == 0 and not any(l for _, l in items):
+                continue                          # idle silence: ignore
+            for b, l in items:
+                quiet = 0 if l else quiet + b.size
+            new = np.concatenate([b for b, _ in items])
+            buf = np.concatenate([buf, new])
+            since_run += new.size
+            ended = quiet >= pause
+            if since_run < step and not ended:
+                continue
+            since_run = 0
             try:
-                text, lang = self.transcriber(chunk)
+                words, lang = self.transcriber.words(buf)
             except Exception as exc:
                 self.set_status(f"Speech recognition error: {exc}")
+                buf, prev = np.zeros(0, np.float32), []
                 continue
-            last_heard = time.monotonic()
-            if not text or len(text) < 2:
+            dur = buf.size / sr
+
+            if ended:                             # speaker paused: send it all
+                emit_text("".join(w for w, _ in words), lang)
+                buf, prev, quiet = np.zeros(0, np.float32), [], 0
                 continue
-            pending_lang = lang
-            sentences, rest = split_sentences(f"{pending} {text}")
-            if sentences and not rest and not on_pause:
-                # Audio was cut mid-speech: the last "sentence" may go on.
-                rest = sentences.pop()
-            for sentence in sentences:
-                emit(sentence, lang)
-            pending = rest
-            if len(pending) > 300:            # very long run-on: send it anyway
-                emit(pending, lang)
-                pending = ""
+            if not words:
+                if dur > 3:                       # music / noise only
+                    buf = buf[-sr:]
+                continue
+
+            # Words that two consecutive runs agree on are stable.
+            current = [norm(w) for w, _ in words]
+            agreed = 0
+            while (agreed < len(current) and agreed < len(prev)
+                   and current[agreed] == prev[agreed]):
+                agreed += 1
+            prev = current
+            # A sentence is finished when its last word ends with . ? ! and
+            # either the speaker has already started the next word, or two
+            # runs in a row agree on it.
+            cut = None
+            for i in range(len(words)):
+                if not _ENDS_SENTENCE.search(words[i][0].strip()):
+                    continue
+                if i < len(words) - 1 or (i < agreed and words[i][1] < dur - 0.1):
+                    cut = i
+            if cut is None and dur > self.args.max_buffer:
+                cut = agreed - 1 if agreed > 0 else len(words) - 1   # very long run-on
+            if cut is None or cut < 0:
+                continue
+            emit_text("".join(w for w, _ in words[:cut + 1]), lang)
+            t_end = words[cut][1]
+            buf = buf[int(t_end * sr):]
+            prev = current[cut + 1:]
 
     def _warm_up(self):
         try:
@@ -690,12 +688,14 @@ def main():
     p.add_argument("--device", default=None, help="Part of the output device name")
     p.add_argument("--threshold", type=float, default=0.008,
                    help="Loudness that counts as speech (lower = more sensitive)")
-    p.add_argument("--max-chunk", type=float, default=4.0,
-                   help="Longest phrase in seconds before it is sent (lower = faster, "
-                        "but sentences may be cut). Default: 4")
-    p.add_argument("--sentence-wait", type=float, default=0.5,
-                   help="Seconds to wait for the end of an unfinished sentence "
-                        "before translating it anyway. Default: 0.5")
+    p.add_argument("--step", type=float, default=None,
+                   help="How often speech is re-checked, in seconds "
+                        "(default 0.3 on GPU, 0.6 on CPU). Lower = faster")
+    p.add_argument("--pause", type=float, default=0.5,
+                   help="Silence (seconds) that ends what is being said. Default: 0.5")
+    p.add_argument("--max-buffer", type=float, default=10.0,
+                   help="Longest speech (seconds) before it is sent without a "
+                        "sentence end. Default: 10")
     p.add_argument("--paragraph-gap", type=float, default=6.0,
                    help="Seconds of silence that start a new paragraph. Default: 6")
     p.add_argument("--no-stream", dest="stream", action="store_false",

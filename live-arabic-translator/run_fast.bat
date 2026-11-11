@@ -12,7 +12,7 @@ if not exist ".venv\installed.txt" (
   ".venv\Scripts\python.exe" -m pip install -r requirements.txt || goto :fail
   echo ok> ".venv\installed.txt"
 )
-".venv\Scripts\python.exe" live_translator.py --compute cpu --model base --max-chunk 3 --cpu-threads 2 %*
+".venv\Scripts\python.exe" live_translator.py --compute cpu --model base --cpu-threads 2 %*
 pause
 exit /b
 
