@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>ElevenLabs Page Reader - Settings</title>
+<style>
+  body { font: 14px system-ui, sans-serif; max-width: 520px; margin: 30px auto; padding: 0 16px; color: #111; background: #fff; }
+  label { display: block; margin-top: 14px; font-weight: 600; }
+  input, select { width: 100%; box-sizing: border-box; padding: 8px; margin-top: 4px; border: 1px solid #ccc; border-radius: 8px; font: inherit; }
+  input[type=range] { padding: 0; }
+  button { margin-top: 18px; padding: 10px 16px; border: 0; border-radius: 8px; background: #111; color: #fff; cursor: pointer; }
+  button.secondary { background: #eee; color: #111; }
+  small { color: #666; font-weight: normal; }
+  #msg { margin-top: 12px; }
+</style>
+</head>
+<body>
+  <h2>🔊 ElevenLabs Page Reader – Settings</h2>
+
+  <label>ElevenLabs API key <small>(stored only in your Chrome profile)</small>
+    <input id="apiKey" type="password" placeholder="sk_..." autocomplete="off">
+  </label>
+  <button class="secondary" id="loadVoices">Load my voices</button>
+
+  <label>Voice
+    <select id="voiceId"><option value="21m00Tcm4TlvDq8EXCM">Rachel (default)</option></select>
+  </label>
+
+  <label>Model
+    <select id="modelId">
+      <option value="eleven_multilingual_v2">Multilingual v2 (best quality, Arabic + English)</option>
+      <option value="eleven_flash_v2_5">Flash v2.5 (fastest, cheapest)</option>
+      <option value="eleven_turbo_v2_5">Turbo v2.5</option>
+      <option value="eleven_v3">Eleven v3 (most expressive)</option>
+    </select>
+  </label>
+
+  <label>Speed: <span id="speedVal"></span>
+    <input id="speed" type="range" min="0.7" max="1.2" step="0.05">
+  </label>
+  <label>Stability: <span id="stabilityVal"></span>
+    <input id="stability" type="range" min="0" max="1" step="0.05">
+  </label>
+  <label>Similarity: <span id="similarityVal"></span>
+    <input id="similarity" type="range" min="0" max="1" step="0.05">
+  </label>
+
+  <button id="save">Save</button>
+  <button class="secondary" id="test">Test voice</button>
+  <div id="msg"></div>
+  <script src="options.js"></script>
+</body>
+</html>
