@@ -8,9 +8,13 @@ It records the *speaker output* via loopback, **not the microphone**, so
 voices and noise in the room are never picked up.
 
 ```
-PC audio (loopback) → rolling live recognition (Whisper) → sentence ends detected instantly
-                    → Claude (natural, well-organised Arabic) → subtitle window
+PC audio (loopback) → live speech recognition (Whisper, on the GPU)
+                    → instant Arabic on the PC (Meta NLLB-200, ~0.1 s on the GPU)
+                    → optional Claude polish a moment later → flowing Arabic text
 ```
+The Arabic appears **while the person is still speaking** and each sentence is
+complete a fraction of a second after it ends. Nothing is sent online except
+the optional Claude polish.
 
 ## Features
 - Captures only system audio (WASAPI loopback on Windows, PulseAudio monitor on Linux).
@@ -50,7 +54,7 @@ python live_translator.py
 | `run_fast.bat` | Laptops without NVIDIA: lightest CPU settings. |
 
 Defaults are tuned for live use: Whisper `small` on GPU / `base` on CPU,
-translation with **Claude Haiku 5.5** (fastest), half the CPU cores at most,
+instant local translation (NLLB-200, downloaded once, ~1.4 GB) polished by **Claude Haiku 5.5** when a key is set, half the CPU cores at most,
 Arabic only, flowing as one right-aligned text, written word by word.
 
 ## Options
@@ -61,11 +65,14 @@ Arabic only, flowing as one right-aligned text, written word by word.
 | `--cpu-threads 2` | CPU threads for speech on CPU (fewer = lighter). |
 | `--claude-model claude-opus-5-5` | Most polished Arabic (a bit slower). |
 | `--fast-mode` | Claude fast mode for Opus: quicker output, about 2x the price. |
-| `--engine free` | Free translator (Google / MyMemory) even if an API key is set. |
+| `--engine local` | Instant translation on this PC (default). |
+| `--engine claude` | Online Claude only (more polished, ~1 s slower). |
+| `--engine free` | Free online translator (Google / MyMemory). |
+| `--no-polish` | Keep the instant local Arabic; never rewrite lines with Claude. |
 | `--language en` | Force the source language instead of auto-detect. |
 | `--step 0.2` | How often speech is re-checked (default 0.2 s on GPU, 0.6 s on CPU). Lower = faster, more GPU/CPU use. |
 | `--pause 0.5` | Silence that ends what is being said (default 0.5 s). |
-| `--end-gap 0.4` | Audio needed after a sentence's final punctuation before sending it (default 0.35 s). Lower = faster, more risk of split sentences. |
+| `--end-gap 0.4` | Audio needed after a sentence's final punctuation before it is final (default 0.6 s). Lower = faster, more risk of split sentences. |
 | `--max-buffer 10` | Longest speech sent without a sentence end (default 10 s). |
 | `--paragraph-gap 6` | Seconds of silence that start a new paragraph (default 6). |
 | `--no-stream` | Show each Arabic sentence only when complete (default: word by word, faster). |

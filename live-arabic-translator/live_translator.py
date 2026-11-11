@@ -229,11 +229,66 @@ def split_sentences(text: str) -> tuple[list[str], str]:
 # --------------------------------------------------------------------------
 # 3. Translation to Arabic
 # --------------------------------------------------------------------------
+# Whisper language code -> NLLB-200 language code.
+NLLB_CODES = {
+    "en": "eng_Latn", "fr": "fra_Latn", "es": "spa_Latn", "de": "deu_Latn",
+    "it": "ita_Latn", "pt": "por_Latn", "nl": "nld_Latn", "ru": "rus_Cyrl",
+    "uk": "ukr_Cyrl", "pl": "pol_Latn", "tr": "tur_Latn", "fa": "pes_Arab",
+    "ur": "urd_Arab", "hi": "hin_Deva", "bn": "ben_Beng", "zh": "zho_Hans",
+    "ja": "jpn_Jpan", "ko": "kor_Hang", "id": "ind_Latn", "ms": "zsm_Latn",
+    "vi": "vie_Latn", "th": "tha_Thai", "sv": "swe_Latn", "no": "nob_Latn",
+    "da": "dan_Latn", "fi": "fin_Latn", "el": "ell_Grek", "he": "heb_Hebr",
+    "ro": "ron_Latn", "hu": "hun_Latn", "cs": "ces_Latn", "sw": "swh_Latn",
+    "tl": "tgl_Latn", "ta": "tam_Taml", "te": "tel_Telu", "ml": "mal_Mlym",
+}
+
+
+class LocalTranslator:
+    """Meta NLLB-200 running on this PC (GPU if available): ~0.1 s per sentence."""
+
+    GPU_MODEL = "OpenNMT/nllb-200-distilled-1.3B-ct2-int8"
+    CPU_MODEL = "JustFrederik/nllb-200-distilled-600M-ct2-int8"
+
+    def __init__(self, device: str, cpu_threads: int = 2, status=print):
+        import ctranslate2
+        import tokenizers
+        from huggingface_hub import snapshot_download
+
+        self.device = "cpu"
+        if device in ("auto", "cuda"):
+            try:
+                _add_nvidia_dll_dirs()
+                path = snapshot_download(self.GPU_MODEL)
+                self.model = ctranslate2.Translator(path, device="cuda",
+                                                    compute_type="int8_float16")
+                self.device = "cuda"
+            except Exception as exc:
+                print(f"[local translator: GPU not used] {exc}", file=sys.stderr)
+        if self.device == "cpu":
+            path = snapshot_download(self.CPU_MODEL)
+            self.model = ctranslate2.Translator(path, device="cpu", compute_type="int8",
+                                                intra_threads=cpu_threads)
+        self.tok = tokenizers.Tokenizer.from_file(os.path.join(path, "tokenizer.json"))
+        self("Hello.", "en")                      # warm up
+
+    def __call__(self, text: str, src_lang: str) -> str:
+        src = NLLB_CODES.get(src_lang, "eng_Latn")
+        tokens = [src] + self.tok.encode(text, add_special_tokens=False).tokens + ["</s>"]
+        result = self.model.translate_batch(
+            [tokens], target_prefix=[["arb_Arab"]],
+            beam_size=2 if self.device == "cuda" else 1,
+            max_decoding_length=256)
+        out = result[0].hypotheses[0][1:]            # drop the language tag
+        ids = [i for i in (self.tok.token_to_id(t) for t in out) if i is not None]
+        return self.tok.decode(ids, skip_special_tokens=True).strip()
+
+
 class ArabicTranslator:
-    """Claude for high-quality, organised Arabic; free online fallbacks."""
+    """Local instant translation, optional Claude polish, free online fallback."""
 
     def __init__(self, engine: str, status=print, model: str = CLAUDE_MODEL,
-                 fast_mode: bool = False):
+                 fast_mode: bool = False, device: str = "auto", cpu_threads: int = 2,
+                 polish: bool = True):
         self.history: list[tuple[str, str]] = []   # (source, arabic) context
         # Early translations started before a sentence is confirmed.
         from concurrent.futures import ThreadPoolExecutor
@@ -244,12 +299,39 @@ class ArabicTranslator:
         self.engine = "free"
         self.model = model
         self.fast_mode = fast_mode
-        if engine in ("auto", "claude") and os.environ.get("ANTHROPIC_API_KEY", "").strip():
+        self.local = None
+        has_key = bool(os.environ.get("ANTHROPIC_API_KEY", "").strip())
+        if engine == "claude" and not has_key:
+            raise SystemExit("ANTHROPIC_API_KEY is not set (needed for --engine claude).")
+        if has_key and engine in ("auto", "local", "claude"):
             import anthropic
             self.client = anthropic.Anthropic()
+        if engine in ("auto", "local"):
+            try:
+                status("Loading the local translator (first run downloads ~1.4 GB)…")
+                self.local = LocalTranslator(device, cpu_threads, status)
+                self.engine = "local"
+            except Exception as exc:
+                status(f"Local translator unavailable ({exc}); using online translator.")
+                print(f"[local translator error] {exc}", file=sys.stderr)
+        if self.engine != "local" and self.client is not None:
             self.engine = "claude"
-        elif engine == "claude":
-            raise SystemExit("ANTHROPIC_API_KEY is not set (needed for --engine claude).")
+        # With the local translator, Claude only rewrites lines into polished
+        # Arabic a moment later (the instant local text is shown first).
+        self.polish_on = self.engine == "local" and self.client is not None and polish
+
+    def live(self, text: str, src_lang: str) -> str:
+        """Instant translation of words that are still being spoken."""
+        if self.local is None or src_lang == "ar":
+            return text if src_lang == "ar" else ""
+        return clean_arabic(self.local(text, src_lang))
+
+    def polish(self, text: str, src_lang: str) -> str | None:
+        try:
+            return self._claude(text, src_lang) or None
+        except Exception as exc:
+            print(f"[Claude polish skipped] {exc}", file=sys.stderr)
+            return None
 
     def __call__(self, text: str, src_lang: str, on_partial=None) -> str:
         if src_lang == "ar":
@@ -257,6 +339,11 @@ class ArabicTranslator:
         if len(re.findall(r"[^\W\d_]", text)) < 2:
             return ""                     # no real words: nothing to translate
         result = None
+        if self.engine == "local":
+            try:
+                result = clean_arabic(self.local(text, src_lang))
+            except Exception as exc:
+                print(f"[local translator error] {exc}", file=sys.stderr)
         early = self.early.pop(_key(text), None)
         if early is not None and self.engine == "claude":
             try:
@@ -277,6 +364,8 @@ class ArabicTranslator:
                 else:
                     self.status(f"Claude error, used free translator: {str(exc)[:120]}")
                 print(f"[Claude error, using free translator] {exc}", file=sys.stderr)
+        if result is None and self.client is not None and self.engine == "local":
+            result = self.polish(text, src_lang)
         if result is None:
             result = self._free(text, src_lang)
         self.history = (self.history + [(text, result)])[-4:]
@@ -392,6 +481,8 @@ class TranslatorApp:
         self.rtl = make_rtl_formatter()
         self.lines: dict[int, list] = {}      # id -> [time, lang, source, arabic|None]
         self.paragraphs: list[list[int]] = []  # sentence ids per paragraph
+        self.live_text = ""                     # Arabic of words still being spoken
+        self.gen = 0
         self.last_added = 0.0
         self.next_id = 0
         self.latest = None
@@ -473,7 +564,20 @@ class TranslatorApp:
                 elif kind == "new":
                     self.add_line(*payload)
                 elif kind == "update":
+                    self.update_line(*payload, first=True)
+                elif kind == "polish":
                     self.update_line(*payload)
+                elif kind == "gen":
+                    self.gen = payload
+                elif kind == "live":
+                    gen, arabic = payload
+                    if gen == self.gen and arabic != self.live_text:
+                        self.live_text = arabic
+                        if arabic and (not self.paragraphs or time.monotonic()
+                                       - self.last_added > self.args.paragraph_gap):
+                            self._new_paragraph()
+                        if self.paragraphs:
+                            self._render_paragraph(len(self.paragraphs) - 1)
                 elif kind == "ready":
                     self.btn.configure(text="■ Stop", state="normal")
                 elif kind == "reset":
@@ -492,18 +596,24 @@ class TranslatorApp:
         current = self.paragraphs[-1] if self.paragraphs else None
         long_pause = now - self.last_added > self.args.paragraph_gap
         too_long = current and sum(len(self.lines[i][2]) for i in current) > 500
-        if current is None or long_pause or too_long:
-            self.paragraphs.append([])
-            self.text.configure(state="normal")
-            self.text.insert("end", "\n", ("ar", f"p{len(self.paragraphs) - 1}"))
-            self.text.configure(state="disabled")
+        if current is None or (long_pause and current) or too_long:
+            self._new_paragraph()
         self.paragraphs[-1].append(line_id)
         self.last_added = now
         self.count.configure(text=f"{len(self.lines)} sentences")
 
-    def update_line(self, line_id: int, arabic: str):
+    def _new_paragraph(self):
+        self.paragraphs.append([])
+        self.last_added = time.monotonic()
+        self.text.configure(state="normal")
+        self.text.insert("end", "\n", ("ar", f"p{len(self.paragraphs) - 1}"))
+        self.text.configure(state="disabled")
+
+    def update_line(self, line_id: int, arabic: str, first: bool = False):
         if line_id not in self.lines:
             return
+        if first and self.lines[line_id][3] is None:
+            self.live_text = ""      # its words were in the live text until now
         self.lines[line_id][3] = arabic
         for index, para in enumerate(self.paragraphs):
             if line_id in para:
@@ -520,6 +630,8 @@ class TranslatorApp:
                 break
             if ar.strip():
                 parts.append(ar.strip())
+        if index == len(self.paragraphs) - 1 and self.live_text:
+            parts.append(self.live_text)
         tag = f"p{index}"
         ranges = self.text.tag_ranges(tag)
         if not ranges:
@@ -536,6 +648,7 @@ class TranslatorApp:
     def clear(self):
         self.lines.clear()
         self.paragraphs.clear()
+        self.live_text = ""
         self.text.configure(state="normal")
         self.text.delete("1.0", "end")
         self.text.configure(state="disabled")
@@ -570,7 +683,10 @@ class TranslatorApp:
                                                self.args.cpu_threads)
                 self.translator = ArabicTranslator(self.args.engine, self.set_status,
                                                    self.args.claude_model,
-                                                   self.args.fast_mode)
+                                                   self.args.fast_mode,
+                                                   self.args.compute,
+                                                   self.args.cpu_threads,
+                                                   self.args.polish)
             speaker, loop = get_loopback_device(self.args.device)
         except BaseException as exc:
             self.running = False
@@ -587,6 +703,10 @@ class TranslatorApp:
         text_q: queue.Queue = queue.Queue()
         threading.Thread(target=self.transcribe_loop, daemon=True,
                          args=(self.audio_q, text_q, self.stop_evt)).start()
+        self.live_evt = threading.Event()
+        self.live_req = (0, "", "en")
+        threading.Thread(target=self.live_loop, daemon=True,
+                         args=(self.stop_evt,)).start()
         for _ in range(3):   # up to 3 sentences translated at the same time
             threading.Thread(target=self.translate_loop, daemon=True,
                              args=(text_q, self.stop_evt)).start()
@@ -596,7 +716,9 @@ class TranslatorApp:
         self.set_status(f"Listening to: {speaker.name}  |  speech: "
                         f"{self.transcriber.model_name} on {self.transcriber.device.upper()}  |  "
                         f"translator: {self.translator.engine}"
-                        + (f" ({self.translator.model})" if self.translator.engine == "claude" else ""))
+                        + (f" on {self.translator.local.device.upper()}" if self.translator.local else "")
+                        + (f" ({self.translator.model})" if self.translator.engine == "claude" else "")
+                        + (" + Claude polish" if self.translator.polish_on else ""))
         self.ui_q.put(("ready", None))
 
     def transcribe_loop(self, audio_q: queue.Queue, text_q: queue.Queue,
@@ -615,7 +737,7 @@ class TranslatorApp:
         pause = int(self.args.pause * sr)
         buf = np.zeros(0, np.float32)
         prev: list[str] = []
-        since_run = quiet = 0
+        since_run = quiet = gen = 0
         levels: list[float] = []
 
         def norm(w):
@@ -677,7 +799,10 @@ class TranslatorApp:
             dur = buf.size / sr
 
             if ended:                             # speaker paused: send it all
+                gen += 1
+                self.ui_q.put(("gen", gen))
                 emit_text("".join(w for w, _ in words), lang)
+                self.request_live(gen, "", lang)
                 buf, prev, quiet = np.zeros(0, np.float32), [], 0
                 continue
             if not words:
@@ -705,6 +830,8 @@ class TranslatorApp:
             if cut is None and dur > self.args.max_buffer:
                 cut = agreed - 1 if agreed > 0 else len(words) - 1   # very long run-on
             if cut is None or cut < 0:
+                # Show the words being spoken right now, translated instantly.
+                self.request_live(gen, "".join(w for w, _ in words), lang)
                 # Not confirmed yet: start translating the likely sentence(s)
                 # now so the Arabic is ready the moment it is confirmed.
                 for j in range(len(words) - 1, -1, -1):
@@ -714,7 +841,10 @@ class TranslatorApp:
                             self.translator.prefetch(sentence.strip(), lang)
                         break
                 continue
+            gen += 1
+            self.ui_q.put(("gen", gen))
             emit_text("".join(w for w, _ in words[:cut + 1]), lang)
+            self.request_live(gen, "".join(w for w, _ in words[cut + 1:]), lang)
             t_end = words[cut][1]
             buf = buf[int(t_end * sr):]
             prev = current[cut + 1:]
@@ -724,6 +854,32 @@ class TranslatorApp:
             self.translator._claude("Hello.", "en")
         except Exception:
             pass
+
+    def live_loop(self, stop: threading.Event):
+        """Translates the words still being spoken, always the latest only."""
+        while not stop.is_set():
+            if not self.live_evt.wait(0.2):
+                continue
+            self.live_evt.clear()
+            gen, text, lang = self.live_req
+            try:
+                arabic = self.translator.live(text, lang) if text else ""
+            except Exception as exc:
+                print(f"[live translation error] {exc}", file=sys.stderr)
+                continue
+            self.ui_q.put(("live", (gen, arabic)))
+
+    def request_live(self, gen: int, text: str, lang: str):
+        if self.translator.local is None:
+            return
+        sentences, rest = split_sentences(text)
+        keep = [x for x in sentences + [rest]
+                if x and not _HALLUCINATIONS.match(x.strip())]
+        text = " ".join(keep).strip(" -–—")
+        if len(text.split()) < 2:            # one stray word: wait for more
+            text = ""
+        self.live_req = (gen, text, lang)
+        self.live_evt.set()
 
     def translate_loop(self, text_q: queue.Queue, stop: threading.Event):
         while not stop.is_set():
@@ -745,6 +901,13 @@ class TranslatorApp:
                 arabic = "[…]"
                 self.set_status(f"Translation error: {exc}")
             self.ui_q.put(("update", (target, arabic)))
+            if self.translator.polish_on and lang != "ar":
+                def polished(fut, target=target):
+                    better = fut.result()
+                    if better:
+                        self.ui_q.put(("polish", (target, better)))
+                self.translator.pool.submit(self.translator.polish, text, lang) \
+                    .add_done_callback(polished)
 
     def quit(self):
         self.stop_evt.set()
@@ -761,8 +924,12 @@ def main():
                         "Default: small on GPU, base on CPU")
     p.add_argument("--language", default=None,
                    help="Force source language code (e.g. en, fr). Default: auto-detect")
-    p.add_argument("--engine", default="auto", choices=["auto", "claude", "free"],
-                   help="Translator: claude (best quality), free (Google/MyMemory). Default: auto")
+    p.add_argument("--engine", default="auto", choices=["auto", "local", "claude", "free"],
+                   help="Translator: local (instant, on this PC), claude (online, most "
+                        "polished), free (Google/MyMemory). Default: auto = local, "
+                        "plus Claude polish when an API key is set")
+    p.add_argument("--no-polish", dest="polish", action="store_false",
+                   help="Keep the instant local translation; do not rewrite lines with Claude")
     p.add_argument("--compute", default="auto", choices=["auto", "cpu", "cuda"],
                    help="Speech recognition on NVIDIA GPU (cuda) or CPU. Default: auto")
     p.add_argument("--cpu-threads", type=int, default=max(1, min(4, (os.cpu_count() or 4) // 2)),
@@ -775,9 +942,9 @@ def main():
                         "(default 0.2 on GPU, 0.6 on CPU). Lower = faster")
     p.add_argument("--pause", type=float, default=0.5,
                    help="Silence (seconds) that ends what is being said. Default: 0.5")
-    p.add_argument("--end-gap", type=float, default=0.35,
+    p.add_argument("--end-gap", type=float, default=0.6,
                    help="Audio after a sentence's final punctuation needed to send it "
-                        "(default 0.35 s). Lower = faster, more risk of split sentences")
+                        "(default 0.6 s). Lower = faster, more risk of split sentences")
     p.add_argument("--max-buffer", type=float, default=10.0,
                    help="Longest speech (seconds) before it is sent without a "
                         "sentence end. Default: 10")
