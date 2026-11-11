@@ -19,7 +19,7 @@ PC audio (loopback) → speech chunks → Whisper (speech-to-text, any language)
   fillers, uses proper Arabic punctuation, keeps names/terms accurate, and uses
   the last few lines as context so the subtitles read consistently.
 - Free fallback (Google, then MyMemory) when no Claude API key is set.
-- Show/hide the original text, clear, and save the full transcript to a `.txt` file.
+- Arabic-only list of sentences; clear, and save the full Arabic transcript to a `.txt` file.
 
 ## Install (Windows)
 1. Install **Python 3.10+** from python.org (tick *Add Python to PATH*).
@@ -51,7 +51,7 @@ python live_translator.py
 
 Defaults are tuned for live use: Whisper `small` on GPU / `base` on CPU,
 translation with **Claude Haiku 5.5** (fastest), half the CPU cores at most,
-whole sentences shown one by one.
+whole sentences shown one by one, Arabic only.
 
 ## Options
 | Option | Meaning |
@@ -63,8 +63,9 @@ whole sentences shown one by one.
 | `--fast-mode` | Claude fast mode for Opus: quicker output, about 2x the price. |
 | `--engine free` | Free translator (Google / MyMemory) even if an API key is set. |
 | `--language en` | Force the source language instead of auto-detect. |
-| `--sentence-wait 1.5` | Wait longer for an unfinished sentence (default 1.0 s). |
+| `--sentence-wait 1.5` | Wait longer for an unfinished sentence (default 0.8 s). |
 | `--max-chunk 3` | Send audio every 3 s at most (default 5). |
+| `--show-original` | Also show the original text (hidden by default: Arabic only). |
 | `--stream` | Show Arabic word by word instead of whole sentences. |
 | `--font-size 15` | Arabic text size (default 13). |
 | `--device "Headphones"` | Capture a specific output device (see `--list-devices`). |

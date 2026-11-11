@@ -53,7 +53,10 @@ SYSTEM_PROMPT = (
     "in parentheses only when an Arabic reader would need it.\n"
     "- Use the previous lines only as context for consistency; translate ONLY "
     "the new text.\n"
-    "- Output the Arabic translation only, with no notes or explanations."
+    "- The text is one spoken sentence (sometimes cut short). Always answer with "
+    "complete, grammatical Arabic sentence(s) that read naturally after the "
+    "previous lines, like professional film subtitles.\n"
+    "- Output the Arabic translation only, with no notes, quotes or explanations."
 )
 
 
@@ -95,7 +98,7 @@ class SpeechChunker:
     reaches max_sec, so subtitles appear quickly and sentences stay whole.
     """
 
-    def __init__(self, min_sec=1.0, max_sec=5.0, silence_sec=0.4,
+    def __init__(self, min_sec=0.8, max_sec=5.0, silence_sec=0.3,
                  threshold=0.008):
         self.min_len = int(min_sec * TARGET_SR)
         self.max_len = int(max_sec * TARGET_SR)
@@ -271,6 +274,8 @@ class ArabicTranslator:
                     self.engine = "free"
                     self.status("Claude API key is invalid - using the free "
                                 "translator. Check ANTHROPIC_API_KEY.")
+                else:
+                    self.status(f"Claude error, used free translator: {str(exc)[:120]}")
                 print(f"[Claude error, using free translator] {exc}", file=sys.stderr)
         if result is None:
             result = self._free(text, src_lang)
@@ -284,18 +289,19 @@ class ArabicTranslator:
             + f"Source language code: {src_lang}\n"
             + f"New text to translate:\n{text}"
         )
-        extra = {"speed": "fast"} if self.fast_mode else {}
-        # Stream so the Arabic words appear on screen while they are written.
-        with self.client.beta.messages.stream(
-            model=self.model,
-            max_tokens=2000,
-            system=SYSTEM_PROMPT,
-            output_config={"effort": "low"},
-            betas=["server-side-fallback-2026-07-01"],
-            fallbacks="default",
-            messages=[{"role": "user", "content": user}],
-            **extra,
-        ) as stream:
+        params = dict(model=self.model, max_tokens=600, system=SYSTEM_PROMPT,
+                      messages=[{"role": "user", "content": user}])
+        if "haiku" in self.model:
+            # Haiku: no thinking step = the quickest reply for short sentences.
+            params.update(thinking={"type": "disabled"}, output_config={"effort": "low"})
+            stream_ctx = self.client.messages.stream(**params)
+        else:
+            params.update(output_config={"effort": "low"},
+                          betas=["server-side-fallback-2026-07-01"], fallbacks="default")
+            if self.fast_mode:
+                params["speed"] = "fast"
+            stream_ctx = self.client.beta.messages.stream(**params)
+        with stream_ctx as stream:
             partial = ""
             for piece in stream.text_stream:
                 partial += piece
@@ -407,9 +413,7 @@ class TranslatorApp:
         self.btn.pack(side="left")
         ttk.Button(bar, text="Clear", command=self.clear).pack(side="left", padx=(6, 0))
         ttk.Button(bar, text="Save", command=self.save).pack(side="left", padx=6)
-        self.show_src = tk.BooleanVar(value=True)
-        ttk.Checkbutton(bar, text="Original", variable=self.show_src,
-                        command=self.toggle_src).pack(side="left", padx=4)
+        self.show_src = tk.BooleanVar(value=args.show_original)
         ttk.Checkbutton(bar, text="On top", variable=self.topmost,
                         command=lambda: self.root.attributes(
                             "-topmost", self.topmost.get())).pack(side="left")
@@ -435,9 +439,10 @@ class TranslatorApp:
         self.text.pack(side="left", fill="both", expand=True)
 
         size = args.font_size
-        self.text.tag_configure("meta", font=("Segoe UI", 8), foreground=self.MUTED,
-                                spacing1=8)
-        self.text.tag_configure("src", font=("Segoe UI", 9), foreground=self.MUTED)
+        self.text.tag_configure("meta", font=("Segoe UI", 7), foreground="#5c6672",
+                                justify="right", spacing1=6)
+        self.text.tag_configure("src", font=("Segoe UI", 9), foreground=self.MUTED,
+                                elide=not args.show_original)
         self.text.tag_configure("ar", font=("Segoe UI", size), foreground=self.FG,
                                 justify="right", spacing1=2, spacing3=6)
         self.text.tag_configure("new", foreground="#ffffff", background="#233044")
@@ -482,7 +487,7 @@ class TranslatorApp:
         t.configure(state="normal")
         if self.latest is not None:
             t.tag_remove("new", f"ar{self.latest}.first", f"ar{self.latest}.last")
-        t.insert("end", f"{len(self.lines):>3}  ·  {stamp}  ·  {lang.upper()}\n", "meta")
+        t.insert("end", f"{stamp}  ·  {len(self.lines)}\n", "meta")
         t.insert("end", src + "\n", ("src",))
         t.insert("end", self.rtl(arabic) + "\n", ("ar", f"ar{line_id}", "new"))
         t.insert("end", "\n", "sep")
@@ -525,7 +530,9 @@ class TranslatorApp:
         name = time.strftime("transcript_%Y%m%d_%H%M%S.txt")
         with open(name, "w", encoding="utf-8") as f:
             for stamp, lang, src, ar in self.lines.values():
-                f.write(f"[{stamp}] ({lang})\n{src}\n{ar}\n\n")
+                if self.show_src.get():
+                    f.write(f"[{stamp}] {src}\n")
+                f.write(f"{ar}\n\n")
         self.status.configure(text=f"Saved {os.path.abspath(name)}")
 
     # ---- start / stop ----
@@ -567,8 +574,12 @@ class TranslatorApp:
         text_q: queue.Queue = queue.Queue()
         threading.Thread(target=self.transcribe_loop, daemon=True,
                          args=(self.audio_q, text_q, self.stop_evt)).start()
-        threading.Thread(target=self.translate_loop, daemon=True,
-                         args=(text_q, self.stop_evt)).start()
+        for _ in range(3):   # up to 3 sentences translated at the same time
+            threading.Thread(target=self.translate_loop, daemon=True,
+                             args=(text_q, self.stop_evt)).start()
+        if self.translator.engine == "claude":
+            # Open the connection now so the first sentence is not slower.
+            threading.Thread(target=self._warm_up, daemon=True).start()
         self.set_status(f"Listening to: {speaker.name}  |  speech: "
                         f"{self.transcriber.model_name} on {self.transcriber.device.upper()}  |  "
                         f"translator: {self.translator.engine}"
@@ -626,22 +637,19 @@ class TranslatorApp:
                 emit(pending, lang)
                 pending = ""
 
+    def _warm_up(self):
+        try:
+            self.translator._claude("Hello.", "en")
+        except Exception:
+            pass
+
     def translate_loop(self, text_q: queue.Queue, stop: threading.Event):
         while not stop.is_set():
             try:
                 line_id, text, lang = text_q.get(timeout=0.2)
             except queue.Empty:
                 continue
-            # Catch up: if more sentences are waiting, translate them together
-            # and show the result on the newest line.
-            merged = [line_id]
-            while text_q.qsize() >= 3:     # only when far behind
-                nid, ntext, _ = text_q.get_nowait()
-                merged.append(nid)
-                text += " " + ntext
-            for old in merged[:-1]:
-                self.ui_q.put(("update", (old, "↓")))
-            target = merged[-1]
+            target = line_id
 
             def partial(ar, target=target):
                 self.ui_q.put(("update", (target, ar)))
@@ -683,9 +691,11 @@ def main():
     p.add_argument("--max-chunk", type=float, default=5.0,
                    help="Longest phrase in seconds before it is sent (lower = faster, "
                         "but sentences may be cut). Default: 5")
-    p.add_argument("--sentence-wait", type=float, default=1.0,
+    p.add_argument("--sentence-wait", type=float, default=0.8,
                    help="Seconds to wait for the end of an unfinished sentence "
-                        "before translating it anyway. Default: 1.0")
+                        "before translating it anyway. Default: 0.8")
+    p.add_argument("--show-original", action="store_true",
+                   help="Also show the original (e.g. English) text above each line")
     p.add_argument("--stream", action="store_true",
                    help="Show the Arabic word by word instead of whole sentences")
     p.add_argument("--claude-model", default=FAST_CLAUDE_MODEL,
