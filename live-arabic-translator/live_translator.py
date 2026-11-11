@@ -25,6 +25,7 @@ import queue
 import sys
 import threading
 import time
+import warnings
 import tkinter as tk
 from tkinter import ttk
 
@@ -35,6 +36,9 @@ CAPTURE_SR = 48_000         # native rate of most sound cards (48k = 3 x 16k)
 BLOCK_SEC = 0.1             # capture granularity
 
 CLAUDE_MODEL = "claude-opus-5-5"
+
+# Harmless notice from Windows audio when a buffer is late; hide it.
+warnings.filterwarnings("ignore", message="data discontinuity")
 
 SYSTEM_PROMPT = (
     "You are a professional subtitle translator. Translate the given speech "
@@ -182,32 +186,38 @@ class Transcriber:
 # 3. Translation to Arabic
 # --------------------------------------------------------------------------
 class ArabicTranslator:
-    """Claude for high-quality, organised Arabic; Google Translate fallback."""
+    """Claude for high-quality, organised Arabic; free online fallbacks."""
 
-    def __init__(self, engine: str):
+    def __init__(self, engine: str, status=print):
         self.history: list[tuple[str, str]] = []   # (source, arabic) context
         self.client = None
-        self.engine = engine
-        if engine in ("auto", "claude") and os.environ.get("ANTHROPIC_API_KEY"):
+        self.status = status
+        self.engine = "free"
+        if engine in ("auto", "claude") and os.environ.get("ANTHROPIC_API_KEY", "").strip():
             import anthropic
             self.client = anthropic.Anthropic()
             self.engine = "claude"
         elif engine == "claude":
             raise SystemExit("ANTHROPIC_API_KEY is not set (needed for --engine claude).")
-        else:
-            self.engine = "google"
 
     def __call__(self, text: str, src_lang: str) -> str:
         if src_lang == "ar":
             return text
+        result = None
         if self.engine == "claude":
             try:
                 result = self._claude(text, src_lang)
             except Exception as exc:
-                print(f"[Claude error, using Google] {exc}", file=sys.stderr)
-                result = self._google(text)
-        else:
-            result = self._google(text)
+                import anthropic
+                if isinstance(exc, (anthropic.AuthenticationError,
+                                    anthropic.PermissionDeniedError)):
+                    # Wrong / revoked key: stop trying Claude for this session.
+                    self.engine = "free"
+                    self.status("Claude API key is invalid - using the free "
+                                "translator. Check ANTHROPIC_API_KEY.")
+                print(f"[Claude error, using free translator] {exc}", file=sys.stderr)
+        if result is None:
+            result = self._free(text, src_lang)
         self.history = (self.history + [(text, result)])[-4:]
         return result
 
@@ -235,9 +245,40 @@ class ArabicTranslator:
         return out
 
     @staticmethod
-    def _google(text: str) -> str:
-        from deep_translator import GoogleTranslator
-        return GoogleTranslator(source="auto", target="ar").translate(text) or ""
+    def _free(text: str, src_lang: str) -> str:
+        """Google's public endpoint, then MyMemory; retries on rate limits."""
+        import json
+        import urllib.parse
+        import urllib.request
+
+        def get(url):
+            req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
+            with urllib.request.urlopen(req, timeout=10) as r:
+                return json.loads(r.read().decode("utf-8"))
+
+        def google():
+            q = urllib.parse.urlencode({"client": "gtx", "sl": "auto", "tl": "ar",
+                                        "dt": "t", "q": text})
+            data = get("https://translate.googleapis.com/translate_a/single?" + q)
+            return "".join(part[0] for part in data[0] if part and part[0])
+
+        def mymemory():
+            src = src_lang if src_lang and src_lang != "auto" else "en"
+            q = urllib.parse.urlencode({"q": text[:480], "langpair": f"{src}|ar"})
+            data = get("https://api.mymemory.translated.net/get?" + q)
+            return data["responseData"]["translatedText"]
+
+        errors = []
+        for attempt in range(2):
+            for fn in (google, mymemory):
+                try:
+                    out = (fn() or "").strip()
+                    if out:
+                        return out
+                except Exception as exc:
+                    errors.append(f"{fn.__name__}: {exc}")
+            time.sleep(1.5 * (attempt + 1))
+        raise RuntimeError("free translators unavailable (" + "; ".join(errors[-2:]) + ")")
 
 
 # --------------------------------------------------------------------------
@@ -361,7 +402,7 @@ class TranslatorApp:
                                 "(first run downloads it)…")
                 self.transcriber = Transcriber(self.args.model, self.args.language,
                                                self.args.compute)
-                self.translator = ArabicTranslator(self.args.engine)
+                self.translator = ArabicTranslator(self.args.engine, self.set_status)
             speaker, loop = get_loopback_device(self.args.device)
         except BaseException as exc:
             self.running = False
@@ -392,7 +433,11 @@ class TranslatorApp:
                 text, lang = self.transcriber(chunk)
                 if not text or len(text) < 2:
                     continue
-                arabic = self.translator(text, lang)
+                try:
+                    arabic = self.translator(text, lang)
+                except Exception as exc:
+                    arabic = "⚠ تعذّرت الترجمة"
+                    self.set_status(f"Translation error: {exc}")
                 self.ui_q.put(("line", (f"[{lang}] {text}", arabic)))
             except Exception as exc:
                 self.set_status(f"Error: {exc}")
@@ -411,8 +456,8 @@ def main():
                    help="Whisper size: tiny, base, small, medium, large-v3 (default: small)")
     p.add_argument("--language", default=None,
                    help="Force source language code (e.g. en, fr). Default: auto-detect")
-    p.add_argument("--engine", default="auto", choices=["auto", "claude", "google"],
-                   help="Translator: claude (best quality), google (free). Default: auto")
+    p.add_argument("--engine", default="auto", choices=["auto", "claude", "free"],
+                   help="Translator: claude (best quality), free (Google/MyMemory). Default: auto")
     p.add_argument("--compute", default="cpu", choices=["cpu", "cuda"],
                    help="Run Whisper on CPU or NVIDIA GPU (cuda)")
     p.add_argument("--device", default=None, help="Part of the output device name")

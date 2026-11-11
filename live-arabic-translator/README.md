@@ -18,7 +18,7 @@ PC audio (loopback) → speech chunks → Whisper (speech-to-text, any language)
 - High-quality Modern Standard Arabic translation with Claude: fixes speech
   fillers, uses proper Arabic punctuation, keeps names/terms accurate, and uses
   the last few lines as context so the subtitles read consistently.
-- Free fallback to Google Translate when no Claude API key is set.
+- Free fallback (Google, then MyMemory) when no Claude API key is set.
 - Show/hide the original text, clear, and save the full transcript to a `.txt` file.
 
 ## Install (Windows)
@@ -48,7 +48,7 @@ python live_translator.py
 | `--model medium` | More accurate recognition (slower). `tiny`/`base` are faster. `large-v3` is the best. |
 | `--compute cuda` | Use an NVIDIA GPU (much faster; allows `large-v3` live). |
 | `--language en` | Force the source language instead of auto-detect. |
-| `--engine google` | Use the free translator even if an API key is set. |
+| `--engine free` | Use the free translator (Google / MyMemory) even if an API key is set. |
 | `--device "Headphones"` | Capture a specific output device (see `--list-devices`). |
 | `--threshold 0.004` | Lower if quiet speech is missed; raise if music triggers it. |
 | `--font-size 30` | Bigger Arabic subtitles. |
