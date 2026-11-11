@@ -36,7 +36,8 @@ TARGET_SR = 16_000          # Whisper expects 16 kHz mono
 CAPTURE_SR = 48_000         # native rate of most sound cards (48k = 3 x 16k)
 BLOCK_SEC = 0.1             # capture granularity
 
-CLAUDE_MODEL = "claude-opus-5-5"
+CLAUDE_MODEL = "claude-opus-5-5"          # most polished
+FAST_CLAUDE_MODEL = "claude-haiku-5-5"    # fastest, default for live use
 
 # Harmless notice from Windows audio when a buffer is late; hide it.
 warnings.filterwarnings("ignore", message="data discontinuity")
@@ -162,12 +163,45 @@ def capture_loop(loop_device, out_q: queue.Queue, stop: threading.Event,
 # --------------------------------------------------------------------------
 # 2. Speech recognition (local Whisper)
 # --------------------------------------------------------------------------
+def _add_nvidia_dll_dirs() -> None:
+    """Windows: make the CUDA/cuDNN DLLs from the pip 'nvidia-*' packages findable."""
+    if not sys.platform.startswith("win"):
+        return
+    import site
+    roots = site.getsitepackages() + [site.getusersitepackages()]
+    for root in roots:
+        base = os.path.join(root, "nvidia")
+        if not os.path.isdir(base):
+            continue
+        for pkg in os.listdir(base):
+            bin_dir = os.path.join(base, pkg, "bin")
+            if os.path.isdir(bin_dir):
+                os.add_dll_directory(bin_dir)
+                os.environ["PATH"] = bin_dir + os.pathsep + os.environ.get("PATH", "")
+
+
 class Transcriber:
-    def __init__(self, model_size: str, language: str | None, device: str):
+    def __init__(self, model_size: str | None, language: str | None, device: str,
+                 status=print, cpu_threads: int = 2):
         from faster_whisper import WhisperModel
-        compute = "float16" if device == "cuda" else "int8"
-        self.model = WhisperModel(model_size, device=device, compute_type=compute,
-                                  cpu_threads=os.cpu_count() or 4)
+        self.device = "cpu"
+        if device in ("auto", "cuda"):
+            try:
+                _add_nvidia_dll_dirs()
+                self.model = WhisperModel(model_size or "small", device="cuda",
+                                          compute_type="int8_float16")
+                # Run once so missing GPU libraries show up now, not mid-video.
+                list(self.model.transcribe(np.zeros(TARGET_SR, np.float32))[0])
+                self.device = "cuda"
+                self.model_name = model_size or "small"
+            except Exception as exc:
+                if device == "cuda":
+                    status(f"GPU not usable ({exc}); using CPU.")
+                print(f"[GPU not used] {exc}", file=sys.stderr)
+        if self.device == "cpu":
+            self.model_name = model_size or "base"
+            self.model = WhisperModel(self.model_name, device="cpu",
+                                      compute_type="int8", cpu_threads=cpu_threads)
         self.language = language
         self.last_text = ""
 
@@ -329,6 +363,8 @@ def make_rtl_formatter():
 
 
 class TranslatorApp:
+    BG, CARD, FG, MUTED, ACCENT = "#14171c", "#1c2128", "#f1f3f5", "#8b95a1", "#4ea1ff"
+
     def __init__(self, args):
         self.args = args
         self.ui_q: queue.Queue = queue.Queue()
@@ -338,36 +374,74 @@ class TranslatorApp:
         self.transcriber = None
         self.translator = None
         self.rtl = make_rtl_formatter()
-        self.lines: list[list] = []          # [id, source, arabic]
+        self.lines: dict[int, list] = {}      # id -> [time, lang, source, arabic]
         self.next_id = 0
-        self.dirty = False
+        self.latest = None
 
         self.root = tk.Tk()
         self.root.title("Live Arabic Translator – مترجم فوري")
-        self.root.geometry("900x420")
-        self.root.configure(bg="#111418")
+        self.root.geometry("760x520")
+        self.root.minsize(480, 300)
+        self.root.configure(bg=self.BG)
+        self.topmost = tk.BooleanVar(value=True)
         self.root.attributes("-topmost", True)
 
-        bar = tk.Frame(self.root, bg="#111418")
-        bar.pack(fill="x", padx=12, pady=8)
-        self.btn = ttk.Button(bar, text="▶ Start", command=self.toggle)
-        self.btn.pack(side="left")
-        self.show_src = tk.BooleanVar(value=True)
-        ttk.Checkbutton(bar, text="Show original", variable=self.show_src,
-                        command=self.render).pack(side="left", padx=10)
-        ttk.Button(bar, text="Clear", command=self.clear).pack(side="left")
-        ttk.Button(bar, text="Save transcript", command=self.save).pack(side="left", padx=10)
-        self.status = tk.Label(bar, text="Press Start, then play a video.",
-                               fg="#9aa4b1", bg="#111418", anchor="w")
-        self.status.pack(side="left", fill="x", expand=True, padx=10)
+        style = ttk.Style(self.root)
+        try:
+            style.theme_use("clam")
+        except tk.TclError:
+            pass
+        style.configure("TButton", padding=(10, 3), font=("Segoe UI", 9),
+                        background="#2a313a", foreground=self.FG, bordercolor="#3a424d",
+                        lightcolor="#2a313a", darkcolor="#2a313a")
+        style.map("TButton", background=[("active", "#36404b"), ("disabled", "#20252c")],
+                  foreground=[("disabled", self.MUTED)])
+        style.configure("TCheckbutton", background=self.BG, foreground=self.MUTED,
+                        font=("Segoe UI", 9))
+        style.map("TCheckbutton", background=[("active", self.BG)])
 
-        self.text = tk.Text(self.root, wrap="word", bg="#111418", fg="#ffffff",
-                            bd=0, padx=16, pady=10, font=("Segoe UI", 22))
-        self.text.tag_configure("ar", justify="right", font=("Segoe UI", args.font_size),
-                                foreground="#ffffff", spacing3=4)
-        self.text.tag_configure("src", justify="left", font=("Segoe UI", 12),
-                                foreground="#7d8794", spacing1=10)
-        self.text.pack(fill="both", expand=True)
+        # Toolbar
+        bar = tk.Frame(self.root, bg=self.BG)
+        bar.pack(fill="x", padx=10, pady=(8, 4))
+        self.btn = ttk.Button(bar, text="▶ Start", command=self.toggle, width=8)
+        self.btn.pack(side="left")
+        ttk.Button(bar, text="Clear", command=self.clear).pack(side="left", padx=(6, 0))
+        ttk.Button(bar, text="Save", command=self.save).pack(side="left", padx=6)
+        self.show_src = tk.BooleanVar(value=True)
+        ttk.Checkbutton(bar, text="Original", variable=self.show_src,
+                        command=self.toggle_src).pack(side="left", padx=4)
+        ttk.Checkbutton(bar, text="On top", variable=self.topmost,
+                        command=lambda: self.root.attributes(
+                            "-topmost", self.topmost.get())).pack(side="left")
+        self.count = tk.Label(bar, text="0 lines", fg=self.MUTED, bg=self.BG,
+                              font=("Segoe UI", 9))
+        self.count.pack(side="right")
+
+        # Status line
+        self.status = tk.Label(self.root, text="Press Start, then play a video.",
+                               fg=self.MUTED, bg=self.BG, anchor="w",
+                               font=("Segoe UI", 9))
+        self.status.pack(fill="x", padx=12)
+
+        # Scrollable list of translated sentences
+        body = tk.Frame(self.root, bg=self.BG)
+        body.pack(fill="both", expand=True, padx=10, pady=(4, 10))
+        self.text = tk.Text(body, wrap="word", bg=self.CARD, fg=self.FG, bd=0,
+                            highlightthickness=0, padx=14, pady=8, cursor="arrow",
+                            font=("Segoe UI", 10))
+        scroll = ttk.Scrollbar(body, command=self.text.yview)
+        self.text.configure(yscrollcommand=scroll.set)
+        scroll.pack(side="right", fill="y")
+        self.text.pack(side="left", fill="both", expand=True)
+
+        size = args.font_size
+        self.text.tag_configure("meta", font=("Segoe UI", 8), foreground=self.MUTED,
+                                spacing1=8)
+        self.text.tag_configure("src", font=("Segoe UI", 9), foreground=self.MUTED)
+        self.text.tag_configure("ar", font=("Segoe UI", size), foreground=self.FG,
+                                justify="right", spacing1=2, spacing3=6)
+        self.text.tag_configure("new", foreground="#ffffff", background="#233044")
+        self.text.tag_configure("sep", font=("Segoe UI", 2), foreground="#2a313a")
         self.text.configure(state="disabled")
 
         self.root.protocol("WM_DELETE_WINDOW", self.quit)
@@ -379,50 +453,79 @@ class TranslatorApp:
 
     def poll(self):
         try:
-            while True:
+            for _ in range(200):
                 kind, payload = self.ui_q.get_nowait()
                 if kind == "status":
                     self.status.configure(text=payload)
                 elif kind == "new":
-                    self.lines = (self.lines + [list(payload)])[-200:]
-                    self.dirty = True
+                    self.add_line(*payload)
                 elif kind == "update":
-                    line_id, arabic = payload
-                    for line in reversed(self.lines):
-                        if line[0] == line_id:
-                            line[2] = arabic
-                            self.dirty = True
-                            break
+                    self.update_line(*payload)
                 elif kind == "ready":
                     self.btn.configure(text="■ Stop", state="normal")
                 elif kind == "reset":
                     self.btn.configure(text="▶ Start", state="normal")
         except queue.Empty:
             pass
-        if self.dirty:
-            self.dirty = False
-            self.render()
-        self.root.after(50, self.poll)
+        self.root.after(100, self.poll)
 
-    def render(self):
-        self.text.configure(state="normal")
-        self.text.delete("1.0", "end")
-        for _id, src, ar in self.lines[-30:]:
-            if self.show_src.get():
-                self.text.insert("end", src + "\n", "src")
-            self.text.insert("end", self.rtl(ar) + "\n", "ar")
-        self.text.see("end")
-        self.text.configure(state="disabled")
+    def _at_bottom(self) -> bool:
+        return self.text.yview()[1] > 0.98
+
+    def add_line(self, line_id: int, source: str, arabic: str):
+        stick = self._at_bottom()
+        lang, _, src = source.partition("] ")
+        lang = lang.strip("[")
+        stamp = time.strftime("%H:%M:%S")
+        self.lines[line_id] = [stamp, lang, src, arabic]
+        t = self.text
+        t.configure(state="normal")
+        if self.latest is not None:
+            t.tag_remove("new", f"ar{self.latest}.first", f"ar{self.latest}.last")
+        t.insert("end", f"{len(self.lines):>3}  ·  {stamp}  ·  {lang.upper()}\n", "meta")
+        t.insert("end", src + "\n", ("src",))
+        t.insert("end", self.rtl(arabic) + "\n", ("ar", f"ar{line_id}", "new"))
+        t.insert("end", "\n", "sep")
+        t.configure(state="disabled")
+        self.latest = line_id
+        self.count.configure(text=f"{len(self.lines)} lines")
+        if stick:
+            t.see("end")
+
+    def update_line(self, line_id: int, arabic: str):
+        if line_id not in self.lines:
+            return
+        self.lines[line_id][3] = arabic
+        tag = f"ar{line_id}"
+        ranges = self.text.tag_ranges(tag)
+        if not ranges:
+            return
+        stick = self._at_bottom()
+        tags = ("ar", tag) + (("new",) if line_id == self.latest else ())
+        t = self.text
+        t.configure(state="normal")
+        t.delete(ranges[0], ranges[1])
+        t.insert(ranges[0], self.rtl(arabic) + "\n", tags)
+        t.configure(state="disabled")
+        if stick:
+            t.see("end")
+
+    def toggle_src(self):
+        self.text.tag_configure("src", elide=not self.show_src.get())
 
     def clear(self):
-        self.lines = []
-        self.render()
+        self.lines.clear()
+        self.latest = None
+        self.text.configure(state="normal")
+        self.text.delete("1.0", "end")
+        self.text.configure(state="disabled")
+        self.count.configure(text="0 lines")
 
     def save(self):
         name = time.strftime("transcript_%Y%m%d_%H%M%S.txt")
         with open(name, "w", encoding="utf-8") as f:
-            for _id, src, ar in self.lines:
-                f.write(f"{src}\n{ar}\n\n")
+            for stamp, lang, src, ar in self.lines.values():
+                f.write(f"[{stamp}] ({lang})\n{src}\n{ar}\n\n")
         self.status.configure(text=f"Saved {os.path.abspath(name)}")
 
     # ---- start / stop ----
@@ -441,10 +544,10 @@ class TranslatorApp:
     def start_workers(self):
         try:
             if self.transcriber is None:
-                self.set_status(f"Loading Whisper '{self.args.model}' model "
-                                "(first run downloads it)…")
+                self.set_status("Loading speech model (first run downloads it)…")
                 self.transcriber = Transcriber(self.args.model, self.args.language,
-                                               self.args.compute)
+                                               self.args.compute, self.set_status,
+                                               self.args.cpu_threads)
                 self.translator = ArabicTranslator(self.args.engine, self.set_status,
                                                    self.args.claude_model,
                                                    self.args.fast_mode)
@@ -466,8 +569,10 @@ class TranslatorApp:
                          args=(self.audio_q, text_q, self.stop_evt)).start()
         threading.Thread(target=self.translate_loop, daemon=True,
                          args=(text_q, self.stop_evt)).start()
-        self.set_status(f"Listening to: {speaker.name}  |  translator: "
-                        f"{self.translator.engine}")
+        self.set_status(f"Listening to: {speaker.name}  |  speech: "
+                        f"{self.transcriber.model_name} on {self.transcriber.device.upper()}  |  "
+                        f"translator: {self.translator.engine}"
+                        + (f" ({self.translator.model})" if self.translator.engine == "claude" else ""))
         self.ui_q.put(("ready", None))
 
     def transcribe_loop(self, audio_q: queue.Queue, text_q: queue.Queue,
@@ -561,14 +666,17 @@ class TranslatorApp:
 
 def main():
     p = argparse.ArgumentParser(description="Translate computer audio to Arabic live.")
-    p.add_argument("--model", default="small",
-                   help="Whisper size: tiny, base, small, medium, large-v3 (default: small)")
+    p.add_argument("--model", default=None,
+                   help="Whisper size: tiny, base, small, medium, large-v3-turbo. "
+                        "Default: small on GPU, base on CPU")
     p.add_argument("--language", default=None,
                    help="Force source language code (e.g. en, fr). Default: auto-detect")
     p.add_argument("--engine", default="auto", choices=["auto", "claude", "free"],
                    help="Translator: claude (best quality), free (Google/MyMemory). Default: auto")
-    p.add_argument("--compute", default="cpu", choices=["cpu", "cuda"],
-                   help="Run Whisper on CPU or NVIDIA GPU (cuda)")
+    p.add_argument("--compute", default="auto", choices=["auto", "cpu", "cuda"],
+                   help="Speech recognition on NVIDIA GPU (cuda) or CPU. Default: auto")
+    p.add_argument("--cpu-threads", type=int, default=max(1, min(4, (os.cpu_count() or 4) // 2)),
+                   help="CPU threads for speech recognition (fewer = lighter). Default: half, max 4")
     p.add_argument("--device", default=None, help="Part of the output device name")
     p.add_argument("--threshold", type=float, default=0.008,
                    help="Loudness that counts as speech (lower = more sensitive)")
@@ -580,12 +688,12 @@ def main():
                         "before translating it anyway. Default: 1.0")
     p.add_argument("--stream", action="store_true",
                    help="Show the Arabic word by word instead of whole sentences")
-    p.add_argument("--claude-model", default=CLAUDE_MODEL,
-                   help=f"Claude model for translation (default: {CLAUDE_MODEL}). "
-                        "claude-haiku-5-5 is the fastest and cheapest")
+    p.add_argument("--claude-model", default=FAST_CLAUDE_MODEL,
+                   help=f"Claude model (default: {FAST_CLAUDE_MODEL}, fastest). "
+                        f"Use {CLAUDE_MODEL} for the most polished Arabic")
     p.add_argument("--fast-mode", action="store_true",
                    help="Claude fast mode: faster output, about twice the price")
-    p.add_argument("--font-size", type=int, default=24, help="Arabic subtitle size")
+    p.add_argument("--font-size", type=int, default=13, help="Arabic text size (default 13)")
     p.add_argument("--list-devices", action="store_true", help="List output devices")
     args = p.parse_args()
 

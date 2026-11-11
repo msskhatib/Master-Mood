@@ -42,29 +42,33 @@ python live_translator.py
 2. Play any video or audio on the PC. Arabic subtitles appear a few seconds after each sentence.
 3. Press **■ Stop** when done; **Save transcript** writes a text file.
 
+## Launchers (Windows)
+| File | Best for |
+|---|---|
+| `run_gpu.bat` | **NVIDIA GPU laptops** (e.g. RTX 3060): speech runs on the GPU, almost no CPU load. Installs the NVIDIA cuBLAS library once. |
+| `run_windows.bat` | Uses the GPU if it is ready, otherwise the CPU. |
+| `run_fast.bat` | Laptops without NVIDIA: lightest CPU settings. |
+
+Defaults are tuned for live use: Whisper `small` on GPU / `base` on CPU,
+translation with **Claude Haiku 5.5** (fastest), half the CPU cores at most,
+whole sentences shown one by one.
+
 ## Options
 | Option | Meaning |
 |---|---|
-| `--model medium` | More accurate recognition (slower). `tiny`/`base` are faster. `large-v3` is the best. |
-| `--compute cuda` | Use an NVIDIA GPU (much faster; allows `large-v3` live). |
+| `--model small` | Speech model: `tiny`, `base`, `small`, `medium`, `large-v3-turbo` (bigger = more accurate, heavier). |
+| `--compute cuda` / `cpu` | Force GPU or CPU (default `auto`). |
+| `--cpu-threads 2` | CPU threads for speech on CPU (fewer = lighter). |
+| `--claude-model claude-opus-5-5` | Most polished Arabic (a bit slower). |
+| `--fast-mode` | Claude fast mode for Opus: quicker output, about 2x the price. |
+| `--engine free` | Free translator (Google / MyMemory) even if an API key is set. |
 | `--language en` | Force the source language instead of auto-detect. |
-| `--engine free` | Use the free translator (Google / MyMemory) even if an API key is set. |
+| `--sentence-wait 1.5` | Wait longer for an unfinished sentence (default 1.0 s). |
+| `--max-chunk 3` | Send audio every 3 s at most (default 5). |
+| `--stream` | Show Arabic word by word instead of whole sentences. |
+| `--font-size 15` | Arabic text size (default 13). |
 | `--device "Headphones"` | Capture a specific output device (see `--list-devices`). |
 | `--threshold 0.004` | Lower if quiet speech is missed; raise if music triggers it. |
-| `--font-size 30` | Bigger Arabic subtitles. |
-| `--sentence-wait 1.5` | How long to wait for an unfinished sentence to continue (default 1.0 s). |
-| `--stream` | Show Arabic word by word instead of one whole sentence at a time. |
-| `--max-chunk 3` | Send speech every 3 s at most (faster subtitles; default 5). |
-| `--claude-model claude-haiku-5-5` | Fastest and cheapest Claude translation (slightly less polished). |
-| `--fast-mode` | Claude fast mode: quicker output, about 2x the price. |
-
-### Fastest settings
-```bash
-python live_translator.py --model base --max-chunk 3 --claude-model claude-haiku-5-5
-```
-With an NVIDIA GPU add `--compute cuda` (then `--model small` or `medium` stays fast).
-
-Example: `python live_translator.py --model medium --compute cuda --font-size 28`
 
 ## Notes
 - **macOS** cannot record system audio natively: install the free
