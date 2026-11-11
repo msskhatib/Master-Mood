@@ -125,7 +125,6 @@ def capture_loop(loop_device, out_q: queue.Queue, stop: threading.Event,
     ratio = CAPTURE_SR // TARGET_SR
     try:
         with loop_device.recorder(samplerate=CAPTURE_SR, blocksize=frames) as rec:
-            status("Listening to computer audio…")
             while not stop.is_set():
                 data = rec.record(numframes=frames)          # (frames, channels)
                 mono = data.mean(axis=1) if data.ndim == 2 else data
