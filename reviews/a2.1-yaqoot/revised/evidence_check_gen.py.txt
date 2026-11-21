@@ -1,0 +1,85 @@
+import re,subprocess,sys
+sys.path.insert(0,'.'); from rows import SECTIONS
+import docx
+from docx.shared import Pt,Cm,RGBColor
+from docx.enum.section import WD_ORIENT
+from docx.oxml.ns import qn
+from docx.oxml import OxmlElement
+n=int(re.search(r'Pages:\s+(\d+)',subprocess.run(['pdfinfo','final.pdf'],capture_output=True,text=True).stdout).group(1))
+norm=lambda s:re.sub(r'\s+',' ',s.replace('’',"'").replace('‘',"'").replace('“','"').replace('”','"')).strip()
+pages=[norm(subprocess.run(['pdftotext','-f',str(i),'-l',str(i),'final.pdf','-'],capture_output=True,text=True).stdout) for i in range(1,n+1)]
+def page_of(q):
+    qq=norm(q)
+    for i in range(2,n):
+        if qq in pages[i]: return i
+    raise SystemExit('quote not found: '+q)
+d=docx.Document(); s=d.sections[0]; s.orientation=WD_ORIENT.LANDSCAPE; s.page_width,s.page_height=Cm(29.7),Cm(21.0)
+for m in ('left_margin','right_margin','top_margin','bottom_margin'): setattr(s,m,Cm(1.5))
+st=d.styles['Normal']; st.font.name='Calibri'; st.font.size=Pt(9.5); st.element.rPr.rFonts.set(qn('w:eastAsia'),'Calibri')
+DARK=RGBColor(0x3B,0x2A,0x50); RED='8B2A2A'
+def shade(cell,hexcol):
+    tcPr=cell._tc.get_or_add_tcPr(); sh=OxmlElement('w:shd'); sh.set(qn('w:val'),'clear'); sh.set(qn('w:color'),'auto'); sh.set(qn('w:fill'),hexcol); tcPr.append(sh)
+def H(text,size=13):
+    p=d.add_paragraph(); r=p.add_run(text); r.bold=True; r.font.size=Pt(size); r.font.color.rgb=RGBColor(0x8B,0x2A,0x2A); p.paragraph_format.space_before=Pt(10); p.paragraph_format.space_after=Pt(4); p.paragraph_format.keep_with_next=True
+def P(text,bold=False):
+    p=d.add_paragraph(); r=p.add_run(text); r.bold=bold; p.paragraph_format.space_after=Pt(4); return p
+def table(headers,rows,widths):
+    t=d.add_table(rows=1,cols=len(headers)); t.style='Table Grid'; t.autofit=False
+    for i,h in enumerate(headers):
+        c=t.rows[0].cells[i]; c.text=''; r=c.paragraphs[0].add_run(h); r.bold=True; r.font.color.rgb=RGBColor(255,255,255); shade(c,RED)
+    for row in rows:
+        cells=t.add_row().cells
+        for i,v in enumerate(row):
+            cells[i].text=''; par=cells[i].paragraphs[0]
+            if isinstance(v,tuple): rr=par.add_run(v[0]); rr.bold=True
+            else: par.add_run(str(v))
+    tblPr=t._tbl.tblPr; lay=OxmlElement('w:tblLayout'); lay.set(qn('w:type'),'fixed'); tblPr.append(lay)
+    grid=t._tbl.tblGrid
+    for i,gc in enumerate(grid.findall(qn('w:gridCol'))): gc.set(qn('w:w'),str(int(widths[i]*567)))
+    for row in t.rows:
+        for i,w in enumerate(widths): row.cells[i].width=Cm(w)
+    tr=t.rows[0]._tr; trPr=tr.get_or_add_trPr(); th=OxmlElement('w:tblHeader'); th.set(qn('w:val'),'true'); trPr.append(th)
+    d.add_paragraph().paragraph_format.space_after=Pt(2)
+p=d.add_paragraph(); r=p.add_run('A2.1 The Product Strategy Canvas: requirements, evidence and evaluation'); r.bold=True; r.font.size=Pt(17); r.font.color.rgb=DARK
+P('Report checked: Yaqoot by Zain KSA, final version of 21 November 2026 (17 pages: cover plus 16 numbered). Every requirement from the brief, the canvas template, the rubric and the teacher\'s posts is listed with the evidence in the report, where it is, and the course workbook section it draws on. Quotes are copied from the report and were checked by script against the final PDF. Page numbers are the printed page numbers. For my own use; not part of the submission.')
+H('Summary of the evaluation')
+table(['Rubric criterion','Points','Band reached','GPT-6.2-Astra','Claude','Main evidence','What could still cost points'],[
+[('Current Context: 5Cs Depth',),'30','Excellent','30','30','All five Cs in 3.1 to 3.5; customers by jobs; five category trends; seven competitors with positioning; one named unfair advantage tested with VRIO','The imitation test is my judgement and is confirmed only by the pilot'],
+[('The Plan: Risks and Resources',),'20','Excellent','20','20','Seven risks from the Context with likelihood, impact, warning sign, mitigation and owner; six sized resources','Team size and budget are estimates (A5)'],
+[('The Plan: Success Metrics',),'15','Excellent','15','15','Five outcome metrics and one guardrail, each with definition, baseline, target and date; outputs named and excluded','Three baselines are planning estimates (A1, A2, A3)'],
+[('Strategic Coherence',),'10','Excellent','10','10','Every resource and risk cites its Context section; table 6.3 from pain to metric; table 6.2 of choices not made','Two pictures still say "main line" where the text says "primary line"'],
+[('Total',),'75','','75','75','Independent review: ten rounds with GPT-6.2-Astra, final verdict APPROVED','These are estimates against the rubric. The Learning Facilitator decides the grade'],
+],[4.2,1.3,2.0,2.3,1.5,8.2,7.0])
+num=0
+for title,rows in SECTIONS:
+    H(title); out=[]
+    for req,src,course,quotes,comment in rows:
+        num+=1
+        ev=' '.join('"%s"'%q for q in quotes)
+        if comment: ev=(ev+' ' if ev else '')+comment
+        pg=sorted({page_of(q) for q in quotes})
+        where=('p. '+', '.join(map(str,pg))) if pg else 'Whole report'
+        out.append([str(num),(req,),src,course or 'n/a',ev,where,'Met'])
+    table(['#','Requirement','Source','Course section','Evidence in the report','Where','Result'],out,[0.8,5.2,2.4,2.4,11.6,2.2,1.5])
+H("7. The teacher's final checklist")
+chk=[('One product, one organisation','1'),('All ten canvas prompts answered','11 to 20'),('Customers described by job and problem','21 to 25'),('Category trends included','26, 27'),('Competitors with positioning','28, 29'),('VRIO with one honest unfair advantage','30 to 32'),('One CVF type, tied to how the strategy will be carried out','33, 34'),('Clear, ambitious vision; success for the company and for the customer','35 to 39'),('Realistic resources','40, 41'),('Non-obvious risks, each with a realistic mitigation; not a best case','42 to 44'),('Outcome metrics, each with a number, a baseline and a timeframe','45 to 47'),('The plan solves the customer pain identified','48 to 50'),('Sources and assumptions noted','9, 10'),('Order Context, Future State, Plan; clear and concise; PDF or Word','3 to 5')]
+table(['#','Check','Rows above that prove it','Result'],[[str(i+1),(c,),r,'Met'] for i,(c,r) in enumerate(chk)],[1,13,8,3])
+H('8. Assumptions: what is estimated, why, and how it is checked')
+P('The report cannot use fewer estimates without losing marks: the teacher asks for a number, a baseline and a timeframe for every metric, and no public figure exists for these items. What the report now does is separate the four numeric estimates from planning choices and source notes, and say how each baseline will be checked.')
+ass=[('A1','Numeric estimate','Visitor journey: about 20 minutes after landing; within it a median of about 10 minutes from verification start and about 70% active within 30 minutes','No public timing exists; only a kiosk benchmark of 10 to 15 minutes [36]','Measured before the pilot with the same start and end events (5.3)'),
+('A2','Numeric estimate','Primary-line share of about 50%','No public figure for Yaqoot; the 37% multi-SIM rate on the network [10] is the anchor','Survey before the pilot, same wording across waves (5.3)'),
+('A3','Numeric estimate','Customers kept after 12 cycles, about 55%','No public figure','Historical billing cohorts with 12 completed cycles (5.3)'),
+('A5','Numeric estimate','Team of 11 and a budget of about SAR 30 to 35 million, with its split','Sizing of the work','Approved with the budget; set against 2025 revenue of SAR 11 billion [6]'),
+('A6','Planning choice','Gate thresholds: 97% revenue floor, 3-point lift, 3% credit rule, 10% pilot, 90% visitor activation','Decision rules proposed by the plan, not facts','Sample size, eligibility and costs validated before launch'),
+('A8','Planning choice','Three phases of six months','Depends on the BSS upgrade [5]','Reviewed at each gate'),
+('A7','Organisational assumption','Tamam and Yaqoot treated as separately run units','Based on how public results report them [6], [9]','Stated as an assumption in the VRIO table'),
+('A4','Source note','About 65 plans in the wider catalogue','Count from a comparison site [23]; the official site shows 13 voice packages [2]','Not used as the resident\'s choice set'),
+('A9','Source note','Latest published Yaqoot growth figure is the first half of 2025','Later reports give no number [32], [33]','Used as the stated baseline')]
+table(['ID','Type','What is assumed','Why it is needed','How it is checked'],[[(a,),b,c,e,f] for a,b,c,e,f in ass],[1.2,3.2,8.8,6.6,6.2])
+H('9. Consistency checks run on the final text')
+cons=[('Vision','Same sentence on the canvas and in 4.1'),('Gate 1 rule','Same three conditions in 5.2, the Figure 9 caption, the canvas and A6: three-cycle active share of all assigned prospects at least 3 points above control, revenue per assigned prospect at least 97% of control, incremental group contribution at least zero'),('3% credit rule','Same wording in 5.1, R1 and the canvas'),('Targets','65% primary-line share, 70% kept and 10% revenue growth by month 18; visitor median of 5 minutes by month 12; rating 4.6 by month 18: same on the canvas, in 4.2 and in 5.3'),('Metric name','"Primary-line share" in the 5.3 table, the 6.3 table, A2 and the canvas. Two pictures (Figures 9 and 10) still say "main line"'),('Figures','Figures 1 to 10: each has a caption and is referenced in the text'),('References','36 references; every citation in the text resolves and every reference is cited'),('Cross-references','Every section number cited in the text exists'),('Assumptions','A1 to A9 all listed and classified; every (A) in the text has an entry'),('Style','No em dashes; British spelling; contents page numbers match the pages')]
+table(['Item','Result of the check'],[[(a,),b] for a,b in cons],[4,22])
+H('10. Open points for the author')
+for t in ['Google Play rating: the report says 4.3 from 93.4 thousand reviews. The reviewer saw 4.2 on a different country\'s store view. Confirm which store view the 4.3 came from.','Length: 17 pages against "concise" in the brief. The earlier 16-page version without the two added figures and the technology block is also approved at 75/75.','The visitor baselines (10 minutes, 70%) are your planning estimates. Be ready to explain them.','Course match: VRIO and the four CVF types are named only in the brief; no workbook section explains them. There is no workbook section on risk.']:
+    d.add_paragraph(t,style='List Bullet')
+d.save('check.docx'); print('rows',num)

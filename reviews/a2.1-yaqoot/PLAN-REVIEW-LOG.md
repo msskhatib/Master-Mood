@@ -83,3 +83,10 @@ The author asked for the loop to continue past the three-round budget until ever
 - Round 8: **APPROVED**, 75/75 confirmed for the current 17-page files. The approval matches the current plan.
 - Host checks on the final text: every figure 1 to 10 has a caption and is referenced; every citation resolves to the reference list; nine assumptions listed; every section cross-reference exists; no em dashes.
 - Final files: `final_checked/`. The earlier 16-page approved version stays in `final/`.
+
+## Rounds 9 and 10: assumptions clarity (resumed session)
+
+- The author asked for fewer and clearer assumptions. The numeric estimates cannot be removed without losing the numeric baselines the teacher asks for, so the report now classifies A1 to A9: four numeric estimates (A1, A2, A3, A5), two planning choices (A6, A8), one organisational assumption (A7) and two notes on sources (A4, A9).
+- Round 9: **REVISE**, 70/75. A7 was misclassified as a source note, and the guide over-promised that every estimate is replaced by measured data. Both fixed with the reviewer's wording.
+- Round 10: **APPROVED**, 75/75. The approval matches the current plan.
+- `final_checked/` now also holds a requirements, evidence and evaluation document: 52 requirements with quotes, printed page numbers and course workbook sections, the teacher's checklist, an assumptions register and the consistency checks. Every quote was verified by script against the final PDF.

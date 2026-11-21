@@ -90,11 +90,11 @@ Figure 1. The product as the customer meets it: the store with resident voice pa
 
 Figure 2. How Yaqoot works in plain terms. The physical-item label applies to the removable SIM card; the eSIM profile is downloaded. Devices sold in the app are not shown. Own illustration based on \[1\], \[2\] and \[5\].
 
-  -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  **Sources and assumptions.** Every fact comes from a public source in the reference list. Where no public figure exists I use an estimate marked (A), and all nine assumptions are listed at the end. The VRIO judgements and the culture reading are my own assessment of the public evidence.
-  -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  **Sources and assumptions.** Every fact comes from a public source in the reference list. Where no public figure exists I use an estimate marked (A). Only four items are numeric estimates (A1, A2, A3, A5); the list at the end separates them from two planning choices (A6, A8), one organisational assumption (A7) and two notes on sources (A4, A9). The VRIO judgements and the culture reading are my own assessment of the public evidence.
+  ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-  -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ## **2.1 What kind of product is it?**
 
@@ -669,6 +669,8 @@ Yaqoot was early with an idea the market has since copied, and its growth fell f
 All online sources accessed on 21 November 2026.
 
 # **Assumptions**
+
+Numeric estimates: A1, A2, A3 and A5. Section 5.3 explains how the visitor and resident baselines will be checked; A5 estimates the resources to approve. Planning choices: A6 and A8. Organisational assumption: A7. Notes on sources: A4 and A9.
 
 A1. Visitor journey today. Public sources confirm digital verification through Absher \[1\] but give no timings. The 20 minutes of steps after landing are my estimate. Within them, I estimate a median of about 10 minutes from the start of verification to a working number, with about 70% of starters active within 30 minutes. The only public benchmark is 10 to 15 minutes at an airport kiosk \[36\].
 
