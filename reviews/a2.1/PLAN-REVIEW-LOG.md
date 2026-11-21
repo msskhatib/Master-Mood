@@ -1,39 +1,42 @@
-# Plan review log: A2.1
+# Plan review log: A2.1, submission v3
 
 - Host and coordinator: Claude (Claude Code cloud session)
 - Reviewer: Codex CLI 0.171.0, requested model gpt-6.2-astra, effort high
-- Plan: reviews/a2.1/PLAN.md
-- Mode: review (read-only). Authorization: review only; edits to the .docx need the author's approval.
+- Plan: reviews/a2.1/PLAN.md (the author's v3 plan, plus host section 7a)
+- Mode: review. No build, inspect=off (written assignment). The .docx is not edited until the author confirms.
 - Max rounds: 3
+- Host check before round 1: section 6 matches A2_1_v3_submission.docx paragraph for paragraph. Counts: Part 1 500 (165/170/165), Part 2 394 (98/98/98/100), Part 3 200, total 1,094. No em dashes. Course concept names verified against the workbook (course-evidence.md).
 
-## Round 1: Codex review
+## Round 1: Codex review of v3
 
-- Result: completed, verdict **REVISE**. Effective model gpt-6.2-astra, effort high, read-only sandbox, 77 s. Session 01a1fc52-1637-7e31-aac4-3aacb1373418. Diagnostics are kept outside the repo.
-- Word counts independently confirmed: 495 / 396 / 200 = 1,091.
+- Result: completed, verdict **REVISE**. Effective model gpt-6.2-astra, effort high, read-only.
+- Reviewer's marks for v3: Decision Quality 7, Cultural Analysis 7, Multi-Perspective Insight 7, Reflection & Application 10. Total **31/40**. The claimed 40/40 with all 47 requirements met does not hold.
+- Word counts independently confirmed: 500 / 394 / 200 = 1,094.
 
 | ID | Sev | Finding | Host disposition |
 |---|---|---|---|
-| A21-01 | med | The two-tier decision rule doesn't cover irreversible decisions within one area | Accept |
-| A21-02 | med | The 24-hour window doesn't settle who decides. Private input is needed where power distance is high | Accept |
-| A21-03 | med | Cultural readings are stated as fact. Hedge them as testable | Accept: hedge DP1 and Part 2, keep the reflection's voice |
-| A21-04 | med | The DP2 check-in assumes its effect. Add an active-listening step | Accept |
-| A21-05 | low | The adoption claim has no adoption measure | Accept |
-| A21-06 | low | Nurturant-task model and Goleman are not attributed | Accept: name Sinha and Goleman, add both to the references |
-| A21-07 | low | Gendered pronouns for the product lead | Accept (same as host F2) |
-| Host F1 | — | No in-text citations | Reviewer judged the frameworks recognizable and the brief prescribes no style. Downgraded to optional |
+| H1 | med | Decision rule leaves irreversible single-area decisions uncovered; escalation point unclear | Accept |
+| H2 | med | Fixed window does not answer a consensual expectation; written-only dissent conflicts with Part 2 | Accept |
+| R1 | med | Quiet colleague gets monitoring but no named responsibility (D2.1) | Accept, modified: no invented area |
+| H4 | med | "Keeps the change from reading as a demotion" assumes the effect | Accept: active listening |
+| R2 | med | Assumes the India-based colleague's preferences; mixes Culture Map and GLOBE | Accept: ask, don't assume |
+| H3 | low | Certainty wording in Part 3 and Cultural Interpreter | Accept |
+| R3 | med | Signal Reader asserts history the brief doesn't give | Accept |
+| R4 | med | Management resistance not addressed (CM.3) | Accept |
+| H5 | low | Adoption goal has no adoption measure; "a few days" unsupported | Accept |
+| R5 | low | "One live meeting" not in the brief; rotation ignores overlap hours | Accept |
+| H6 | — | Zero headroom in Part 1 | Reviewer rejected; withdrawn |
 
-Status: awaiting the author's authorization to edit the .docx. The review is not approved.
+## Round 2: Codex review of v4 (resumed session)
 
-## Round 2: Codex review (resumed session)
+- Result: completed, verdict **REVISE**. Reviewer's marks: 7, 10, 10, 10. Total **37/40**.
+- R1 (med): the quiet colleague's responsibility is still unspecified. Accepted with the reviewer's wording (own the recovery plan for one missed commitment).
+- V4-01 (low): team-recap recognition conflicts with asking how each prefers recognition. Accepted.
 
-- Feedback: dispositions for A21-01 to A21-07, all accepted and applied. New counts: 497 (166/167/164), 385 (95/98/92/100), 200, total 1,082.
-- Result: completed, verdict **APPROVED**, gpt-6.2-astra on high. The reviewer confirmed all seven fixes in the .docx and the export, and assessed the submission as Excellent on all four rubric criteria.
-- A21-08 (low): cite Goleman's revised model for "relationship management". Accepted: the reference was replaced with Goleman (2001), "An EI-based theory of performance". This is a reference-list change only and changes no body words. It was applied after approval, as the reviewer suggested, and was not re-reviewed.
-- Rounds used: 2 of 3.
+## Round 3: Codex review of v4 (resumed session, final round)
 
-## Round 3: final confirmation (resumed session)
-
-- Feedback: A21-08 disposition (Goleman 2001 reference applied).
-- Result: completed, verdict **APPROVED** with no remaining findings. The reviewer approves the current .docx in full: SHA-256 897ecd05b2eb4ee1b94d9065bc15d88e9769d31dc939f9f6fc42029a2873a519, which the host confirmed matches the file.
-- Host check (Claude): rendered to PDF. 2 pages, and the contents page numbers match (Parts 1 and 2 on p.1; Part 3, References and AI Declaration on p.2). Host agrees with the final version.
-- Rounds used: 3 of 3. Final status: agreed by both providers.
+- Result: completed, verdict **REVISE** on one point only. Reviewer's marks: 10, 10, 10, 10. Total **40/40** on the rubric.
+- V4-02 (med): the host's wording of the V4-01 fix put Part 2 at 402 words, 2 over the limit. Accepted: replaced with the reviewer's exact sentence.
+- Final counts after that fix (host script): Part 1 498 (159/174/165), Part 2 397 (99/100/98/100), Part 3 200, total 1,095.
+- Rounds used: 3 of 3. The last fix is the reviewer's own wording but was applied after the final round, so the final text has no recorded APPROVED verdict.
+- `A2_1_v4_proposed.docx` holds the final text as a separate file. `A2_1_v3_submission.docx` is untouched. Rendered check: 2 pages, contents page numbers correct.
