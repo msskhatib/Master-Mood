@@ -30,3 +30,10 @@ Status: awaiting the author's authorization to edit the .docx. The review is not
 - Result: completed, verdict **APPROVED**, gpt-6.2-astra on high. The reviewer confirmed all seven fixes in the .docx and the export, and assessed the submission as Excellent on all four rubric criteria.
 - A21-08 (low): cite Goleman's revised model for "relationship management". Accepted: the reference was replaced with Goleman (2001), "An EI-based theory of performance". This is a reference-list change only and changes no body words. It was applied after approval, as the reviewer suggested, and was not re-reviewed.
 - Rounds used: 2 of 3.
+
+## Round 3: final confirmation (resumed session)
+
+- Feedback: A21-08 disposition (Goleman 2001 reference applied).
+- Result: completed, verdict **APPROVED** with no remaining findings. The reviewer approves the current .docx in full: SHA-256 897ecd05b2eb4ee1b94d9065bc15d88e9769d31dc939f9f6fc42029a2873a519, which the host confirmed matches the file.
+- Host check (Claude): rendered to PDF. 2 pages, and the contents page numbers match (Parts 1 and 2 on p.1; Part 3, References and AI Declaration on p.2). Host agrees with the final version.
+- Rounds used: 3 of 3. Final status: agreed by both providers.
