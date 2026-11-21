@@ -1,0 +1,11 @@
+import sys,runpy; sys.path.insert(0,sys.argv[1])
+runpy.run_path(sys.argv[1]+"/apply4.py",run_name="__main__")
+from more import *
+dst,pdst=sys.argv[3],sys.argv[5]
+D=[
+("Pending: pre-pilot median and 30-minute share, measured from eligible verification start. Context: about 20 minutes for the whole arrival journey (A1) and kiosk timing [36].","Planning estimate (A): a median of about 10 minutes from eligible verification start, and about 70% active within 30 minutes. Both are replaced by measured values before the pilot. Kiosk timing [36] is context."),
+("Two resident baselines are planning estimates (A); the visitor baseline is measured before the pilot.","Three baselines are planning estimates (A)."),
+("The 20 minutes of steps after landing are my estimate.","The 20 minutes of steps after landing are my estimate. Within them, I estimate a median of about 10 minutes from the start of verification to a working number, with about 70% of starters active within 30 minutes."),
+]
+apply_docx(dst,D)
+apply_pptx(pdst,[("by month 12 (baseline measured pre-pilot).","by month 12 (10 min and 70% today, A).")])

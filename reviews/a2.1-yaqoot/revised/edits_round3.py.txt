@@ -1,0 +1,38 @@
+import sys,runpy; sys.path.insert(0,sys.argv[1])
+runpy.run_path(sys.argv[1]+"/apply2.py",run_name="__main__")
+from more import *
+dst,pdst=sys.argv[3],sys.argv[5]
+D=[
+# R3-01
+("Pays wholesale for every gigabyte, so giving allowance back costs cash.","Rents network capacity. Whether its margin can absorb the credit is unknown."),
+("Serves one narrow job. Same wholesale limit.","Serves one narrow job. Also rents its network."),
+("Yes for virtual operators, which rent their network [10]. Partly for stc: it can copy the offer; its costs are unknown (my judgement)","Yes for the network position [10]. Partly for the credit rule: rivals can copy it, and their margins are unknown (my judgement)"),
+("so a guarantee that returns unused allowance sits on a cost they do not control.","so their wholesale terms may limit what they can give back."),
+("That makes a fair-bill promise easier for Yaqoot to offer than for brands that rent their network, and less attractive for the market leader with its much larger base. A pilot will confirm the numbers.","That may make a fair-bill promise easier for Yaqoot to offer than for brands that rent their network, and less attractive for the market leader with its much larger base. A pilot will test this."),
+("a promise that brands on rented networks find hard to fund","a promise that brands on rented networks may find harder to fund"),
+("Running on its group's own network makes a guarantee easier to fund (3.4).","Running on its group's own network may make a guarantee easier to fund (3.4)."),
+("The guarantee is harder for them to match (3.4).","The guarantee may be harder for them to match (3.4)."),
+# R3-02
+("Gate 1 also requires non-negative group contribution (5.2); the 3% limit is the R1 pause rule.","Gate 1 compares the three-cycle active share of all assigned prospects (at least 3 points above control), revenue per assigned prospect (at least 97% of control) and incremental group contribution (at least zero); the 3% limit is the R1 pause rule."),
+("the three-percentage-point retention lift","the three-percentage-point lift in active share among assigned prospects"),
+# R3-03
+("Provisional: about 20 minutes for the whole journey after landing (A), replaced before the pilot by the measured median and 30-minute share. Kiosk timing [36] is context.","Pending: pre-pilot median and 30-minute share, measured from eligible verification start. Context: about 20 minutes for the whole arrival journey (A1) and kiosk timing [36]."),
+("Three baselines are planning estimates (A).","Two resident baselines are planning estimates (A); the visitor baseline is measured before the pilot."),
+# R3-05
+("The customer must choose among 13 voice packages and about 65 plans in all","The customer must choose a voice package before knowing the cycle's usage"),
+("Fit (answers the 65-plan and second-line gaps).","Fit (addresses package choice and second-line use)."),
+("Must pick among 13 voice packages, about 65 plans","Must choose a voice package before knowing the cycle's usage"),
+]
+apply_docx(dst,D)
+C=[
+("so a fair-bill promise is easier for us than for rivals.","so a fair-bill promise may be easier for us than for rivals."),
+("Harder to fund for brands on rented networks; stc's costs are unknown.","Wholesale terms may constrain brands on rented networks; stc's costs are unknown."),
+("group contribution not negative.","incremental group contribution at least zero."),
+("by month 12 (about 20 minutes for the whole journey today, A).","by month 12 (baseline measured before the pilot)."),
+("pause enrolment before credits reach 3% of Fit-arm revenue;","pause enrolment before forecast credits reach 3% of eligible Fit-arm billings;"),
+]
+C+=[("Fit offered at random to 10% of prospects, against control; pause","Fit offered at random to 10% of prospects; pause"),
+("Gate 1: three-cycle active share 3 points above control, revenue per prospect at 97% or more, incremental group contribution at least zero.","Gate 1: active share 3 points over control, revenue per prospect 97% or more, incremental contribution at least zero."),
+("by month 12 (baseline measured before the pilot).","by month 12 (baseline measured pre-pilot).")]
+C.append(("median 5 minutes or less from verification start, 90% within 30 minutes, by month 12 (baseline measured pre-pilot).","median 5 minutes from verification start, 90% within 30 minutes, by month 12 (baseline measured pre-pilot)."))
+apply_pptx(pdst,C)

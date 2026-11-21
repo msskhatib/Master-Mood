@@ -1,0 +1,52 @@
+import sys,runpy; sys.path.insert(0,sys.argv[1])
+runpy.run_path(sys.argv[1]+"/apply1.py",run_name="__main__")
+from more import *
+dst,pdst=sys.argv[3],sys.argv[5]
+D=[
+# R2-01 gate definitions
+("expand only if three-cycle retention is at least 3 percentage points above the control group, revenue per assigned customer is at least 97% of control","expand only if the three-cycle active share of all assigned prospects (non-buyers count as inactive) is at least 3 percentage points above control, revenue per assigned prospect is at least 97% of control"),
+("Revenue per customer in the test group below 97% of the control group for two cycles.","Revenue per assigned prospect in the Fit arm below 97% of control for two cycles."),
+("Gate 1 uses three-cycle retention against the randomised control.","Gate 1 uses the three-cycle active share of assigned prospects against control."),
+("Revenue per customer in the guarantee group against the control group. Source: finance.","Revenue per assigned prospect in the Fit arm against control. Source: finance."),
+("The month-six gate uses three-cycle retention against control","The month-six gate uses the three-cycle active share against control"),
+("Three-cycle retention against control is used for the month-six gate.","The three-cycle active share against control is used for the month-six gate."),
+# R2-02
+("stc can copy the offer, but its 49.0% share [11] means the same promise applies to a far larger base.","stc can copy the offer. A group-wide version would expose its 49.0% share [11], though Jawwy could limit eligibility."),
+("it can copy the offer, at a higher cost across a larger base (my judgement)","it can copy the offer; its costs are unknown (my judgement)"),
+("so a promise that lowers bills would cost it most","so a group-wide promise would expose a larger base"),
+# R2-03
+("Measured before the pilot with the same start and end events. The 20 minutes (A) for the whole journey after landing and kiosk timing [36] are context.","Provisional: about 20 minutes for the whole journey after landing (A), replaced before the pilot by the measured median and 30-minute share. Kiosk timing [36] is context."),
+# R2-04
+("Monitor credit exposure and pause new enrolment before it reaches 3% of eligible pilot billed revenue.","Pause new enrolment before forecast credits reach 3% of eligible billed revenue in the Fit arm."),
+("pause new enrolment before credit exposure reaches 3% of eligible pilot billed revenue.","pause new enrolment before forecast credits reach 3% of eligible billed revenue in the Fit arm."),
+("Gate 1 also requires non-negative group contribution (5.2).","Gate 1 also requires non-negative group contribution (5.2); the 3% limit is the R1 pause rule."),
+("First cycle refunded from the reserve if the customer leaves over network quality.","A customer who leaves in the first cycle over network quality is refunded the cycle price, less any Fit credit settled."),
+# R2-05
+("SIM or eSIM, packages and care in one app, with no shops.","SIM or eSIM, packages and line management in one app, with no shops."),
+("Care tracks faults to resolution, with status in the app","Care owns each report through to resolution and shows progress in the app"),
+# R2-06
+("Compares 13 voice packages and about 65 plans in all [2], [23].","Chooses among 13 voice packages [2] before knowing the cycle's usage."),
+("priced from SAR 67 to SAR 385 [2], about 65 plans in all [23].","priced from SAR 67 to SAR 385 [2], about 65 plans across the wider catalogue [23]."),
+("Own illustration from sections 3 to 5. The 20 minutes is an estimate (A1) and the competition row is my judgement (3.4).","Own illustration from sections 3 to 5. The 65 plans are the wider catalogue (A4), the 20 minutes an estimate (A1) and the competition row my judgement (3.4)."),
+]
+D.append(("The month-18 targets stay at 65% primary-line share among active residents and 70% retention among new resident customers with 12 cycles of follow-up.","The month-18 targets stay at 65% of active residents and 70% of new resident customers with 12 cycles of follow-up."))
+apply_docx(dst,D)
+d=docx.Document(dst)
+for t in d.tables:
+    for row in t.rows:
+        cells=[]
+        for c in row.cells:
+            if not cells or c._tc is not cells[-1]._tc: cells.append(c)
+        if cells and cells[0].text.strip()=="Meets app faults": print("6.3 risk",replace_in_paragraph(cells[3].paragraphs[0],"R6","Unresolved app faults (2.2)"))
+d.save(dst)
+C=[
+("position by job; expand only if group contribution is non-negative.","position by job; track transfers from the main brand against control."),
+("Gate 1: retention 3 points above control, revenue at 97% or more.","Gate 1: three-cycle active share 3 points above control, revenue per prospect at 97% or more, group contribution not negative."),
+("Hard to copy for brands on rented networks; costlier for stc (49.0% base). To be confirmed by the pilot.","Harder to fund for brands on rented networks; stc's costs are unknown. The pilot tests whether Fit pays back for Zain."),
+("by month 12 (baseline measured before pilot).","by month 12 (about 20 minutes for the whole journey today, A)."),
+("with enrolment paused at 3% credit exposure.","with the 3% credit rule in R1."),
+("pause enrolment before credits reach 3% of pilot revenue;","pause enrolment before credits reach 3% of Fit-arm revenue;"),
+("first cycle refunded.","first-cycle refund."),
+("has a working Saudi number within 5 minutes of starting verification, without a kiosk.","aims for a working Saudi number in a median of 5 minutes from verification start, without a kiosk."),
+]
+apply_pptx(pdst,C)

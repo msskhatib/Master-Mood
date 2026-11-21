@@ -62,8 +62,11 @@ Saturday 21 November 2026, 23:59 (UTC+3). Two attempts are allowed, so a first v
 - Findings: each inconsistency (quote both locations) and each gap that keeps a criterion below Excellent. For each, give the smallest text edit: old text, new text, reason. Respect the constraints above: no new facts or sources, no added pages (added words are offset by removed words), British spelling, no em dashes.
 - The author has asked for edits to be applied to a copy of the Word file after the review, and for the loop to continue until every criterion is at Excellent.
 
-## Status after round 1 (host)
+## Status after rounds 1 to 3 (host)
 - The reviewer marked the original submission 45/75 (15, 15, 10, 5) with 18 findings, verdict REVISE.
+- Round 2 marked the revised files 50/75 (15, 20, 10, 5) with six findings; those fixes are now applied too.
+- Round 3 again marked 50/75 and named five passages; those fixes are applied too. The author extended the loop beyond three rounds.
+- Round 4 marked 65/75 (30, 20, 10, 5) with two findings; both are applied. The visitor baseline is now the author's planning estimate (A): a median of about 10 minutes from verification start and about 70% active within 30 minutes, listed under A1. Three baselines remain planning estimates.
 - The accepted fixes are applied to copies in `revised/`: `A2_1_Yaqoot_Mohammad_Alkhatib_Revised.docx`, its text copy `revised/submission_text.md`, the canvas `revised/A2_1_Strategy_Canvas_Yaqoot_Revised.pptx` and its text copy `revised/canvas_text.md`. The canvas picture inside the revised Word file was regenerated from the revised slide. Review the `revised/` files from now on. The files in `submission/` are the untouched originals.
 - Constraint: Figures 1, 3, 5, 7 and 8 are pictures with no editable source, so their wording cannot change. Where a figure is less complete than the text, the caption now says so.
 - Page count and the page on which every section starts are unchanged (checked by rendering both versions).

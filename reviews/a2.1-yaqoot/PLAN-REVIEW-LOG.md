@@ -31,3 +31,45 @@
 | YQ-16 | low | Canvas column order differs from report order | Reject the swap: the canvas follows the course template. Section 1 now explains the order |
 | YQ-17 | low | Figure captions and A5 do not flag all assumptions | Accept |
 | YQ-18 | low | Google Play storefront for the 4.3 baseline | Not changed: only the author knows which store view was used. Flagged to the author |
+
+## Round 2: Codex review of the revised files (resumed session)
+
+- Result: completed, verdict **REVISE**. Reviewer's marks: 15, 20, 10, 5. Total **50/75**. Risks & Resources reached Excellent.
+
+| ID | Sev | Finding | Host disposition |
+|---|---|---|---|
+| YQ-R2-01 | high | Gate uses "revenue per customer" in one place and "per assigned" in another; canvas gate line incomplete | Accept: one definition everywhere (three-cycle active share of all assigned prospects, revenue per assigned prospect, group contribution); canvas gate line now has all three |
+| YQ-R2-02 | med | "Same promise applies to a far larger base" conflicts with "a rival could limit the offer" | Accept |
+| YQ-R2-03 | med | Visitor baseline has no number; canvas promises 5 minutes to every visitor | Accept, modified: the 20 minutes (A) stays as a provisional whole-journey baseline, replaced by measured values before the pilot; canvas now states a median |
+| YQ-R2-04 | med | 3% rule still worded differently; R7 refund could double-pay | Accept |
+| YQ-R2-05 | med | "Care in one app" vs care outside the app; 6.3 care row linked to R6 | Accept |
+| YQ-R2-06 | med | "About 65 plans" is the wider catalogue, not the resident's choice | Partly accept: journey row reworded; the count is now labelled as the wider catalogue in 3.1 and the Figure 8 caption. Figure 8 itself is a picture |
+
+## Round 3: Codex review (resumed session)
+
+- Result: completed, verdict **REVISE**. Reviewer's marks unchanged: 15, 20, 10, 5. Total **50/75**. Five findings, each naming the passage that holds a band.
+
+| ID | Sev | Finding | Host disposition |
+|---|---|---|---|
+| YQ-R3-01 | med | Virtual operators' cost disadvantage is asserted, not shown | Accept: network position stays the advantage; rivals' margins stated as unknown |
+| YQ-R3-02 | high | Figure 7 caption, A6 and canvas still differ from the 5.2 gate rule | Accept |
+| YQ-R3-03 | med | Visitor baseline uses a different start event | Accept: baseline pending measurement; 20 minutes kept as context |
+| YQ-R3-04 | med | Canvas 3% wording differs from 5.1 and 5.2 | Accept |
+| YQ-R3-05 | med | "65 plans" still framed as the resident's choice in 2.2, 2.3 and 6.3 | Accept |
+
+The author asked for the loop to continue past the three-round budget until every criterion is Excellent.
+
+## Round 4: Codex review (resumed session)
+
+- Result: completed, verdict **REVISE**. Reviewer's marks: 5Cs Depth 30, Risks & Resources 20, Success Metrics 10, Strategic Coherence 5. Total **65/75**.
+- YQ-R4-01 (med): the visitor metric has no numeric baseline. Accepted. The author chose a planning estimate marked (A): a median of about 10 minutes from verification start and about 70% active within 30 minutes, replaced by measured values before the pilot. Added to the metric table, A1 and the canvas.
+- YQ-R4-02 (med): the canvas gate line dropped "three cycles" and "all assigned prospects". Accepted with the reviewer's wording; two resource lines on the canvas were shortened to make room.
+
+## Round 5: Codex review (resumed session)
+
+- Result: completed, verdict **APPROVED**. Reviewer's marks: 5Cs Depth 30/30, Risks & Resources 20/20, Success Metrics 15/15, Strategic Coherence 10/10. Total **75/75**. No further edits requested.
+- Reviewer's limitation: the visitor baselines are the author's disclosed planning estimates, and the score is an independent rubric estimate.
+- Approval check: the approval matches the current plan.
+- Final files are in `final/`: the Word file, a PDF rendered from it, and the canvas slide. The originals in `submission/` are unchanged. Page count (16) and the page on which each section starts are unchanged. The canvas picture in the Word file was regenerated from the revised slide.
+- Not changed, for the author to decide: YQ-18 (state which Google Play store view gave the 4.3 rating) and YQ-16 (canvas column order follows the course template).
+- Rounds used: 5. The author extended the loop beyond the three-round budget.

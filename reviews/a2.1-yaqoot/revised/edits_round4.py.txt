@@ -1,0 +1,9 @@
+import sys,runpy; sys.path.insert(0,sys.argv[1])
+runpy.run_path(sys.argv[1]+"/apply3.py",run_name="__main__")
+from more import *
+dst,pdst=sys.argv[3],sys.argv[5]
+C=[("Gate 1: active share 3 points over control, revenue per prospect 97% or more, incremental contribution at least zero.","Gate 1, after three cycles: active share among all assigned prospects at least 3 points above control, revenue per assigned prospect at least 97% of control, and incremental group contribution at least zero."),
+("Cycle re-pricing and a recommendation model on the BSS being upgraded with Huawei.","Cycle re-pricing and recommendations on the BSS upgrade (Huawei)."),
+("Agreements: Ministry of Interior (Absher), Nusuk and travel platforms, Tamam.","Agreements: Absher, Nusuk and travel platforms, Tamam."),
+]
+apply_pptx(pdst,C)
