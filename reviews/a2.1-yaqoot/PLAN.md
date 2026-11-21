@@ -70,3 +70,10 @@ Saturday 21 November 2026, 23:59 (UTC+3). Two attempts are allowed, so a first v
 - The accepted fixes are applied to copies in `revised/`: `A2_1_Yaqoot_Mohammad_Alkhatib_Revised.docx`, its text copy `revised/submission_text.md`, the canvas `revised/A2_1_Strategy_Canvas_Yaqoot_Revised.pptx` and its text copy `revised/canvas_text.md`. The canvas picture inside the revised Word file was regenerated from the revised slide. Review the `revised/` files from now on. The files in `submission/` are the untouched originals.
 - Constraint: Figures 1, 3, 5, 7 and 8 are pictures with no editable source, so their wording cannot change. Where a figure is less complete than the text, the caption now says so.
 - Page count and the page on which every section starts are unchanged (checked by rendering both versions).
+
+## Status after round 5 and the author's addition (host)
+- Round 5 approved the revised files at 75/75.
+- After that, the author asked to add three pieces from an older draft's front part to the approved version, accepting one extra page (17 in all): Figure 2 "How Yaqoot works in plain terms" (section 2), a short run-in block "The technology in plain words" at the end of 2.1, and Figure 4, the visitor's journey today and in the target (end of 2.2). This overrides the earlier "do not add pages" constraint for these additions only.
+- Later figures were renumbered: old 2 to 8 are now 3, 5, 6, 7, 8, 9 and 10. The contents page numbers were updated. No other text changed. The canvas is unchanged.
+- Figures 2 and 4 are pictures with no editable source; their captions qualify them (Figure 4: the 20 minutes is estimate A1, the target is a median of five minutes from verification start, and purchase before travel is enabled once validated).
+- Review `revised/submission_text.md` (regenerated) and `revised/canvas_text.md`.

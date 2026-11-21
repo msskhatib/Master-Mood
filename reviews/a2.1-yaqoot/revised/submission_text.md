@@ -10,53 +10,53 @@
 >
 > 2.2 Where the product falls short today 4
 >
-> 2.3 The development: Yaqoot Fit, the line that fits itself 4
+> 2.3 The development: Yaqoot Fit, the line that fits itself 5
 
-**3. Current Context 5**
+**3. Current Context 6**
 
-> 3.1 Our Customers: who are our target customers? 5
+> 3.1 Our Customers: who are our target customers? 6
 >
-> 3.2 Category: where do we compete and what is changing? 6
+> 3.2 Category: where do we compete and what is changing? 7
 >
 > 3.3 Our Competitors: who are our main competitors? 7
 >
-> 3.4 Our Capabilities: what makes us more likely to succeed than the competition? 7
+> 3.4 Our Capabilities: what makes us more likely to succeed than the competition? 8
 >
-> 3.5 Our Culture: are we a clan, an adhocracy, a market or a hierarchy? 8
+> 3.5 Our Culture: are we a clan, an adhocracy, a market or a hierarchy? 9
 
-**4. Future State 9**
+**4. Future State 10**
 
-> 4.1 Our Product Vision 9
+> 4.1 Our Product Vision 10
 >
-> 4.2 What will the world look like for us if our product is successful? 9
+> 4.2 What will the world look like for us if our product is successful? 10
 >
-> 4.3 What will the world look like for our customers if our product is successful? 9
+> 4.3 What will the world look like for our customers if our product is successful? 10
 
-**5. The Plan 10**
+**5. The Plan 11**
 
-> 5.1 What resources will we need? 10
+> 5.1 What resources will we need? 11
 >
-> 5.2 What risks may we encounter along the way? And how will we mitigate them? 11
+> 5.2 What risks may we encounter along the way? And how will we mitigate them? 12
 >
-> 5.3 How will we know we are heading in the right direction? 12
+> 5.3 How will we know we are heading in the right direction? 13
 
-**6. Strategic coherence 12**
+**6. Strategic coherence 13**
 
-> 6.1 How each of the 5Cs shapes the Plan 13
+> 6.1 How each of the 5Cs shapes the Plan 14
 >
-> 6.2 What we chose not to do 13
+> 6.2 What we chose not to do 14
 >
-> 6.3 Line by line: from pain to metric 13
+> 6.3 Line by line: from pain to metric 14
 
-**7. Conclusion 13**
+**7. Conclusion 14**
 
-**Abbreviations 13**
+**Abbreviations 14**
 
-**References 14**
+**References 15**
 
-**Assumptions 15**
+**Assumptions 16**
 
-**AI Declaration 15**
+**AI Declaration 16**
 
 # **1. The Product Strategy Canvas**
 
@@ -80,11 +80,15 @@ Product: Yaqoot, the all-digital mobile service of Zain KSA (an app, packages an
   **Proposed development**   Yaqoot Fit (working name): the line that fits itself. Three parts: Fit, Arrive and Stay (section 2.3).
   ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-Yaqoot is the all-digital mobile service of Zain KSA, launched in 2018 \[1\]. It has no shops and no paperwork. A customer downloads the app, picks a voice or data package, orders a SIM card or an eSIM, proves identity through the Nafath app, and manages everything from the phone, with automatic renewal every four weeks \[1\], \[2\]. The service runs on Zain KSA\'s own mobile network of 11,446 sites, with 5G \[1\], \[8\]. Figure 1 shows the store and the activation steps as the website presents them.
+Yaqoot is the all-digital mobile service of Zain KSA, launched in 2018 \[1\]. It has no shops and no paperwork. A customer downloads the app, picks a voice or data package, orders a SIM card or an eSIM, proves identity through the Nafath app, and manages everything from the phone, with automatic renewal every four weeks \[1\], \[2\]. The service runs on Zain KSA\'s own mobile network of 11,446 sites, with 5G \[1\], \[8\]. Figure 1 shows the store and the activation steps as the website presents them, and Figure 2 shows how the service works.
 
 ![](media/image5.png){width="6.456691819772528in" height="2.34788823272091in"}
 
 Figure 1. The product as the customer meets it: the store with resident voice packages (top row) and the annual and visitor packages (bottom row), and the three activation steps. Screenshots of yaqoot.sa/en, taken 21 November 2026 \[2\].
+
+![](media/image2.png){width="4.96in" height="2.15001312335958in"}
+
+Figure 2. How Yaqoot works in plain terms. The physical-item label applies to the removable SIM card; the eSIM profile is downloaded. Devices sold in the app are not shown. Own illustration based on \[1\], \[2\] and \[5\].
 
   -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   **Sources and assumptions.** Every fact comes from a public source in the reference list. Where no public figure exists I use an estimate marked (A), and all nine assumptions are listed at the end. The VRIO judgements and the culture reading are my own assessment of the public evidence.
@@ -114,9 +118,19 @@ Figure 1. The product as the customer meets it: the store with resident voice pa
 
 ![](media/image6.png){width="4.881889763779528in" height="2.4777766841644793in"}
 
-Figure 2. The product in four parts and what Yaqoot Fit develops in each. Own illustration based on \[1\], \[2\], \[4\] and \[5\].
+Figure 3. The product in four parts and what Yaqoot Fit develops in each. Own illustration based on \[1\], \[2\], \[4\] and \[5\].
 
 So the product is a service. The app is how the customer meets it, the package is what the customer buys, and the engine and the network deliver it. The only physical items are the SIM card, when the customer does not use eSIM, and the devices sold in the app \[2\]. Yaqoot Fit develops the app, the package rules and the engine, and leaves the network technology as it is. Seen through Market, Implementation and Technology, most of the change is in implementation: how the bill is priced and when the visitor is brought on board. The technology exists (eSIM, Nafath, Absher, 5G) or is already planned (the BSS upgrade), which keeps the risk in a place the team controls.
+
+**The technology in plain words.** Four pieces of technology make the product and the proposal possible.
+
+> • **eSIM.** A SIM that is downloaded, not posted. It removes the delivery wait. Visitors can reserve before flying; eSIM download before travel depends on validation (2.3).
+>
+> • **Digital identity.** Every Saudi line must be tied to a verified person. Nafath does this for residents and Absher for visitors, from the phone \[1\], \[2\].
+>
+> • **BSS.** The system that knows each customer\'s package, counts usage and takes payment. A bill can only correct itself if this system can price a finished cycle again against the other eligible plans. The upgrade announced in April 2026 is the enabler \[5\], \[25\].
+>
+> • **Usage data.** The same system records what each customer used in each cycle. This is the input for a plan recommendation.
 
 ## **2.2 Where the product falls short today**
 
@@ -138,6 +152,10 @@ The product has a specific problem. Its revenue grew 13% in 2024 \[31\] and only
   **Visitors start after landing**                                                 Verification is digital, but the visitor still has to find the app, buy and verify while on roaming data or airport Wi-Fi. About 20 minutes of steps (A). A kiosk at Jeddah airport takes 10 to 15 minutes at the counter, plus the queue.   \[1\], \[36\]
   ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+![](media/image3.png){width="5.2in" height="2.089985783027122in"}
+
+Figure 4. The visitor\'s journey to a working line, today and in the target. Own illustration; today\'s steps follow \[1\]. The 20 minutes estimate the whole arrival journey (A1). The five-minute label applies only from Verify to Connected: from eligible verification start, the estimated median is 10 minutes today (A1) and the target is five or less. Purchase before travel depends on validation (2.3).
+
 ## **2.3 The development: Yaqoot Fit, the line that fits itself**
 
   ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -146,7 +164,7 @@ The product has a specific problem. Its revenue grew 13% in 2024 \[31\] and only
 
   ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-The proposal has three parts. Each answers a gap in 2.2 and develops one or more of the four parts in 2.1. Figure 3 shows how each part could look in the app, and section 5.1 shows the order in which they are built.
+The proposal has three parts. Each answers a gap in 2.2 and develops one or more of the four parts in 2.1. Figure 5 shows how each part could look in the app, and section 5.1 shows the order in which they are built.
 
 > 1\. **Fit (addresses package choice and second-line use).** After each completed four-week cycle, Yaqoot compares the customer\'s usage with the published set of eligible plans, including data, calls and app allowances. If a cheaper eligible plan would have covered that use, the difference is issued as a credit for the next cycle. There is never a retrospective surcharge. Before enrolment, Yaqoot publishes how earned credits are settled for customers who leave before renewal, and suspending new enrolment does not cancel earned credits. After two cycles above the allowance, the app proposes the next plan up. This is a best-plan guarantee.
 >
@@ -156,7 +174,7 @@ The proposal has three parts. Each answers a gap in 2.2 and develops one or more
 
 ![](media/image7.png){width="5.826771653543307in" height="3.1028258967629045in"}
 
-Figure 3. Concept screens for the three parts of Yaqoot Fit. Own illustrative mock-ups with example values, not screens of the current app. Package prices from \[2\].
+Figure 5. Concept screens for the three parts of Yaqoot Fit. Own illustrative mock-ups with example values, not screens of the current app. Package prices from \[2\].
 
 # **3. Current Context**
 
@@ -234,7 +252,7 @@ A category is the mental filing cabinet a customer uses to understand what a pro
 
 ![](media/image8.png){width="6.377952755905512in" height="1.9282185039370079in"}
 
-Figure 4. Market share, multi-SIM use and Yaqoot revenue growth. Data: Argaam \[11\], Opensignal \[10\], Zain KSA \[31\] and Zain Group \[32\], \[33\].
+Figure 6. Market share, multi-SIM use and Yaqoot revenue growth. Data: Argaam \[11\], Opensignal \[10\], Zain KSA \[31\] and Zain Group \[32\], \[33\].
 
 The conclusion for strategy: being digital is now the entry ticket, and Yaqoot\'s slowdown from 13% to 1% growth fits that. The open question in the category is who becomes the customer\'s main line. Categories evolve, and this is the opening for Yaqoot: instead of fighting for second place in app-only lines, it can define a new drawer in the filing cabinet, the line that fits itself, and be its first name.
 
@@ -266,9 +284,9 @@ The conclusion for strategy: being digital is now the entry ticket, and Yaqoot\'
 
 ![](media/image9.png){width="4.960629921259843in" height="3.0195133420822398in"}
 
-Figure 5. Positioning map of the alternatives. Own assessment based on \[1\], \[2\], \[10\], \[14\], \[23\] and \[34\] to \[36\].
+Figure 7. Positioning map of the alternatives. Own assessment based on \[1\], \[2\], \[10\], \[14\], \[23\] and \[34\] to \[36\].
 
-The table goes beyond direct rivals on purpose, because the competitive set is what the customer sees as a way to get the job done. A positioning map is a narrative and its axes are a choice. I chose the two that match the two customer pains in 3.1: having to choose the plan, and needing a shop or kiosk. The gap to own is the upper right of Figure 5. No competitor in the table publicly offers a plan that corrects itself, and none combines that with a visitor journey that starts before the flight.
+The table goes beyond direct rivals on purpose, because the competitive set is what the customer sees as a way to get the job done. A positioning map is a narrative and its axes are a choice. I chose the two that match the two customer pains in 3.1: having to choose the plan, and needing a shop or kiosk. The gap to own is the upper right of Figure 7. No competitor in the table publicly offers a plan that corrects itself, and none combines that with a visitor journey that starts before the flight.
 
 ## **3.4 Our Capabilities: what makes us more likely to succeed than the competition?**
 
@@ -328,7 +346,7 @@ The Competing Values Framework sorts cultures by two tensions: flexibility again
 
 ![](media/image10.png){width="4.409447725284339in" height="3.0530260279965002in"}
 
-Figure 6. Zain KSA in the Competing Values Framework. Own assessment based on \[18\] to \[21\], \[29\] and \[30\].
+Figure 8. Zain KSA in the Competing Values Framework. Own assessment based on \[18\] to \[21\], \[29\] and \[30\].
 
 **Enabler or blocker?** The culture enables two things this strategy needs. Fit, Arrive and Stay require the Yaqoot team, the network team and Tamam to work as one, and cooperation across units comes naturally to a clan. The adhocracy leaning shows the company has launched ventures before. The culture blocks one thing. A clan looks for agreement, and the best-plan guarantee forces two uncomfortable decisions: give revenue back to customers who overpaid, and let Yaqoot take customers from the main Zain brand. Without a sponsor, conditions will be added to the promise until it means little. This is the reason for executive sponsorship, a protected team and decisions at gates in the Plan.
 
@@ -418,11 +436,11 @@ The Plan follows from the Context. Each resource closes a gap found in 3.4 or 3.
 
 The budget is small against the business it protects: SAR 30 to 35 million is about 0.3% of the company\'s 2025 revenue of SAR 11 billion \[6\]. My estimate of the split (A): the team about SAR 12 million, configuration of re-pricing and the recommendation model about SAR 8 million, partner integration and launch communication about SAR 6 million, and a reserve of about SAR 6 million for credits returned to customers during the test.
 
-The development follows a roadmap of three phases of six months: now, next and later, with a decision gate after each of the first two (Figure 7). Read each row from left to right to follow one part of the product from today to month 18. Each phase names the outcome it must produce, so the roadmap is steered by outcomes and not by a list of features. In the three horizons of growth, Fit defends the core business, Arrive extends it to a new customer group, and Stay opens options for later.
+The development follows a roadmap of three phases of six months: now, next and later, with a decision gate after each of the first two (Figure 9). Read each row from left to right to follow one part of the product from today to month 18. Each phase names the outcome it must produce, so the roadmap is steered by outcomes and not by a list of features. In the three horizons of growth, Fit defends the core business, Arrive extends it to a new customer group, and Stay opens options for later.
 
 ![](media/image11.png){width="6.535433070866142in" height="3.8481135170603675in"}
 
-Figure 7. Development roadmap by product part: the product today, what is built in each phase, the two decision gates, and the product after development. Own illustration. Gate 1 compares the three-cycle active share of all assigned prospects (at least 3 points above control), revenue per assigned prospect (at least 97% of control) and incremental group contribution (at least zero); the 3% limit is the R1 pause rule. Timing, baselines and gate thresholds are assumptions (A2, A6, A8).
+Figure 9. Development roadmap by product part: the product today, what is built in each phase, the two decision gates, and the product after development. Own illustration. Gate 1 compares the three-cycle active share of all assigned prospects (at least 3 points above control), revenue per assigned prospect (at least 97% of control) and incremental group contribution (at least zero); the 3% limit is the R1 pause rule. Timing, baselines and gate thresholds are assumptions (A2, A6, A8).
 
 ## **5.2 What risks may we encounter along the way? And how will we mitigate them?**
 
@@ -465,7 +483,7 @@ The metrics are outcomes, not outputs. Launching the guarantee, finishing the BS
   --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   **Outcome metric**             **Definition and source**                                                                                                                                                                                                                          **Baseline**                                                                                                                                                                                                           **Target**                                                              **By when**   **Traces to**
   ------------------------------ -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- ----------------------------------------------------------------------- ------------- ---------------------------------
-  **Main-line share**            Share of surveyed active resident customers who identify Yaqoot as their primary line. Survey wording, sampling and weighting stay the same across waves.                                                                                          50% planning estimate (A). Validated before launch through the same survey. Anchor: 37% multi-SIM on the network \[10\].                                                                                               65%                                                                     Month 18      Resident job, vision
+  **Primary-line share**         Share of surveyed active resident customers who identify Yaqoot as their primary line. Survey wording, sampling and weighting stay the same across waves.                                                                                          50% planning estimate (A). Validated before launch through the same survey. Anchor: 37% multi-SIM on the network \[10\].                                                                                               65%                                                                     Month 18      Resident job, vision
 
   **Customers kept**             Share of new resident customers still active after 12 four-week cycles. Baseline from historical billing cohorts with 12 completed cycles. Gate 1 uses the three-cycle active share of assigned prospects against control.                         55% planning estimate (A), to be replaced with the historical cohort figure                                                                                                                                            70%                                                                     Month 18      Trust, R1
 
@@ -494,7 +512,7 @@ A second guardrail is public. CST publishes complaints escalated to the regulato
 
 ![](media/image12.png){width="5.354330708661418in" height="2.5486318897637794in"}
 
-Figure 8. From the 5Cs to the Plan. Own illustration from sections 3 to 5. The 65 plans are the wider catalogue (A4), the 20 minutes an estimate (A1) and the competition row my judgement (3.4).
+Figure 10. From the 5Cs to the Plan. Own illustration from sections 3 to 5. The 65 plans are the wider catalogue (A4), the 20 minutes an estimate (A1) and the competition row my judgement (3.4).
 
 ## **6.2 What we chose not to do**
 
@@ -516,17 +534,17 @@ Figure 8. From the 5Cs to the Plan. Own illustration from sections 3 to 5. The 6
 
 ## **6.3 Line by line: from pain to metric**
 
-  --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   **Customer pain (3.1)**                                             **Context finding**                                                                                             **Plan element (5.1)**                                                                   **Main risk (5.2)**           **Outcome metric (5.3)**
-  ------------------------------------------------------------------- --------------------------------------------------------------------------------------------------------------- ---------------------------------------------------------------------------------------- ----------------------------- ---------------------------------
+  ------------------------------------------------------------------- --------------------------------------------------------------------------------------------------------------- ---------------------------------------------------------------------------------------- ----------------------------- ------------------------------------
   **Must choose a voice package before knowing the cycle\'s usage**   Rivals sell fixed bundles too. Running on its group\'s own network may make a guarantee easier to fund (3.4).   Fit: re-pricing on the upgraded BSS, product team                                        R1, R6                        Customers kept, revenue held
 
-  **Keeps a second SIM**                                              37% multi-SIM on the network, the main exposure (3.2).                                                          Fit and Stay: one account for line, family and home                                      R2, R7                        Main-line share, revenue growth
+  **Keeps a second SIM**                                              37% multi-SIM on the network, the main exposure (3.2).                                                          Fit and Stay: one account for line, family and home                                      R2, R7                        Primary-line share, revenue growth
 
   **Meets app faults**                                                Rating 4.3 with fault reports (2.2).                                                                            Care owns each report through to resolution and shows progress in the app                Unresolved app faults (2.2)   Customer rating
 
   **Queues or 20 minutes of steps on arrival**                        29.3 million visitors. The Absher lead is temporary. Share is strong in Makkah and Madinah (3.4).               Arrive: start before the flight (purchase once validated), partners, seasonal capacity   R3, R5, R7                    Visitor effort
-  --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 # **7. Conclusion**
 
@@ -654,7 +672,7 @@ All online sources accessed on 21 November 2026.
 
 A1. Visitor journey today. Public sources confirm digital verification through Absher \[1\] but give no timings. The 20 minutes of steps after landing are my estimate. Within them, I estimate a median of about 10 minutes from the start of verification to a working number, with about 70% of starters active within 30 minutes. The only public benchmark is 10 to 15 minutes at an airport kiosk \[36\].
 
-A2. Main-line share of about 50%. No public figure exists for Yaqoot. The 37% multi-SIM rate on the parent network \[10\] is the only public anchor.
+A2. Primary-line share of about 50%. No public figure exists for Yaqoot. The 37% multi-SIM rate on the parent network \[10\] is the only public anchor.
 
 A3. Customers kept after 12 cycles, about 55%. A planning estimate to validate with historical billing cohorts that have completed 12 four-week cycles. The three-cycle active share against control is used for the month-six gate.
 

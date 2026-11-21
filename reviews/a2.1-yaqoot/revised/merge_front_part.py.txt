@@ -1,0 +1,83 @@
+import sys,copy,re; sys.path.insert(0,sys.argv[1])
+from edit_lib import replace_in_paragraph
+import docx
+from docx.shared import Inches
+from docx.text.paragraph import Paragraph
+W='{http://schemas.openxmlformats.org/wordprocessingml/2006/main}'
+A='{http://schemas.openxmlformats.org/drawingml/2006/main}'
+WP='{http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing}'
+R='{http://schemas.openxmlformats.org/officeDocument/2006/relationships}'
+src,dst,img_how,img_vis=sys.argv[2:6]
+d=docx.Document(src)
+def allpars():
+    for p in d.paragraphs: yield p
+    seen=set()
+    for t in d.tables:
+        for row in t.rows:
+            for c in row.cells:
+                if c._tc in seen: continue
+                seen.add(c._tc)
+                for p in c.paragraphs: yield p
+# 1. renumber figures (descending)
+for old,new in [(8,10),(7,9),(6,8),(5,7),(4,6),(3,5),(2,3)]:
+    for p in allpars():
+        while re.search(r'Figure %d(?!\d)'%old,p.text):
+            m=re.search(r'Figure %d(?!\d)'%old,p.text); replace_in_paragraph(p,m.group(0),'Figure@@%d'%new)
+for p in allpars():
+    for r in p.runs:
+        if '@@' in r.text: r.text=r.text.replace('@@',' ')
+def find(prefix):
+    for p in d.paragraphs:
+        if p.text.startswith(prefix): return p
+    raise KeyError(prefix)
+def set_text(pel, parts):
+    """parts: list of (text,bold_or_None); reuse first run's rPr"""
+    p=Paragraph(pel,None); runs=p.runs; base=runs[0]._r
+    for r in runs[1:]: pel.remove(r._r)
+    # remove non-run children like hyperlinks/bookmarks kept as is
+    first=True
+    for text,bold in parts:
+        if first: r=base; first=False
+        else:
+            r=copy.deepcopy(base); pel.append(r)
+        rr=docx.text.run.Run(r,p); rr.text=text
+        if bold is not None: rr.bold=bold
+cap1=find('Figure 1.'); imgp1=cap1._p.getprevious()
+def new_image_par(path,width_in):
+    el=copy.deepcopy(imgp1)
+    rid,_=d.part.get_or_add_image(path)
+    blip=el.find('.//'+A+'blip'); blip.set(R+'embed',rid)
+    from PIL import Image
+    w,h=Image.open(path).size; cx=int(Inches(width_in)); cy=int(cx*h/w)
+    for e in el.iter(WP+'extent'): e.set('cx',str(cx)); e.set('cy',str(cy))
+    for e in el.iter(A+'ext'):
+        if e.get('cx'): e.set('cx',str(cx)); e.set('cy',str(cy))
+    for e in el.iter(WP+'docPr'): e.set('id',str(900+int(width_in*100)%90)); 
+    return el
+def new_caption(text):
+    el=copy.deepcopy(cap1._p); set_text(el,[(text,None)]); return el
+# 2. How Yaqoot works figure after Figure 1 caption
+i2=new_image_par(img_how,4.96); c2=new_caption("Figure 2. How Yaqoot works in plain terms. The physical-item label applies to the removable SIM card; the eSIM profile is downloaded. Devices sold in the app are not shown. Own illustration based on [1], [2] and [5].")
+cap1._p.addnext(i2); i2.addnext(c2)
+p=find('Yaqoot is the all-digital mobile service of Zain KSA, launched in 2018')
+assert replace_in_paragraph(p,"Figure 1 shows the store and the activation steps as the website presents them.","Figure 1 shows the store and the activation steps as the website presents them, and Figure 2 shows how the service works.")
+# 3. technology block after 'So the product is a service'
+anchor=find('So the product is a service.')
+bullet=find('•\tYaqoot is the main line')
+print('bullet runs',[r.text[:30] for r in bullet.runs],'anchor runs',len(anchor.runs))
+lead=copy.deepcopy(anchor._p); set_text(lead,[("The technology in plain words. ",True),("Four pieces of technology make the product and the proposal possible.",False)])
+items=[("eSIM. ","A SIM that is downloaded, not posted. It removes the delivery wait. Visitors can reserve before flying; eSIM download before travel depends on validation (2.3)."),
+("Digital identity. ","Every Saudi line must be tied to a verified person. Nafath does this for residents and Absher for visitors, from the phone [1], [2]."),
+("BSS. ","The system that knows each customer's package, counts usage and takes payment. A bill can only correct itself if this system can price a finished cycle again against the other eligible plans. The upgrade announced in April 2026 is the enabler [5], [25]."),
+("Usage data. ","The same system records what each customer used in each cycle. This is the input for a plan recommendation.")]
+prev=lead; anchor._p.addnext(lead)
+for t,rest in items:
+    el=copy.deepcopy(bullet._p); set_text(el,[('•\t',False),(t,True),(rest,False)]); prev.addnext(el); prev=el
+# 4. visitor journey after the gap table in 2.2
+h=[p for p in d.paragraphs if p.text.startswith('2.3 The development: Yaqoot Fit') and p.style.name.startswith('Heading')][0]; 
+el=h._p.getprevious()
+while el.tag!=W+'tbl': el=el.getprevious()
+i4=new_image_par(img_vis,5.2); c4=new_caption("Figure 4. The visitor's journey to a working line, today and in the target. Own illustration; today's steps follow [1]. The 20 minutes estimate the whole arrival journey (A1). The five-minute label applies only from Verify to Connected: from eligible verification start, the estimated median is 10 minutes today (A1) and the target is five or less. Purchase before travel depends on validation (2.3).")
+el.addnext(i4); i4.addnext(c4)
+d.save(dst)
+print([p.text[:60] for p in d.paragraphs if p.text.startswith('Figure')])

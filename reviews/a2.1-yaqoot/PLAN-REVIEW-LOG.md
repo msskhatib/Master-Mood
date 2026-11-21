@@ -73,3 +73,13 @@ The author asked for the loop to continue past the three-round budget until ever
 - Final files are in `final/`: the Word file, a PDF rendered from it, and the canvas slide. The originals in `submission/` are unchanged. Page count (16) and the page on which each section starts are unchanged. The canvas picture in the Word file was regenerated from the revised slide.
 - Not changed, for the author to decide: YQ-18 (state which Google Play store view gave the 4.3 rating) and YQ-16 (canvas column order follows the course template).
 - Rounds used: 5. The author extended the loop beyond the three-round budget.
+
+## Rounds 6 to 8: additions from the author's older draft (resumed session)
+
+- The author asked to add three pieces from an older draft's front part to the approved version, accepting one extra page: Figure 2 (how Yaqoot works), a "technology in plain words" block in 2.1, and Figure 4 (the visitor's journey). Later figures were renumbered and the contents page updated.
+- Round 6: **REVISE**, 70/75 (30, 20, 15, 5). Two findings on the new figures: Figure 4 looked like a 20-to-5-minute comparison on different clocks, and Figure 2 labelled the eSIM as a physical item. Both accepted and fixed in the captions and the eSIM bullet.
+- Round 7: **APPROVED**, 75/75.
+- Host consistency edit after round 7: the metric name "Main-line share" (5.3 row, 6.3 cell, A2) now reads "Primary-line share", matching the canvas and the 5.3 paragraph.
+- Round 8: **APPROVED**, 75/75 confirmed for the current 17-page files. The approval matches the current plan.
+- Host checks on the final text: every figure 1 to 10 has a caption and is referenced; every citation resolves to the reference list; nine assumptions listed; every section cross-reference exists; no em dashes.
+- Final files: `final_checked/`. The earlier 16-page approved version stays in `final/`.

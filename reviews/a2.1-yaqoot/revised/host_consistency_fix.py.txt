@@ -1,0 +1,10 @@
+import sys; sys.path.insert(0,sys.argv[1])
+from more import *
+apply_docx(sys.argv[2],[("Main-line share, revenue growth","Primary-line share, revenue growth"),("A2. Main-line share of about 50%.","A2. Primary-line share of about 50%.")])
+import docx
+d=docx.Document(sys.argv[2]); n=0
+for t in d.tables:
+    for row in t.rows:
+        c=row.cells[0]
+        if c.text.strip()=="Main-line share": n+=replace_in_paragraph(c.paragraphs[0],"Main-line share","Primary-line share")
+print("row label",n); d.save(sys.argv[2])
