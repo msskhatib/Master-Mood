@@ -3,34 +3,74 @@
 ## Goal
 Produce the final, submission-ready revision of assignment A2.1 (IE / Zain 2023 Fast Track 1, Tech Product Management): the Product Strategy Canvas for Yaqoot (Zain KSA) and the proposed development "Yaqoot Fit, the line that fits itself". The revision keeps the analysis that the self-evaluation rates at 73 to 75 of 75, closes the marks still at risk, and upgrades every figure to print quality, with a small number of illustrations made by nano-banana (Gemini image models).
 
-## Inputs (read-only)
-- Current report: `A2_1_Product_Strategy_Canvas_Yaqoot_Mohammad_Alkhatib_261121.docx` (cover + 16 numbered pages, 14 figures, 36 references, 9 assumptions, AI declaration).
-- Self-evaluation: `A2_1_Yaqoot_Evaluation_with_Evidence_261121.pdf` (rubric mapping, marks at risk in its section 6).
-- Course materials: `TPM_Workbook_v18_261120_2.docx`, `3_Essential_Product_Strategy_Frameworks_for_Product_Success.pdf`, the course note on readings.
+## Inputs (read-only, local, gitignored: `reviews/a2.1/inputs/`)
+| File | Original name | Text extract |
+|---|---|---|
+| `report.docx` | A2_1_Product_Strategy_Canvas_Yaqoot_Mohammad_Alkhatib_261121.docx (cover + 16 numbered pages, 14 figures, 36 references, 9 assumptions, AI declaration) | `report.md` (pandoc), media in `report-media/` |
+| `evaluation.pdf` | A2_1_Yaqoot_Evaluation_with_Evidence_261121.pdf (rubric mapping; marks at risk in its section 6) | `evaluation.txt` |
+| `workbook.docx` | TPM_Workbook_v18_261120_2.docx (course workbook; section numbers cited by the evaluation) | none (binary) |
+| `frameworks.pdf` | 3_Essential_Product_Strategy_Frameworks_for_Product_Success.pdf (course reading) | `frameworks.txt` |
+| `course-note.pdf` | "A Note on the Readings and Examples in the Course", Zain 2023 Fast Track 1, Tech Product Management | `course-note.txt` |
+
+The inputs are private course material and stay out of Git. Step 0 of the build creates `reviews/a2.1/inputs/build/inventory.json` from these sources before any edit (see Verification).
+
+## Figure inventory (from `report.md` captions and `report-media/`)
+| Item | Media part | Pixels | Printed width | Class | Treatment |
+|---|---|---|---|---|---|
+| Cover | image1.jpg | 1985x2808 | full page | course cover | keep unchanged |
+| Figure 1 website | image4.png | 1200x690 | 3.78 in (317 dpi) | screenshot (evidence) | keep pixels; crop only; no upscaling claimed as detail |
+| Figure 2 how Yaqoot works | image5.png | 1458x632 | 4.96 in | own diagram | redraw |
+| Figure 3 store | image6.png | 1200x1156 | 3.62 in (331 dpi) | screenshot (evidence) | keep pixels; crop only |
+| Figure 4 visitor journey | image7.png | 1458x586 | 5.20 in | own diagram | redraw |
+| Figure 5 four layers | image8.png | 1458x740 | 4.57 in | own diagram | redraw |
+| Canvas (unnumbered, section 3) | image9.png | 2667x1500 | 10.47 in landscape (255 dpi) | composite on course template | rebuild at >= 3150 px wide from the same box text, template layout kept |
+| Figure 6 market charts | image10.png | 1892x572 | 6.38 in | own chart | redraw |
+| Figure 7 positioning map | image11.png | 1288x784 | 4.96 in | own chart | redraw |
+| Figure 8 CVF | image12.png | 1024x709 | 4.41 in | own diagram | redraw |
+| Figure 9 phases and gates | image13.png | 1458x524 | 6.38 in | own diagram | redraw |
+| Figure 10 risk matrix | image14.png | 1127x721 | 4.17 in | own chart | redraw |
+| Figure 11 three questions | image15.png | 1458x571 | 6.38 in | own diagram | redraw |
+| Figure 12 5Cs to Plan | image16.png | 1458x694 | 6.38 in | own diagram | redraw |
+| Figure 13 MIT framework | image17.png | 1458x586 | 6.38 in | own diagram | redraw |
+| Figure 14 logic chain | image18.png | 1458x417 | 6.38 in | own diagram | redraw |
+
+Totals: 12 redraws (Figures 2, 4 to 14), 2 preserved screenshots (Figures 1, 3), 1 rebuilt composite (canvas), cover unchanged. Both screenshots already exceed 300 dpi at their printed width, so no native-resolution shortfall exists.
 - Rubric (from the evaluation): 5Cs depth 30, Risks and Resources 20, Success Metrics 15, Strategic Coherence 10; total 75.
 
 ## Acceptance criteria (observable)
 1. Every rubric criterion keeps its full-mark evidence: each quote listed in evaluation section 2 still appears in the revised text, with no loss of a number, source or table.
 2. Marks at risk (evaluation section 6) addressed:
-   a. The three (A) baselines (main-line share 50%, customers kept 55%, visitor steps 20 min) each gain a stated measurement method and the date the measured baseline replaces the estimate, in the 6.3 table.
-   b. The culture reading (4.5) states the evidence type of each of the six points (public page, results report, press release) and keeps the Hierarchy counter-evidence.
-   c. The two weak sources (comparison-site "about 65 plans", travel-guide kiosk time) are labelled as secondary in-text, and no conclusion rests on them alone (the 13 official voice packages carry the argument).
+   a. The three (A) baselines in the section 6.3 table (main-line share about 50%, customers kept about 55%, visitor steps about 20 minutes) each state, in their own row, the measurement method and the month by which the measured baseline replaces the estimate. All existing content in those cells stays, including the 37% multi-SIM anchor with [10]; method and month are added to it.
+   b. Each of the six evidence points in section 4.5 states its evidence type (public page, results report, press release or job posting), and the Hierarchy counter-evidence paragraph is kept.
+   c. Weak sources, each traced to its own claim:
+      - "about 65 plans" [23] (comparison site). Step 0 maps every use by searching prose, tables, canvas, figure text, assumptions and contents (`grep -n "65"` over `report.md` plus the text in each figure inventory entry). Known uses: sections 2.1, 2.3, 2.4, 4.1 (table and journey map), 7.4, 7.5, the canvas, Figure 12 ("Must pick 1 of about 65 plans"), Figure 14 ("65 plans to pick from") and A4. Every conclusion and strategy-chain label is restated on the 13 official voice packages [2] (Figure 12: "Must pick 1 of 13 voice packages, plus data and add-ons"; Figure 14: "13 voice packages to guess from"). Where 65 stays, it is qualified as "about 65 in all, by a comparison site [23]". These label changes are recorded as named exceptions in the redraw inventory.
+      - Kiosk time "10 to 15 minutes at the counter" [36] (travel guide). Mapped the same way. Known uses: sections 2.3, 4.1, 4.3 table, the canvas, the 6.3 visitor baseline cell, A1 and the reference note. Each is qualified as "a travel guide's estimate [36]". No conclusion treats it as measured.
    d. Length: body stays at or under 16 numbered pages; no new prose section is added. Images replace no tables.
-   e. Cover carries the professor's name field and the AI declaration lists image generation (nano-banana / Gemini) and the review loop tools.
-3. Figures: all 14 own-illustration figures are redrawn at at least 300 dpi at their printed width (no source PNG under 2400 px wide for full-width figures), in the existing palette sampled from yaqoot.sa (burgundy #8B2A2E family, aubergine #3B2E4F, warm grey), with the same data and labels as the originals, checked value-by-value against the text and tables. Screenshots (Figures 1, 3) are kept as evidence but sharpened/cropped only, never regenerated, because they are evidence of the real product.
+   e. The cover keeps the professor's name, which is already present (Professor Matt King). The AI declaration keeps its existing Claude disclosure word for word and adds, for each new AI use, the four fields workbook 0.1.5 asks for: tool, how and why it was used, a representative prompt, and how the output was used. The new uses are (i) independent plan and report review through the Codex CLI and (ii) image generation, if it happens. The image statement is one of three: no image generation used; images generated but none included; N generated images included. All fields come from `tool-record.json`, written as each tool runs. A model is named only as the execution record shows it (for Codex, the runner's `effective_model` from the session rollout, labelled "as configured in the client"), never from the requested value alone.
+   f. Gate 1 measurability (fixes a logic gap in the report). "Customers kept" (still active after 12 four-week cycles) cannot be observed for pilot customers by month 6. Changes:
+      - The baseline for customers kept is measured in month 1 on a fully observed historical cohort: new Yaqoot customers who joined in the 12 cycles that ended 48 weeks before pilot launch, with the denominator being all of their activations (BSS).
+      - Gate 1 uses an interim measure, "early retention": the share of customers still active after 3 four-week cycles. Guarantee-group and matched-control customers are enrolled in months 1 to 3 with equal follow-up, so every member has 3 full cycles by month 6. The 12-cycle "customers kept" outcome stays the month-18 target.
+      - Gate 1 decision rule, stated once and used everywhere: proceed only if early retention in the guarantee group is at least 5 percentage points above the matched control AND revenue per customer in the guarantee group is at least 97% of control, both measured at month 6. Otherwise the stop rule applies.
+      - The historical three-cycle retention is shown in the submission as "pending: month-1 BSS extract". It is computed as active after 3 cycles divided by all activations, for the cohort of new customers who joined in the 12 cycles ending 48 weeks before launch. It is context only. The gate compares the guarantee group with the contemporaneous control, not with this baseline. The (A) 55% stays labelled as a 12-cycle estimate and is never reused as a 3-cycle value.
+      - Carried through every passage that states the old gate: Figure 9's Gate 1 label ("early retention +5 pts vs control; revenue at least 97% of control"), the section 6.1/6.2 gate and stop-rule text, R1's warning sign, the 6.3 table (a new row, "Early retention (Gate 1 measure)", with the baseline "pending: month-1 BSS extract" and a target of +5 points over control at month 6), the 6.3 note on baselines, and the canvas metric box.
+   g. Visitor effort measurement. The timed sample (at least 100 visitors a month) is recruited at purchase, before anyone knows whether activation succeeds. Both journeys use the same start: the actual arrival time recorded by the airport for the visitor's flight (actual, not scheduled), matched to the booking. Both end at the first successful data session on the Yaqoot line. A visitor with no data session within 60 minutes of that arrival time, including one who never attaches, is recorded as 60 minutes and kept in the median. The same definition applies to the 20-minute baseline (measured in month 1), the 5-minute target and Gate 2. The 6.3 visitor row and the Gate 2 text state it.
+   h. Target policy. The stated targets are fixed: main-line share 65%, customers kept 70%, visitor effort 5 minutes, revenue growth 10%, rating 4.6. The 6.3 note that now restates targets from the measured baseline (+15 points, cut by three quarters) is rewritten. Measured month-1 values replace only the (A) baseline estimates, and the improvement amounts are described as planning assumptions that the measured baselines test. The note, both gates, the canvas, Figure 9 and section 5 must all show the same targets.
+   i. Section 5.1 vision. "Choosing among dozens of plans" is grounded in the official choice set ("choosing among 13 voice packages and their add-ons" [2]) and added to the claim inventory and permitted edits. Step 0 searches paraphrases ("dozens", "many plans", "so many", "65") as well as the numeric matches.
+3. Figures: the 12 redraws listed in the figure inventory are rendered at >= 300 dpi at their printed width, and every redraw printed at 6 in or wider is at least 2400 px wide (both checks apply separately). The palette is the existing one sampled from yaqoot.sa (burgundy #8B2A2E family, aubergine #3B2E4F, warm grey), with the same data and labels as the originals, checked value by value against `inventory.json`. Screenshots (Figures 1, 3) keep their pixels (crop only, no sharpening that changes content, never regenerated) because they are evidence of the real product.
 4. Illustrations: at most 3 nano-banana images, each clearly captioned "Illustrative image generated with Gemini (nano-banana); not a product screenshot", placed only where they help a non-technical reader: (i) the visitor landing with a working line (section 2.4 Arrive), (ii) the resident receiving the best-plan credit (2.4 Fit), (iii) optional cover visual. No Zain/Yaqoot logos, no real people's likeness, no invented UI presented as real.
 5. Canvas page (Figure on page 5, course template) is re-exported at full resolution with all ten boxes legible at 100% zoom in the PDF.
-6. Outputs: revised `.docx` and `.pdf`, same file-name pattern with date 261121 suffix `_final`; figure numbering, cross-references and the contents page are consistent (14 numbered figures + any illustrations numbered in order).
+6. Outputs: revised `.docx` and `.pdf`, same file-name pattern with suffix `_final`. The final report contains exactly 14 + K numbered figures, where K is the number of illustrations included (0 to 3). Each original figure identity maps to one final caption, and every in-text "Figure n" reference points to the intended figure in both files.
 
 ## Approach
+0. Build `inventory.json` from the inputs (see Verification) and record tool use in `tool-record.json` as it happens.
 1. Extract the docx (pandoc for text audit, python-docx for editing in place so styles, tables and the course canvas are preserved).
 2. Redraw figures 2, 4 to 14 with matplotlib (charts, matrices) and a small diagram helper (boxes/arrows) at 300 dpi; replace image parts in the docx keeping the same size and caption.
 3. Generate up to 3 illustrations with nano-banana (`gemini-3.1-flash-image-preview`, fallback `gemini-2.5-flash-image`; no silent fallback to another provider). Shared style sheet: editorial, warm daylight, burgundy accents, no logos, no text in image.
-4. Apply the text edits in 2a to 2e only. No change to the strategy, numbers, risks or metrics.
+4. Apply only the text edits in 2a to 2i. The strategy, proposal, risks and targets do not change. The only metric changes are the Gate 1 measure (2f), the visitor-effort method (2g) and the target-policy note (2h), which make existing targets measurable.
 5. Render PDF with LibreOffice; check page count, figure resolution and cross-references.
 
 ## Non-goals
-- No change to the strategy, the proposal, the rubric evidence or the reference list beyond labelling sources.
+- No change to the strategy, the proposal, the rubric evidence or the reference list beyond labelling sources. The exceptions are the measurement fixes in 2f to 2h, which change how a target is measured and add one interim Gate 1 target (early retention +5 points over control at month 6). No existing target changes.
 - No new data claims. No regenerated screenshots.
 
 ## Assumptions and risks
@@ -39,6 +79,21 @@ Produce the final, submission-ready revision of assignment A2.1 (IE / Zain 2023 
 - Page count may grow with illustrations: mitigated by the 16-page cap and dropping illustration (iii) first.
 
 ## Verification
-- `python3 verify.py final.docx final.pdf` (written during build) checks: page count <= 17 including cover; every image in the docx >= 300 dpi at its rendered width; caption sequence Figure 1..N without gaps; all evaluation section-2 quotes present (string match); "(A)" count unchanged or explained; AI declaration mentions Gemini.
-- Data check: for Figures 6 and 10 the plotted values are read back from the plotting script and compared with the numbers in the text (49.0/23.8/14.6/6.2/4.8/0.8/0.8; 17/27/37; 13/1; risk positions R1 to R7).
-- Visual check: render each PDF page to PNG at 150 dpi and inspect every figure page.
+All commands run from the repository root. Private, source-derived outputs (`inventory.json`, `tool-record.json`, `verify-report.md`, rendered crops) are written to `reviews/a2.1/inputs/build/`, which is covered by the committed ignore rule `reviews/a2.1/inputs/` in `.gitignore`. Only the plan, the log and `verify.py` are committed. Deliverables are written to `reviews/a2.1/inputs/out/` as `A2_1_Product_Strategy_Canvas_Yaqoot_Mohammad_Alkhatib_261121_final.docx` and `.pdf`, and are shared with the user, not committed.
+
+`inventory.json`, built from the original before editing, holds: (i) for every figure, its identity, media part, caption, the in-text references to it, and every value and label it shows; (ii) every table, cell by cell, with its section; (iii) every numeric claim and citation marker with its paragraph location.
+
+```bash
+python3 reviews/a2.1/verify.py reviews/a2.1/inputs/report.docx reviews/a2.1/inputs/out/A2_1_Product_Strategy_Canvas_Yaqoot_Mohammad_Alkhatib_261121_final.docx reviews/a2.1/inputs/out/A2_1_Product_Strategy_Canvas_Yaqoot_Mohammad_Alkhatib_261121_final.pdf
+```
+checks, and writes `verify-report.md` recording the final page or cell for each check:
+1. Diff by location. The pandoc text of original and final is compared paragraph by paragraph and table by table. Every difference must fall in an allow-list of edit locations: the criterion 2 locations (2a to 2i), figure captions and references, and contents page-number tokens. Inside each allowed location, the check also runs at the token level: every number, "(A)" marker and citation in the original location must still be present in the final location with the same claim, unless it is a named replacement in criterion 2 (for example "65 plans" in Figures 12 and 14). Any removed item is reported with its original and final location. A contents page-number token may change only to the heading's actual page in the final PDF; heading text and order must not change.
+2. Rubric quotes. All evidence quotes from evaluation section 2 are present.
+3. Criterion 2 items checked by content, not by count: each of the three 6.3 rows contains both a method and a month; each of the six 4.5 points has an evidence type, and the Hierarchy paragraph is present; each listed use of [23] and [36] carries its secondary label, and the plan-choice sentences cite [2].
+4. Figures in the delivered files. For each original identity, the final caption in the DOCX and the PDF exists with the expected number, and the embedded image is the redraw built for that identity (SHA256 of the embedded part equals the hash recorded when it was rendered). The number of numbered figures equals 14 + K. Every "Figure n" reference resolves to the intended identity. The contents page numbers match the PDF pages.
+5. Resolution. Effective dpi >= 300 for every redraw and the canvas at its rendered width, and pixel width >= 2400 for every redraw printed at 6 in or wider. The screenshots are unchanged except for crop (pixel comparison of the kept region).
+6. Data. Values and labels of every redraw come from `inventory.json`. A rendered crop of each figure from the final PDF (pdftoppm, 200 dpi) is checked by eye against the inventory: Figure 6 bars (49.0, 23.8, 14.6, 6.2, 4.8, 0.8, 0.8; 17, 27, 37; 13, 1), Figure 10 cell of each of R1 to R7, Figure 7 point positions, Figure 9 gates and thresholds.
+7. Declaration. The existing Claude disclosure is unchanged. Each new use in `tool-record.json` has its tool, purpose, prompt and use of output in the declaration. The image statement matches the record, and any model named matches the execution record.
+9. Gate and metrics logic. The Figure 9 label, the gate and stop-rule text, R1, the canvas metric box and 6.3 all state the same Gate 1 rule: +5 percentage points of early retention over matched control and revenue at least 97% of control, at month 6. The units and comparison groups are checked as well as the wording. The five fixed targets are identical in 6.3, its note, the canvas, Figure 9 and section 5. Gate 2 and the visitor row use the arrival-to-first-data-session definition with the 60-minute rule. The 6.3 table has the early-retention row. The visitor row states the landing-to-first-data-session method and the rule for incomplete activations.
+8. Length. The PDF has at most 17 pages including the cover.
+- Visual check: every PDF page rendered at 150 dpi and inspected.
