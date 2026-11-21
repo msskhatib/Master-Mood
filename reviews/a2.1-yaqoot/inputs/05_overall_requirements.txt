@@ -1,0 +1,167 @@
+A2.1 The Product Strategy Canvas: overall requirements
+One reference that combines the assignment brief, the canvas template, the full rubric with all four bands, the teacher's posts (Christina Mack, 16 and 20 November) and the study breakdown
+against the course workbook. For your own use; it is not part of the submission.
+
+1. The deliverable
+#        Requirement                                                                                                                                                             Source
+1        Individual assignment, 75 points, evaluated by the Learning Facilitator                                                                                                 Brief
+2        Submit "your completed Product Strategy Canvas Template"                                                                                                                Brief
+3        One file upload, PDF or Word. 2 attempts allowed. Due Saturday 21 November 2026, 11:59pm; available until the same time                                                 Brief
+4        Follow the structure Current Context, Future State, Plan                                                                                                                Brief, teacher
+5        "Clear, concise, and professionally presented." Bullet points or short paragraphs where appropriate                                                                     Brief
+6        "Ensure all sections of the canvas are fully completed"                                                                                                                 Brief, teacher
+7        Apply the 5Cs, VRIO and the Competing Values Framework (CVF)                                                                                                            Brief
+8        Produce a strategy that is "insightful, realistic, and outcome-driven"                                                                                                  Brief
+9        The product does not have to be from your employer. Public sources and your own market knowledge are allowed                                                            Teacher, 16 Nov
+10       Building on earlier coursework is fine. Say where the concept came from, and make the 5Cs, VRIO, culture, vision, plan and metrics new                                  Teacher, 16 Nov
+11       "Please note your sources and any assumptions you make"                                                                                                                 Teacher, 16 Nov
+
+
+
+2. The canvas template: ten prompts to answer
+Column                             Box title                                      Exact prompt on the template
+Current Context                    Our Customers                                  Who are our target customers?
+Current Context                    Our Competitors                                Who are our main competitors?
+Current Context                    Our Capabilities                               What are our top capabilities that will make us more likely to succeed than the competition?
+Current Context                    Our Culture                                    Are we a clan, an adhocracy, a market or a hierarchy?
+Future State                       Our Product Vision                             (the vision statement)
+Future State                                                                      What will the world look like for us if our product is successful?
+Future State                                                                      What will the world look like for our customers if our product is successful?
+Plan                                                                              What resources will we need?
+Plan                                                                              What risks may we encounter along the way? And how will we mitigate them?
+Plan                                                                              How will we know we are heading in the right direction?
+
+
+Note: on the template the columns are laid out Current Context, Plan, Future State. The brief and the teacher ask for the order Current Context, Future State, Plan.
+3. Section 1, Current Context (rubric: 5Cs Depth, 30 points)
+Element           What the brief asks              Full-mark wording (rubric)      Teacher's comment                    Course workbook                        What the answer must contain             Trap
+Customers         Define target users using a      "Deep, insightful analysis      Describe them by the jobs they       1.4.1 jobs (functional,                One or two groups named by job;          Age, income, nationality.
+                  needs-based approach:            of Customers (JTBD)"            need done and the problems           emotional, social); 2.2.3 user         three job levels; pains with             A surface description
+                  problems and jobs-to-be-                                         they face, not by demographics       and buyer; 2.2.7 journey map           evidence; the outcome wanted;
+                  done, not demographics                                                                                                                       user versus buyer
+Category          Not listed separately            "Category trends"               "Include Category trends. The        2.3.1 mental filing cabinet,           The category the customer files the      Leaving it out because
+                                                                                   rubric scores them even though       category leader, creating a            product under; who leads it; the         there is no box
+                                                                                   the brief doesn't list them          category                               trends with evidence
+                                                                                   separately"
+Competitors       Identify key competitors and     "Competition"                                                        2.3.5 direct, indirect, status         Direct rivals; indirect competition;     "Standard market
+                  their positioning                                                                                     quo; positioning maps are              the status quo; each one's               players" (Proficient, 15)
+                                                                                                                        subjective                             positioning; the gap to own
+Capabilities      Assess the organization's        "Identifies a specific          "Use VRIO to find one real unfair    2.3.2 uniquely good at, hard to        Three to five capabilities; four tests   "Standard strengths"
+                  strengths using VRIO: Value,     'Unfair Advantage' (VRIO)"      advantage. Test it honestly: is it   replicate; four types. VRIO itself     each; one named unfair advantage;        (Proficient, 15). Yes in
+                  Rarity, Imitability,                                             actually rare and hard to copy?"     is only in the brief                   the weakest test                         every cell
+                  Organization
+Culture           Identify the organizational      "Culture"                       "Name your culture type (CVF)        2.3.6 enabler or blocker;              One dominant type; evidence; how         A type with no evidence
+                  culture using CVF: Clan,                                         and explain what it means for        sponsorship; protected space.          it helps and hinders; what the Plan      or no link to execution
+                  Adhocracy, Market or                                             how you'll carry out the             The four types are only in the         does about it
+                  Hierarchy                                                        strategy"                            brief
+
+
+
+4. Section 2, Future State (required by the brief; no rubric line of its own)
+Element                 What the brief asks                        Teacher's comment                           Course workbook                           What the answer must contain                   Trap
+Product Vision          Clear and concise; aspirational;           "Write a clear, ambitious vision"           2.3.7 North Star; 2.3.8 Geoffrey          One or two sentences with the change for       A feature list, a revenue
+                        focused on the impact on the                                                           Moore template; 2.3.9 concise             the customer and the change for the            target, a paragraph
+                        customer and the business                                                              and aspirational                          business
+Success for the         What success looks like for the            "Describe what success looks like for       2.3.7 the larger purpose                  Three to five observable changes, each         "We will be number
+company                 company                                    both the customer and the company"                                                    tied to a finding in the Context               one"
+Success for the         What success looks like for the            "Don't skip the Future State. The           1.4.1 the job done                        Three to five observable changes, each         Repeating the vision
+customer                customer                                   rubric doesn't score it directly, but the                                             mirroring a customer pain
+                                                                   brief asks for it"
+5. Section 3, The Plan (rubric: Risks and Resources 20 points, Success Metrics 15 points)
+Element           What the brief asks               Full-mark wording (rubric)          Teacher's comment                      Course workbook                  What the answer must contain            Trap
+Resources         Identify the key resources        "Resource needs are                                                        2.3.2 capability types; 2.3.6    People and skills with numbers;         Unsized lists
+                  required to execute the           realistic"                                                                 sponsorship                      technology; partners; sponsor,
+                  strategy                                                                                                                                      budget, time; why each is needed
+Risks and         Highlight potential risks and     "Identifies non-obvious             "Look for the less obvious strategic   No risk lesson. Derived from     Each risk with its source in the        "Standard risks (e.g.,
+mitigation        propose realistic mitigation      strategic risks and provides        risks, like adoption, culture fit,     2.3.5, 2.3.6 and 2.3.2           Context, likelihood, impact,            budget, time)"
+                  strategies                        pragmatic mitigation plans"         competitor response or                                                  warning sign, mitigation, owner         (Proficient, 15). Best
+                                                                                        dependencies." "A plan that only                                                                                case only (0)
+                                                                                        covers the best case won't score
+                                                                                        well"
+Success           Define measurable outcomes        "Focuses on Outcomes (e.g.,         "Make every metric measurable: a       2.2.1 "What outcomes are         Three to six outcome metrics with       "A mix of outcomes and
+metrics           (not outputs) that will           'Reduce churn by 10%')              number, a baseline and a               we trying to achieve?";          definition, baseline, target, date      project milestones"
+                  indicate success                  rather than Outputs (e.g.,          timeframe"                             Team A and Team B. Lesson        and data source                         (Proficient, 10)
+                                                    'Launch app'). Metrics are                                                 3.3.3 is not captured
+                                                    measurable"
+
+
+
+6. Across the whole canvas (rubric: Strategic Coherence, 10 points)
+Requirement                                                               Source                               Course workbook                           How to check it
+"Your plan should logically derive from your analysis of the current      Brief, tips                          2.2.1 three questions                     Each plan line points to a sentence in the Context
+context"
+"All elements must be aligned and mutually reinforcing"                   Brief, tips                          2.2.1 a system of goals and choices       Pain, capability, vision, resource, risk and metric form one chain
+"Does my plan solve the customer pain I identified?"                      Teacher, 20 Nov                      1.4.1, 2.2.7                              Every pain in Our Customers has a plan element
+"Prioritize depth over breadth. Avoid generic statements"                 Brief, tips                          2.2.1 focus, saying no                    No sentence that would be true of any product
+"Demonstrate critical thinking and strategic clarity"                     Brief, tips                                                                    Honest weak points; choices explained
+7. The rubric in full
+Criterion                          Excellent                                            Proficient                                      Developing                                        Inadequate
+Current Context: 5Cs Depth (30)    30 pts. Deep, insightful analysis of Customers       15 pts. Clear analysis of all 5Cs. Identifies   8 pts. Covers most 5Cs but remains                0 pts. Fails to address 5Cs. No clear
+                                   (JTBD), Category trends, Competition, and            standard strengths and market players.          surface-level. Analysis feels generic.            understanding of the market or
+                                   Culture. Identifies a specific "Unfair Advantage"                                                                                                      organizational context.
+                                   (VRIO).
+The Plan: Risks and Resources      20 pts. Identifies non-obvious strategic risks and   15 pts. Identifies standard risks (e.g.,        8 pts. Risks are mentioned but mitigation         0 pts. Ignores risks or provides a purely
+(20)                               provides pragmatic mitigation plans. Resource        budget, time) with basic mitigation             is weak or unrealistic.                           optimistic "best-case" scenario.
+                                   needs are realistic.                                 strategies.
+The Plan: Success Metrics (15)     15 pts. Focuses on Outcomes (e.g., "Reduce           10 pts. Success is defined by a mix of          5 pts. Success is defined only by                 0 pts. No clear way to measure if the
+                                   churn by 10%") rather than Outputs (e.g.,            outcomes and project milestones.                completing the project or hitting dates.          strategy is succeeding.
+                                   "Launch app"). Metrics are measurable.
+Strategic Coherence (10)           10 pts. The "Plan" is a direct logical consequence   5 pts. The plan generally aligns with the       3 pts. The plan and context feel                  0 pts. The document feels like a
+                                   of the "Context." Every element is aligned.          context, with minor gaps in logic.              disconnected (e.g., the plan doesn't              collection of random facts with no
+                                                                                                                                        solve the identified user pain).                  unifying logic.
+
+
+Total: 75 points. The steepest drops are in 5Cs Depth (30 to 15) and Strategic Coherence (10 to 5).
+
+8. The linked article (Figure 1 in the brief)
+The brief shows one figure from the Product School article "3 Essential Product Strategy Frameworks for Product Success" (Form, Educate, Embed). It adds no requirement. Its wording supports
+three phrases of the brief: the vision as a "guiding star" that outlines "the desired impact on customers and the market"; a strategy that is "coherent"; and "a robust system for measuring
+outcomes". The article does not explain the 5Cs, VRIO or CVF.
+
+9. Honest notes on the course match
+1. The 5Cs, jobs to be done, category, capabilities, competition, culture and vision are taught in the workbook (sections 1.4.1, 2.2.1 to 2.2.7, 2.3.1 to 2.3.9).
+2. VRIO and the four CVF types are named in the brief only. No captured lesson explains them.
+3. Lessons 3.3.3 (Outcomes, Not Features) and 3.4.1 (Strategy Is Saying No) are empty placeholders in the workbook. The same ideas appear in 2.2.1.
+4. There is no lesson on risk. Risks are derived from the 5Cs and the teacher's comment.
+5. Live sessions are not captured.
+
+10. Final checklist before upload
+#       Check                                                                                                                                                                    Source
+1       One product, one organization                                                                                                                                            Brief
+2       All ten canvas prompts answered                                                                                                                                          Brief, teacher
+3       Customers described by job and problem                                                                                                                                   Brief, teacher
+4       Category trends included                                                                                                                                                 Rubric, teacher
+5       Competitors with positioning                                                                                                                                             Brief
+6       VRIO with one honest unfair advantage                                                                                                                                    Brief, rubric, teacher
+7       One CVF type, tied to how the strategy will be carried out                                                                                                               Brief, teacher
+8    Clear, ambitious vision; success for the company and for the customer   Brief, teacher
+9    Realistic resources                                                     Rubric
+10   Non-obvious risks, each with a realistic mitigation; not a best case    Rubric, teacher
+11   Outcome metrics, each with a number, a baseline and a timeframe         Rubric, teacher
+12   The plan solves the customer pain identified                            Rubric, teacher
+13   Sources and assumptions noted                                           Teacher
+14   Order Context, Future State, Plan; clear and concise; PDF or Word       Brief, teacher
+‫المتطلبات الكاملة بالعربي‬
+‫الخطأ الشائع‬            ‫ماذا يجب أن تحتوي اإلجابة‬                 ‫تعليق المعّلمة‬                     ‫مستوى الدرجة الكاملة‬           ‫المطلوب في الـ ‪brief‬‬                ‫القسم‬
+‫العمر والدخل‬            ‫مجموعة أو مجموعتان‪ ،‬ثالثة مستويات‬         ‫ِصفهم بالـ ‪ jobs‬والمشاكل‬           ‫تحليل عميق للعمالء (‪)JTBD‬‬      ‫تعريف العمالء حسب الـ ‪jobs-to-be-‬‬   ‫‪Customers‬‬
+                        ‫للـ ‪ ،job‬الـ ‪ pains‬مع الدليل‬                                                                                ‫‪ done‬والمشاكل‪ ،‬ال ‪demographics‬‬
+‫إهمالها‬                 ‫الـ ‪ category‬وقائدها واتجاهاتها‬           ‫الـ ‪ rubric‬يقّيمها رغم عدم ذكرها‬   ‫‪Category trends‬‬                ‫غير مذكور بشكل مستقل‬                ‫‪Category‬‬
+‫أسماء فقط (‪ 15‬من‬        ‫‪ Direct‬و ‪ Indirect‬و ‪ Status Quo‬والفجوة‬                                       ‫‪Competition‬‬                    ‫المنافسون الرئيسيون وموقع كل واحد‬   ‫‪Competitors‬‬
+‫‪)30‬‬
+ ‫نقاط قوة عادية (‪15‬‬     ‫من ‪ 3‬إلى ‪ ،capabilities 5‬أربعة‬             ‫اختبره بصدق‪ :‬هل هو نادر وصعب‬      ‫‪ Unfair Advantage‬واحد محدد‬     ‫تقييم نقاط القوة بـ ‪VRIO‬‬            ‫‪Capabilities‬‬
+‫من ‪)30‬‬                  ‫اختبارات‪ ،‬االختبار األضعف‬                 ‫التقليد؟‬
+‫نوع بال دليل‬            ‫النوع‪ ،‬الدليل‪ ،‬كيف يساعد أو يعيق‬          ‫اشرح أثره على تنفيذ االستراتيجية‬   ‫‪Culture‬‬                        ‫نوع واحد من ‪CVF‬‬                     ‫‪Culture‬‬
+‫قائمة مزايا‬             ‫جملة أو جملتان‬                            ‫ال تتجاوز الـ ‪Future State‬‬         ‫ال درجة مباشرة‬                  ‫واضحة‪ ،‬موجزة‪ ،‬طموحة‪ ،‬أثر العميل‬    ‫‪Product Vision‬‬
+                                                                                                                                    ‫والشركة‬
+‫تكرار الـ ‪vision‬‬        ‫تغييرات يمكن مالحظتها‬                     ‫للطرفين معًا‬                                                      ‫النجاح للشركة وللعميل‬               ‫‪Success‬‬
+‫بال أحجام‬                ‫أشخاص باألرقام‪ ،‬تقنية‪ ،‬شركاء‪ ،‬راٍع ‪،‬‬                                        ‫واقعية‬                         ‫الموارد األساسية للتنفيذ‬            ‫‪Resources‬‬
+                        ‫ميزانية‬
+ ‫الميزانية والوقت (‪15‬‬   ‫المصدر‪ ،‬االحتمال‪ ،‬األثر‪ ،‬عالمة اإلنذار‪،‬‬    ‫‪ ،adoption، culture fit‬رد‬          ‫مخاطر استراتيجية غير بديهية‬   ‫مخاطر مع حلول واقعية‬                ‫‪Risks‬‬
+‫من ‪)20‬‬                  ‫الحل‪ ،‬المسؤول‬                             ‫المنافسين‪dependencies ،‬‬            ‫وحلول عملية‬
+‫‪ 10( milestones‬من‬       ‫من ‪ 3‬إلى ‪ 6‬مقاييس مع المصدر‬               ‫رقم و ‪ baseline‬ومدة زمنية‬          ‫‪ Outcomes‬وقابلة للقياس‬         ‫‪ outcomes‬قابلة للقياس ال ‪outputs‬‬    ‫‪Metrics‬‬
+‫‪)15‬‬
+‫فجوات في المنطق (‪5‬‬      ‫سلسلة‪ :‬مشكلة‪،capability، vision ،‬‬         ‫هل الخطة تحل مشكلة العميل؟‬         ‫كل العناصر متوافقة‬             ‫الخطة تنتج منطقيًا من الـ ‪Context‬‬   ‫‪Coherence‬‬
+‫من ‪)10‬‬                  ‫مورد‪ ،‬خطر‪ ،‬مقياس‬
+‫مربع فارغ‬               ‫الترتيب‪ Context :‬ثم ‪ Future State‬ثم‬       ‫كل األقسام مكتملة‬                                                 ‫الـ ‪ canvas template‬مكتمل‪ PDF ،‬أو‬   ‫‪Format‬‬
+                        ‫‪Plan‬‬                                                                                                        ‫‪ ،Word‬واضح وموجز‬
+

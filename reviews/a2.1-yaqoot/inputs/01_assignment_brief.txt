@@ -1,0 +1,157 @@
+11/19/26, 10:18 PM                                           Assignment A2.1 - The Product Strategy Canvas
+
+
+ Assignment A2.1 - The Product Strategy Canvas
+   Start Assignment
+     Due Saturday by 11:59pm
+     Points 75
+     Submitting a file upload
+     Attempts 0
+     Allowed Attempts 2
+     Available until Nov 21 at 11:59pm
+
+    Objective
+    This is an individual assignment that will be evaluated by the Learning Facilitator.
+
+    The objective is to develop a comprehensive Product Strategy Canvas that demonstrates your ability to analyze a
+    product’s current context, define a compelling future vision, and outline a coherent strategic plan.
+
+    You are expected to apply key frameworks such as the 5Cs, VRIO, and Competing Values Framework (CVF) to
+    produce a strategy that is insightful, realistic, and outcome-driven. To do so, you will complete the Product Strategy
+    Canvas (to download your editable version, click below):
+
+    A2.1 Strategy Canvas Template-2.pptx (https://impactonline.ie.edu/courses/1766/files/206374?wrap=1)
+    (https://impactonline.ie.edu/courses/1766/files/206374/download?download_frd=1)
+
+
+    Instructions
+    You will structure your work across 3 main sections:
+
+    Section 1 - Current Context. Provide a clear and insightful analysis of:
+
+        Customers: Define target users using a needs-based approach (focus on problems and jobs-to-be-done, not
+        demographics).
+        Competitors: Identify key competitors and their positioning.
+        Capabilities: Assess your organization’s strengths using the VRIO framework (Value, Rarity, Imitability,
+        Organization).
+        Culture: Identify your organizational culture using the Competing Values Framework (Clan, Adhocracy, Market, or
+        Hierarchy).
+
+    Section 2 - Future State
+
+    First, define a Product Vision that is:
+
+        Clear and concise
+        Aspirational
+        Focused on the impact on the customer and the business
+
+    Next, describe what success looks like:
+
+        For the company
+        For the customer
+
+    Section 3 - The Plan
+
+        Capabilities & Resources: Identify the key resources required to execute the strategy.
+        Risks & Mitigation: Highlight potential risks and propose realistic mitigation strategies.
+        Success Metrics: Define measurable outcomes (not outputs) that will indicate success.
+
+    Tips
+    Ensure Strategic Coherence:
+
+https://impactonline.ie.edu/courses/1766/assignments/16016?module_item_id=168149                                             1/3
+11/19/26, 10:18 PM                                           Assignment A2.1 - The Product Strategy Canvas
+
+        Your plan should logically derive from your analysis of the current context.
+        All elements must be aligned and mutually reinforcing.
+
+    Focus on Quality of Thinking:
+
+        Prioritize depth over breadth
+        Avoid generic statements
+        Demonstrate critical thinking and strategic clarity
+
+
+
+
+    Figure 1 Taken from product school.           (https://productschool.com/blog/product-strategy/product-strategy-frameworks)
+
+
+
+    Submission Format
+    You will submit your completed Product Strategy Canvas Template.
+
+    The submission should:
+
+        Follow the structure: Current Context → Future State → Plan
+        Be clear, concise, and professionally presented
+        Use bullet points or short paragraphs where appropriate.
+        File format: PDF or Word document
+        Ensure all sections of the canvas are fully completed.
+
+
+  A2.1 Tech Product Management Rubric
+
+
+
+
+https://impactonline.ie.edu/courses/1766/assignments/16016?module_item_id=168149                                                  2/3
+11/19/26, 10:18 PM                                             Assignment A2.1 - The Product Strategy Canvas
+
+       Criteria                                                            Ratings                                                           Pts
+
+    Current             30 pts                      15 pts                       8 pts                        0 pts
+                           Excellent                   Proficient                   Developing                   Inadequate
+  Context: 5Cs
+  Depth                 Deep, insightful analysis   Clear analysis of all 5Cs.   Covers most 5Cs but          Fails to address 5Cs. No
+                        of Customers (JTBD),        Identifies standard          remains surface-level.       clear understanding of
+                        Category trends,            strengths and market         Analysis feels generic.      the market or                 30 pts
+                        Competition, and            players.                                                  organizational context.
+                        Culture. Identifies a
+                        specific "Unfair
+                        Advantage" (VRIO).
+
+
+     The Plan:          20 pts                      15 pts                       8 pts                        0 pts
+                           Excellent                   Proficient                   Developing                   Inadequate
+  Risks &
+                        Identifies non-obvious      Identifies standard risks    Risks are mentioned but      Ignores risks or provides
+  Resources
+                        strategic risks and         (e.g., budget, time) with    mitigation is weak or        a purely optimistic "best-
+                                                                                                                                            20 pts
+                        provides pragmatic          basic mitigation             unrealistic.                 case" scenario.
+                        mitigation plans.           strategies.
+                        Resource needs are
+                        realistic.
+
+
+      The Plan:         15 pts                      10 pts                       5 pts                        0 pts
+                           Excellent                   Proficient                   Developing                   Inadequate
+  Success
+                        Focuses on Outcomes         Success is defined by a      Success is defined only      No clear way to measure
+  Metrics
+                        (e.g., "Reduce churn by     mix of outcomes and          by completing the            if the strategy is
+                                                                                                                                            15 pts
+                        10%") rather than           project milestones.          project or hitting dates.    succeeding.
+                        Outputs (e.g., "Launch
+                        app"). Metrics are
+                        measurable.
+
+
+    Strategic           10 pts                      5 pts                        3 pts                        0 pts
+                           Excellent                   Proficient                   Developing                   Inadequate
+  Coherence
+                        The "Plan" is a direct      The plan generally           The plan and context         The document feels like
+                                                                                                                                            10 pts
+                        logical consequence of      aligns with the context,     feel disconnected (e.g.,     a collection of random
+                        the "Context." Every        with minor gaps in logic.    the plan doesn't solve       facts with no unifying
+                        element is aligned.                                      the identified user pain).   logic.
+
+
+                                                                                                                                   Total Points: 75
+
+
+
+
+https://impactonline.ie.edu/courses/1766/assignments/16016?module_item_id=168149                                                                   3/3
+

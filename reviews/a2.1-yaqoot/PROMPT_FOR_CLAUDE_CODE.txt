@@ -1,0 +1,12 @@
+Use the claudex-loop skill in review mode on this folder.
+
+claudex-loop mode=review plan=PLAN.md rounds=2 inspect=off
+
+Context: this is a written university assignment, not code. PLAN.md describes a final review of my submission against the rubric. Have Codex review the plan and the submission files it points to (start with submission/submission_text.md, submission/canvas_text.md, inputs/03_rubric_full.md and inputs/04_teacher_notes.md).
+
+What I want back:
+1. For each rubric criterion: the band reached, the evidence, and any gap.
+2. Every inconsistency between the canvas, the analysis sections, the figures and the conclusion.
+3. The smallest set of text edits that would close the gaps (old text, new text, reason).
+
+Rules: do not build or edit anything until I approve the list of edits. Do not change the product or add pages. Do not add facts or sources. No em dashes. British spelling. Do not change the cover or the document properties. The deadline is tonight at 23:59 (UTC+3), so keep it to two rounds.

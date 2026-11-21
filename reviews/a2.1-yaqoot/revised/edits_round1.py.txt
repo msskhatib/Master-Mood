@@ -1,0 +1,88 @@
+import sys,shutil; sys.path.insert(0,sys.argv[1])
+from edit_lib import *
+import docx
+from pptx import Presentation
+src,dst,psrc,pdst=sys.argv[2:6]
+D=[
+("The completed canvas uses the course template.","The completed canvas uses the course template, which places the Plan in the middle column; this report follows the order Current Context, Future State, Plan."),
+("The service runs on Zain KSA's own 5G network of 11,446 sites","The service runs on Zain KSA's own mobile network of 11,446 sites, with 5G"),
+("and visitor packages (bottom row)","and the annual and visitor packages (bottom row)"),
+("The only sales and service channel. There are no shops.","The main sales and self-service channel. There are no shops."),
+("who used 25 GB and fewer than 300 calls would have been covered","who used 25 GB and stayed within 300 calls and texts would have been covered"),
+("Re-pricing of a finished cycle against all plans","Re-pricing of a finished cycle against the published eligible four-week resident plans"),
+("Stay extends it to device instalments inside the same account, with Tamam","Stay tests device instalments in the same account, as an option for residents who already buy devices at checkout, with Tamam"),
+("In both, the user and the buyer are the same person, so the experience in the app decides the sale.","In both, the buyer usually runs their own line, so the app experience decides the sale; another adult's line needs that person's authorisation."),
+(" The step from one package to the next is SAR 23 to SAR 165.",""),
+("Reports a fault in the app.","Reports a fault by phone, WhatsApp or X."),
+("Yaqoot's own growth has slowed as a result.","Yaqoot's own growth slowed in the last published period."),
+("Yaqoot's slowdown from 13% to 1% growth shows it","Yaqoot's slowdown from 13% to 1% growth fits that"),
+("Own national 5G network of 11,446 sites","Own national network of 11,446 sites, with 5G"),
+("and a rival could match the offer in a targeted pilot","and a rival could limit a similar offer to new customers"),
+("Yaqoot is the main line for 65% of its customers","Yaqoot is the main line for 65% of its resident customers"),
+("70% of new customers are still active after 12 cycles","70% of new resident customers are still active after 12 cycles"),
+("A ring-fenced budget and an agreed limit of 3% on revenue given back.","A ring-fenced budget and an agreed rule: pause new enrolment before credit exposure reaches 3% of eligible pilot billed revenue."),
+("Timing is an assumption (A).","Gate 1 also requires non-negative group contribution (5.2). Timing, baselines and gate thresholds are assumptions (A2, A6, A8)."),
+("Randomly assign approximately 10% of eligible new resident customers to the test, subject to a sample-size check. Monitor credit exposure and pause new enrolment before it reaches 3% of eligible billed revenue.","Randomly offer Fit to approximately 10% of eligible resident prospects before they buy, subject to a sample-size check, and track take-up for everyone assigned. Monitor credit exposure and pause new enrolment before it reaches 3% of eligible pilot billed revenue."),
+("Fallback to assisted verification at arrival.","Use an approved alternative identity route if one is available; otherwise defer activation and honour the published refund terms."),
+("First cycle refunded if the customer leaves.","First cycle refunded from the reserve if the customer leaves over network quality."),
+("Share of new customers still active after 12 four-week cycles.","Share of new resident customers still active after 12 four-week cycles."),
+("Yaqoot revenue against the same period a year before.","Yaqoot revenue over the six months ending at month 18 against the same six months a year before."),
+("to the first mobile data session, paired","to a working Saudi number with mobile data, paired"),
+("20 minutes planning estimate (A), measured with the same start and end events. Kiosk timing [36] is context.","Measured before the pilot with the same start and end events. The 20 minutes (A) for the whole journey after landing and kiosk timing [36] are context."),
+("The targets are then set at 15 percentage points above the validated baselines for primary-line share and 12-cycle retention.","The month-18 targets stay at 65% primary-line share among active residents and 70% retention among new resident customers with 12 cycles of follow-up."),
+("visitor activation and the rating move first (month 12), then customers kept and primary-line share, then revenue growth (month 18)","visitor activation moves first (month 12), then the rating, customers kept and primary-line share, then revenue growth (month 18)"),
+("The company's figure must not rise during the rollout.","Zain KSA's own figure in that index is the baseline and must not rise during the rollout. It is a parent-company guardrail."),
+("Arrive: purchase before the flight, partners, seasonal capacity","Arrive: start before the flight (purchase once validated), partners, seasonal capacity"),
+("Figure 8. From the 5Cs to the Plan. Own illustration.","Figure 8. From the 5Cs to the Plan. Own illustration from sections 3 to 5. The 20 minutes is an estimate (A1) and the competition row is my judgement (3.4)."),
+("are my estimates of the size of the work.","are my estimates of the size of the work, as is the budget split in 5.1."),
+("organizational, functional, positional and regulatory","organisational, functional, positional and regulatory"),
+("the organizational type, culture,","the organisational type, culture,"),
+]
+shutil.copy(src,dst); d=docx.Document(dst)
+for o,n in D:
+    c=sum(replace_in_paragraph(p,o,n) for p in d.paragraphs)
+    seen=set()
+    for t in d.tables:
+        for row in t.rows:
+            for cell in row.cells:
+                if cell._tc in seen: continue
+                seen.add(cell._tc)
+                c+=sum(replace_in_paragraph(p,o,n) for p in cell.paragraphs)
+    if c!=1: print("DOCX count",c,":",o[:60])
+# cell-specific
+for t in d.tables:
+    for row in t.rows:
+        cells=[]; 
+        for c in row.cells:
+            if not cells or c._tc is not cells[-1]._tc: cells.append(c)
+        tx=[c.text.strip() for c in cells]
+        if tx and tx[0]=="Customer rating" and "Month 12" in tx:
+            print("rating row", replace_in_paragraph(cells[tx.index("Month 12")].paragraphs[0],"Month 12","Month 18"))
+        if tx and tx[0]=="Meets app faults":
+            print("6.3 row", tx)
+            print(replace_in_paragraph(cells[2].paragraphs[0],"In-app care with issue status","Care tracks faults to resolution, with status in the app"), replace_in_paragraph(cells[3].paragraphs[0],"R4","R6"))
+d.save(dst)
+C=[
+("randomised 10% pilot against control; pause enrolment before credits reach 3% of billed revenue; honour earned credits.","Fit offered at random to 10% of prospects, against control; pause enrolment before credits reach 3% of pilot revenue; honour earned credits."),
+("with a 3% limit on revenue given back.","with enrolment paused at 3% credit exposure."),
+("assisted fallback; separate consent.","alternative route or refund; separate consent."),
+("Primary line for 65% of its customers (about 50% today, A).","Primary line for 65% of resident customers (about 50% today, A)."),
+("70% of new customers stay beyond 12 cycles.","70% of new residents stay beyond 12 cycles."),
+("by month 12 (20 minutes today, A).","by month 12 (baseline measured before pilot)."),
+("Google Play rating: 4.3 to 4.6 by month 12.","Google Play rating: 4.3 to 4.6 by month 18."),
+("Guardrail: revenue per customer at 97% or more of control.","Gate 1: retention 3 points above control, revenue at 97% or more."),
+]
+shutil.copy(psrc,pdst); P=Presentation(pdst)
+def tfs(sl):
+    for sh in sl.shapes:
+        if sh.has_text_frame: yield sh.text_frame
+        if sh.has_table:
+            seen=set()
+            for row in sh.table.rows:
+                for c in row.cells:
+                    if c._tc in seen: continue
+                    seen.add(c._tc); yield c.text_frame
+for o,n in C:
+    c=sum(replace_in_paragraph(p,o,n) for tf in tfs(P.slides[0]) for p in tf.paragraphs)
+    if c!=1: print("PPTX count",c,":",o[:60])
+P.save(pdst)
