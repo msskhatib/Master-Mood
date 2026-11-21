@@ -123,3 +123,9 @@
 - Built: 30 text edits (criterion 2a to 2i), 1 new 6.3 row, 2 declaration paragraphs, contents token 2.1 changed from 3 to 2 (verified against the PDF), 12 redrawn figures and the rebuilt canvas (417 to 567 dpi), screenshots unchanged. No nano-banana images: the Gemini key is not configured (403), so tool-record says image status "none".
 - Deliverables (gitignored): reviews/a2.1/inputs/out/A2_1_Product_Strategy_Canvas_Yaqoot_Mohammad_Alkhatib_261121_final.docx and .pdf (17 pages, same as the original).
 - Proof: `python3 reviews/a2.1/verify.py ...` reports 234 checks, 0 failed (one false match on HTML entity "&#9654;" was fixed in the check, not in the report). Visual check of every page at 50 dpi, and of pages 5, 11, 12 and 16 at 70 dpi.
+
+## Inspection 1 (fresh Codex session, gpt-6.2-astra / high, read-only)
+- Verdict: **REVISE**, 12 findings: A21-27 to A21-38 (5 high, 7 medium): PDF image downsampling, Gate 2 definition and failure responses, "revenue per customer" labels, the A1 wording, canvas citations, declaration counts, and the depth of the verifier (inventory, both-direction diff, PDF contents, caption-to-image links, figure renumbering, visual audit).
+- Disposition: all 12 accepted and fixed (fix round 1 of 2). The plan was updated (SHA256 fbbf1b64...).
+- After the fixes: verify.py reports 1015 checks, 1014 passed. The only failure is the recorded 150/200-dpi visual audit, which has not been done yet.
+- Status when the Word file was delivered at the user's request: the second, fresh inspection of the corrected report has **not** been run. The corrected report has not been inspected independently.
