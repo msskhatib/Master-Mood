@@ -117,3 +117,9 @@
 - A21-25 (medium) Check 9 required all five targets in Figure 9. Accepted: there is now a target-to-location map, and Figure 9 is checked against the gate rules only.
 - A21-26 (medium) R1's warning trigger would have been lost. Accepted: the warning keeps the two-cycle trigger, and the gate rule goes in mitigation.
 - Status: the round-4 fixes are applied but not re-reviewed as a plan. At the user's instruction ("Round 4, then build"), the build proceeds. This is recorded as an override: the plan was never APPROVED. The fresh Codex inspection of the finished report covers these fixes.
+
+## Build (builder: Claude, host)
+- Pre-build commit: 30c95e0. Plan SHA256 at build: see the inspection result.
+- Built: 30 text edits (criterion 2a to 2i), 1 new 6.3 row, 2 declaration paragraphs, contents token 2.1 changed from 3 to 2 (verified against the PDF), 12 redrawn figures and the rebuilt canvas (417 to 567 dpi), screenshots unchanged. No nano-banana images: the Gemini key is not configured (403), so tool-record says image status "none".
+- Deliverables (gitignored): reviews/a2.1/inputs/out/A2_1_Product_Strategy_Canvas_Yaqoot_Mohammad_Alkhatib_261121_final.docx and .pdf (17 pages, same as the original).
+- Proof: `python3 reviews/a2.1/verify.py ...` reports 234 checks, 0 failed (one false match on HTML entity "&#9654;" was fixed in the check, not in the report). Visual check of every page at 50 dpi, and of pages 5, 11, 12 and 16 at 70 dpi.
