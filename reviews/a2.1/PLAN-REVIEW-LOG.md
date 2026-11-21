@@ -108,3 +108,12 @@
 - Host position: all 22 findings were valid. Those from round 2 onward also found real logic gaps in the report itself: the Gate 1 measurability, the visitor clock, the target policy and the weak-source claims in Figures 12 and 14 and in section 5.1. The plan now closes each of them.
 - Next step needs a user decision: a 4th review round (beyond the requested 3), or a build on the unreviewed final plan, recorded as an override.
 
+
+## Round 4 (authorized by the user beyond the original 3, followed by a build)
+- Result: /tmp/claude-0/-home-user-Master-Mood/f25b74d4-6d09-54cf-bd15-069ab0e47fa9/scratchpad/claudex-r4/.../result.json; plan SHA256 17f05f6f...; effective model gpt-6.2-astra / high (client config); read-only.
+- Verdict: **REVISE**. All round-3 fixes were confirmed as reflected.
+- A21-23 (high) Gate 2 revenue guardrail had no control group after Phase 2 opened the guarantee to everyone. Accepted: a matched 10% holdout is kept through month 12.
+- A21-24 (medium) Visitor samples weren't comparable because they were recruited at different stages. Accepted: scope narrowed to visitors who complete a purchase, recruited at purchase completion, and the conservative bias is stated.
+- A21-25 (medium) Check 9 required all five targets in Figure 9. Accepted: there is now a target-to-location map, and Figure 9 is checked against the gate rules only.
+- A21-26 (medium) R1's warning trigger would have been lost. Accepted: the warning keeps the two-cycle trigger, and the gate rule goes in mitigation.
+- Status: the round-4 fixes are applied but not re-reviewed as a plan. At the user's instruction ("Round 4, then build"), the build proceeds. This is recorded as an override: the plan was never APPROVED. The fresh Codex inspection of the finished report covers these fixes.
