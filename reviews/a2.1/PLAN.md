@@ -16,21 +16,21 @@ This is a review of a written assignment, not code. "Build" means editing the .d
 3. Cultural claims are accurate to the cited frameworks (Hofstede and GLOBE power distance, GLOBE Humane and Performance Orientation, Meyer's Culture Map: Communicating, Deciding and Trusting) and are not stereotyping.
 4. Each rubric criterion (Decision Quality, Cultural Analysis, Multi-Perspective Insight, Reflection & Application) is at the "Excellent" level, or the gap is named with a fix.
 
-## Current measurements (host check, Claude)
+## Current measurements (host check, Claude; revision 2 after round 1 fixes)
 
 | Section | Words | Limit |
 |---|---|---|
-| Decision Point 1 | 165 | 150–200 |
-| Decision Point 2 | 166 | 150–200 |
+| Decision Point 1 | 166 | 150–200 |
+| Decision Point 2 | 167 | 150–200 |
 | Decision Point 3 | 164 | 150–200 |
-| **Part 1 total** | **495** | 500 |
-| Cultural Interpreter | 99 | 100 |
+| **Part 1 total** | **497** | 500 |
+| Cultural Interpreter | 95 | 100 |
 | Signal Reader | 98 | 100 |
-| Strategic Evaluator | 99 | 100 |
+| Strategic Evaluator | 92 | 100 |
 | Change Management | 100 | 100 |
-| **Part 2 total** | **396** | 400 |
+| **Part 2 total** | **385** | 400 |
 | **Part 3** | **200** | 200 |
-| **Total** | **1,091** | 1,100 |
+| **Total** | **1,082** | 1,100 |
 
 Proof command (recount after any edit):
 `python -c "import docx,re;d=docx.Document('A2_1_Leading_Culturally_Diverse_Team_Mohammad_Alkhatib.docx');print(sum(len(re.findall(r'\S+',p.text)) for p in d.paragraphs))"`. This gives the whole-document count, so recount per section by hand or with the host's script.

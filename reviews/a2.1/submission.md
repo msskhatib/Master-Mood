@@ -20,25 +20,25 @@ AI Declaration 2
 
 I will replace our reliance on one live meeting with a team communication agreement, starting this week. Messages follow bottom line up front (BLUF). Each meeting ends with a recap from a rotating member, stated next steps and a written summary the same day. Soft deadlines become dated written commitments. Because we span three time zones, live meetings are short and their hour rotates, and everything else is collected in writing, asynchronously or one-on-one, so nobody has to disagree in public to be heard. First, I speak privately with each member and open with a communication bridge: I acknowledge their effort, then ask what is getting in the way.
 
-My rationale: the low-context communicators expect everything spelled out, while a high-context colleague may be signalling through silence. On the GLOBE dimension of power distance, challenging a lead openly may feel inappropriate. I choose servant leadership because it enhances psychological safety, and I rely on social awareness to catch unspoken concerns before they become missed deadlines.
+My rationale: some colleagues may want everything spelled out, while a higher-context colleague may be signalling through silence, which I check privately. On GLOBE power distance, challenging a lead openly may feel inappropriate. I choose servant leadership because it enhances psychological safety, and I rely on social awareness to catch unspoken concerns before they become missed deadlines.
 
 **Decision Point 2: Delegation and Empowerment**
 
-I will not remove anyone, and I will tell the product lead why: three weeks in, removal loses knowledge and teaches the team that silence is punished. I ask him for two weeks on the new arrangement, with the launch dates as the test. After the one-on-ones, each member owns one defined area with authority to decide inside it. The quiet colleague gets an agreed scope, dated commitments and private check-ins. The colleague who escalates owns the decision log and its deadlines, with authority to call decisions due. The product lead keeps priorities and the launch vision.
+I will not remove anyone, and I will tell the product lead why: three weeks in, removal loses knowledge and teaches the team that silence is punished. I ask them for two weeks on the new arrangement, with the launch dates as the test. After the one-on-ones, each member owns one defined area with authority to decide inside it. The quiet colleague gets an agreed scope, dated commitments and private check-ins. The colleague who escalates owns the decision log and its deadlines, with authority to call decisions due. The product lead keeps priorities and the launch vision.
 
-This is empowering leadership: delegating authority, not just tasks. I adapt its delivery. Where power distance and a nurturant-task expectation are likely, I combine care with clear expectations, in line with Humane Orientation. Where performance orientation is strong, I give visible ownership and recognition. Relationship management, the fourth pillar of emotional intelligence, keeps the change from reading as a demotion, and each area is tied to the launch purpose.
+This is empowering leadership: delegating authority, not just tasks. I adapt its delivery. Where power distance and Sinha\'s nurturant-task expectation are likely, I combine care with clear expectations, in line with Humane Orientation. Where performance orientation is strong, I give visible ownership and recognition. Using active listening and relationship management (Goleman), I ask each owner how the new area feels, and we clarify its authority and link to the launch.
 
 **Decision Point 3: Conflict Response**
 
-I will introduce a two-tier decision rule for the rest of the sprint. Reversible decisions inside one area are made the same day by the area owner. Decisions that cross areas get a named owner and 24 hours for written input from all three locations; then the owner decides and explains the reasoning in the recap. Disagreement is raised inside the team first, and escalation to management follows an agreed path.
+I will introduce a two-tier decision rule for the rest of the sprint. Reversible decisions inside one area are made the same day by the area owner. Every other decision gets a named owner and 24 hours for input from all three locations; then the owner decides and explains the reasoning in the recap. Disagreement is raised inside the team first, and escalation to management follows an agreed path.
 
-This is how I balance team involvement with decisive action. Transactional leadership, with clear expectations and regular check-ins, protects speed under a tight deadline. Written input protects inclusion where GLOBE power distance is high or open confrontation is avoided, and the fixed window answers the different expectations on The Culture Map\'s Deciding scale, consensual or top-down. With the frustrated product lead and the escalating colleague I use the PAUSE technique: pause, acknowledge my own irritation, understand their perspective, select my response and engage with empathy. Their push for pace is a legitimate need.
+This is how I balance team involvement with decisive action. Transactional leadership, with clear expectations and regular check-ins, protects speed under a tight deadline. Where GLOBE power distance makes open dissent difficult, I accept private input. Between consensual and top-down on The Culture Map\'s Deciding scale, the owner keeps final say and explains how dissent shaped the decision. With the frustrated product lead and the escalating colleague I use the PAUSE technique: pause, acknowledge my own irritation, understand their perspective, select my response and engage with empathy. Their push for pace is a legitimate need.
 
 **Part 2: Multi-Perspective Analysis**
 
 **Cultural Interpreter Perspective**
 
-On Hofstede\'s and GLOBE\'s power distance, the colleague in India may find challenging a lead inappropriate, so difficulty surfaces as silence; the nurturant-task model suggests the lead is expected to notice and ask. On The Culture Map, Germany and the United States sit toward low-context, task-based trust, yet differ on Deciding: German practice tends toward consensus that is then fixed, American practice toward quick, revisable decisions. So \"too slow\" may mean \"not settled\", while the product lead\'s frustration reflects decisions he expected to make himself. A non-cultural reading also fits: the meeting hour, or a \"soft\" deadline nobody defined.
+On Hofstede\'s and GLOBE\'s power distance, the colleague in India may find challenging a lead inappropriate, so difficulty surfaces as silence; Sinha\'s nurturant-task model suggests the lead is expected to notice and ask. On The Culture Map, Germany and the United States sit toward low-context, task-based trust, yet differ on Deciding: German practice tends toward consensus that is then fixed, American practice toward quick, revisable decisions. So \"too slow\" may mean \"not settled\", while the product lead may expect decision authority. A non-cultural reading also fits: the meeting hour, or a \"soft\" deadline nobody defined.
 
 **Signal Reader Perspective**
 
@@ -46,7 +46,7 @@ Silence plus two missed soft deadlines is a pattern that may say \"I am stuck an
 
 **Strategic Evaluator Perspective**
 
-The long-term goal is larger than this launch: a unit that keeps delivering across three locations, and an internal tool adopted because its builders agreed on it. The benefit is fewer misread commitments and decisions that hold; the cost is a few days of pace. The new routines add overhead, so same-day decisions stay with owners. The product lead may read my refusal to remove anyone as avoiding a hard call, so we review after two weeks. The quiet colleague may still not engage, so check-ins are dated and private. I monitor deadlines met and decisions closed on time.
+Beyond launch, the unit must sustain delivery across three locations and build a tool colleagues actually use. The benefit is fewer misread commitments and decisions that hold; the cost is a few days of pace. The new routines add overhead, so reversible local decisions stay with owners. The product lead may read my refusal to remove anyone as avoiding a hard call, so we review after two weeks. The quiet colleague may still not engage, so check-ins are dated and private. I track deadlines met, decisions closed on time and pilot-user uptake.
 
 **Change Management Perspective**
 
@@ -54,7 +54,7 @@ I implement in three steps: private conversations first, then the agreement and 
 
 **Part 3: Leadership Reflection**
 
-This analysis taught me that behaviors I would have labelled performance problems were mostly unmet needs. The silence, the escalations and the call to remove people each pointed to something my leadership approach had not provided. I also learned that the same behavior has cultural and non-cultural readings, so I must ask before I conclude.
+This analysis taught me that behaviors I would have labelled performance problems could reflect unmet needs. The silence, the escalations and the call to remove people may point to something my leadership approach has not provided. I also learned that the same behavior has cultural and non-cultural readings, so I must ask before I conclude.
 
 My background is Arab, and I have worked for many years in both the Gulf and Sweden. I build relationships first, respect hierarchy and prefer to settle disagreement privately. These habits earn trust with colleagues who value context. They also give me blind spots. I am direct and fast about tasks but indirect about conflict, so under pressure I can read silence as agreement, let tension between others run too long, and decide for the team when I should ask.
 
@@ -62,13 +62,17 @@ In future multicultural projects I will act on these three points. I will never 
 
 **References**
 
+Filice, L., & Weese, W. J. (2024). Developing emotional intelligence. Encyclopedia, 4(1), 583-599. https://doi.org/10.3390/encyclopedia4010037
+
+Goleman, D. (2001). An EI-based theory of performance. In C. Cherniss & D. Goleman (Eds.), The emotionally intelligent workplace (pp. 27-44). Jossey-Bass.
+
 Hofstede, G. (2001). Culture\'s consequences: Comparing values, behaviors, institutions, and organizations across nations (2nd ed.). SAGE Publications.
 
 House, R. J., Hanges, P. J., Javidan, M., Dorfman, P. W., & Gupta, V. (Eds.). (2004). Culture, leadership, and organizations: The GLOBE study of 62 societies. SAGE Publications.
 
 Meyer, E. (2014). The culture map: Breaking through the invisible boundaries of global business. PublicAffairs.
 
-Filice, L., & Weese, W. J. (2024). Developing emotional intelligence. Encyclopedia, 4(1), 583-599. https://doi.org/10.3390/encyclopedia4010037
+Sinha, J. B. P. (1980). The nurturant task leader: A model of the effective executive. Concept Publishing Company.
 
 **AI Declaration**
 
